@@ -3,9 +3,141 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Sebastian Cachis - Portfolio</title>
+    <link rel="shortcut icon" href="/assets/images/favicon.ico" type="image/x-icon">
+    <title>Portfolio - Sebastian Cachis</title>
 </head>
 <body>
-    
+    <header>
+        <nav>
+            <ul>
+                <li><a href="#home" class="nav-buttom">Home</a></li>
+                <li><a href="#about-me" class="nav-buttom">About Me</a></li>
+                <li><a href="#projects" class="nav-buttom">Projects</a></li>
+                <li><a href="#skills" class="nav-buttom">Skills</a></li>
+                <li><a href="#contact" class="nav-buttom">Contact</a></li>
+            </ul>
+        </nav>
+
+        <div class="change-language-container">
+            <a href="/inicio.html" class="language-buttom">ES</a>
+        </div>
+    </header>
+
+    <main>
+        <section id="home" class="home-section">
+            <div class="home-content">
+                <h1>Hi, I'm <span class="home-highlight-content">Sebastian Cachis</span></h1>
+                <span class="home-highlight-content">Software Developer</span>
+                <p class="home-subtitle">Passionate about modern web development and back-end technologies, creating seamless and impactful digital experiences.</p>
+            </div>
+
+            <div class="home-image">
+                <img src="/assets/images/sebastian-cachis-profile-picture.jpg" alt="foto de perfil de Sebastian Cachis">
+            </div>
+        </section>
+
+        <section id="about-me" class="about-me-section">
+            <div class="about-me-content">
+                <h2 class="about-me-subtitle">About Me</h2>
+                <p class="about-me-text">Software Engineering student in my seventh semester at UPC, with a strong background in back-end development. I excel in teamwork, leadership, and problem-solving, with experience in agile methodologies like SCRUM. Focused on delivering high-quality, innovative solutions aligned with industry standards.</p>
+            </div>
+        </section>
+
+        <section id="projects" class="projects-section">
+            <div class="projects-content">
+                <h2 class="projects-subtitle">Projects</h2>
+
+                <div class="project-card">
+                    <h3 class="project-tile">RapiPay</h3>
+                    <div class="project-image">
+                        <img src="assets/images/projects/rapipay.png" alt="RapiPay Project Screenshot">
+                    </div>
+                    <p class="project-text">Web application for efficient management of invoices and promissory notes in small businesses.</p>
+                    <p class="project-text"><strong>Technologies:</strong> Vue.js, Spring Boot, MongoDB</p>
+                    <p class="project-text"><a href="https://github.com/TradeFlow-RapiPay" target="_blank">View on GitHub</a></p>
+                </div>
+
+                <div class="project-card">
+                    <h3 class="project-tile">GetWork App</h3>
+                    <div class="project-image">
+                        <img src="assets/images/projects/getwork.png" alt="GetWork App Screenshot">
+                    </div>
+                    <p class="project-text">Platform for training job applicants in tech evaluations and professional skills.</p>
+                    <p class="project-text"><strong>Technologies:</strong> Vue.js, ASP.NET, MySQL</p>
+                    <p class="project-text"><a href="https://github.com/CodepaceOrganization" target="_blank">View on GitHub</a></p>
+                </div>
+
+                <div class="project-card">
+                    <h3 class="project-tile">UrbanPass</h3>
+                    <div class="project-image">
+                        <img src="assets/images/projects/urbanpass.png" alt="UrbanPass Project Screenshot">
+                    </div>
+                    <p class="project-text">Digital solution for buying and selling tickets to events organized by emerging urban artists. Aims to increase visibility for artists and connect them with a wider audience.</p>
+                    <p class="project-text"><strong>Technologies:</strong> Vue.js, Spring Boot, MongoDB, Docker</p>
+                    <p class="project-text"><a href="https://github.com/Dark7YT/Urban-Pass-Frontend" target="_blank">View on GitHub - Frontend</a></p>
+                    <p class="project-text"><a href="https://github.com/Dark7YT/Urban.Pass.Platform" target="_blank">View on GitHub - Backend</a></p>
+                </div>
+            </div>
+        </section>
+
+        <section id="skills" class="skills-section">
+            <div class="skills-content">
+                <h2 class="skills-subtitle">Skills</h2>
+                <p class="skills-text">I specialize in frontend development with HTML, CSS, and frameworks like React and Vue.js. On the backend, I use Spring Boot to build scalable and efficient RESTful APIs.</p>
+                <div class="skills-image">
+                    <img src="assets/images/technologies/html5-brands-solid.svg" alt="html5 icon">
+                </div>
+                <div class="skills-image">
+                    <img src="assets/images/technologies/css3-brands-solid.svg" alt="css3 icon">
+                </div>
+                <div class="skills-image">
+                    <img src="assets/images/technologies/react-brands-solid.svg" alt="react icon">
+                </div>
+                <div class="skills-image">
+                    <img src="assets/images/technologies/vue-brands-solid.svg" alt="vue icon">
+                </div>
+                <div class="skills-image">
+                    <img src="assets/images/technologies/springboot-brands-solid.svg" alt="springboot icon">
+                </div>
+            </div>
+        </section>
+
+        <section id="contact" class="contact-section">
+            <div class="contact-content">
+                <h2 class="contact-subtitle">Contact</h2>
+                <p class="contact-text">If you would like to discuss potential projects or learn more about my work and experience, please don’t hesitate to reach out. I am open to new opportunities and would be glad to connect.</p>
+
+                <div class="contact-links">
+                    <a href="mailto:sebastianjae21@gmail.com" class="contact-link">sebastianjae21@gmail.com</a>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <div class="footer-content">
+            <div class="social-image">
+                <a href="https://www.linkedin.com/in/sebastian-nicolas-cachis-gonzales-667b23308/" target="_blank" class="social-icon">
+                <img src="assets/images/social-media/linkedin-brands-solid.svg" alt="LinkedIn icon">
+                </a>
+            </div>
+            <div class="social-image">
+                <a href="https://github.com/Dark7YT" target="_blank" class="social-icon">
+                <img src="assets/images/social-media/github-brands-solid.svg" alt="GitHub icon">
+                </a>
+            </div>
+            <div class="social-image">
+                <a href="https://www.instagram.com/sebascachis/" target="_blank" class="social-icon">
+                <img src="assets/images/social-media/instagram-brands-solid.svg" alt="Instagram icon">
+                </a>
+            </div>
+            <div class="social-image">
+                <a href="https://x.com/Dark7YT" target="_blank" class="social-icon">
+                <img src="assets/images/social-media/x-brands-solid.svg" alt="X icon">
+                </a>
+            </div>
+            <p>&copy; 2025 Sebastian Nicolás Cachis Gonzales. All rights reserved.</p>
+        </div>
+    </footer>
 </body>
 </html>

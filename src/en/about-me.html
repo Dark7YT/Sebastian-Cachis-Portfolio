@@ -10,9 +10,14 @@
 <body>
     <header>
         <nav>
-            <ul>
+            <div class="menu-toggle" id="mobile-menu">
+                <span class="bar"></span>
+                <span class="bar"></span>
+                <span class="bar"></span>
+            </div>
+            <ul class="nav-list">
                 <li><a href="/" class="nav-buttom">Home</a></li>
-                <li><a href="/src/en/about-me.html" class="nav-buttom">About Me</a></li>
+                <li><a href="/src/en/about-me.html" class="nav-buttom active">About Me</a></li>
                 <li><a href="/src/en/projects.html" class="nav-buttom">Projects</a></li>
                 <li><a href="/src/en/skills.html" class="nav-buttom">Skills</a></li>
                 <li><a href="/src/en/contact.html" class="nav-buttom">Contact</a></li>
@@ -20,7 +25,7 @@
         </nav>
 
         <div class="change-language-container">
-            <a href="/src/es/sobre-mi.html" class="language-buttom">ES</a>
+            <a href="/src/es/sobre-mi.html" class="language-buttom"><img src="/assets/images/spain-flag.png" alt="Spain Flag" class="flag-icon"></a>
         </div>
     </header>
 
@@ -28,27 +33,53 @@
         <section id="about-me" class="about-me-section">
             <div class="about-me-content">
                 <h2 class="about-me-subtitle">About Me</h2>
-                <p class="about-me-text">Software Engineering student in my seventh semester at UPC, with a strong background in back-end development. I excel in teamwork, leadership, and problem-solving, with experience in agile methodologies like SCRUM. Focused on delivering high-quality, innovative solutions aligned with industry standards.</p>
+                <p class="about-me-text">I am Sebastián Nicolás Cachis Gonzales, a Software Engineering student at the Universidad Peruana de Ciencias Aplicadas (UPC), focused on backend development and agile methodologies. I combine technical skills with creativity to deliver impactful solutions.</p>
+                <p class="about-me-text">Outside academics, I enjoy video games for their engaging stories, football for its sense of teamwork, and anime for its unique art and narratives.</p>
+            </div>
+        
+            <div class="about-me-images">
+                <div class="about-me-image" data-info="code">
+                    <img src="/assets/images/code-solid.png" alt="code icon">
+                </div>
+                <div class="about-me-image" data-info="gamepad">
+                    <img src="/assets/images/gamepad-solid.png" alt="gamepad icon">
+                </div>
+                <div class="about-me-image" data-info="soccer">
+                    <img src="/assets/images/soccer-ball.png" alt="soccer ball icon">
+                </div>
+                <div class="about-me-image" data-info="anime">
+                    <img src="/assets/images/naruto.png" alt="naruto image">
+                </div>
+            </div>
+        
+            <div class="info-card" id="info-card">
+                <div class="info-card-content">
+                    <div id="info-content"></div>
+                    <span class="close-btn" id="close-btn">&times;</span>
+                </div>
             </div>
         </section>
     </main>
 
     <footer>
         <div class="footer-content">
-            <div class="social-image">
-                <a href="https://www.linkedin.com/in/sebastian-nicolas-cachis-gonzales-667b23308/" target="_blank" class="social-icon">
-                <img src="/assets/images/social-media/linkedin-brands-solid.svg" alt="LinkedIn icon">
-                </a>
+            <div class="social-images">
+                <div class="social-image">
+                    <a href="https://www.linkedin.com/in/sebastian-nicolas-cachis-gonzales-667b23308/" target="_blank" class="social-icon">
+                        <img src="/assets/images/social-media/linkedin-brands-solid.svg" alt="LinkedIn icon">
+                    </a>
+                </div>
+                <div class="social-image">
+                    <a href="https://github.com/Dark7YT" target="_blank" class="social-icon">
+                        <img src="/assets/images/social-media/github-brands-solid.svg" alt="GitHub icon">
+                    </a>
+                </div>
             </div>
-            <div class="social-image">
-                <a href="https://github.com/Dark7YT" target="_blank" class="social-icon">
-                <img src="/assets/images/social-media/github-brands-solid.svg" alt="GitHub icon">
-                </a>
-            </div>
-            <p>&copy; 2025 Sebastian Nicolás Cachis Gonzales. All rights reserved.</p>
+            <p class="footer-text">&copy; 2025 Sebastian Nicolás Cachis Gonzales. All rights reserved.</p>
         </div>
     </footer>
 
+    <script src="/scripts/about-me.js"></script>
     <script src="/scripts/script.js"></script>
 </body>
 </html>

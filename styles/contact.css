@@ -1,0 +1,69 @@
+/* Contact Style */
+.contact-section {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 2rem;
+    background-color: var(--section-bg);
+    min-height: 65.4vh;
+}
+
+.contact-content {
+    text-align: center;
+    max-width: 40rem;
+    padding: 1rem;
+    border: 1px solid var(--secondary-color);
+    border-radius: 0.625rem;
+    opacity: 0;
+    transform: translateY(20px);
+    transition: transform 1s ease-in-out, opacity 1s ease-in-out;
+}
+
+.contact-subtitle {
+    font-size: 2rem;
+    margin-bottom: 1rem;
+}
+
+.contact-text {
+    font-size: 1.25rem; 
+    color: var(--secondary-text);
+    margin-bottom: 1.5rem;
+}
+
+.contact-links {
+    display: flex;
+    flex-direction: row;
+    gap: 1rem;
+    justify-content: center;
+}
+
+.contact-link img {
+    width: 3rem;
+    height: 3rem;
+    transition: transform 0.3s ease;
+}
+
+.contact-link img:hover {
+    transform: scale(1.1);
+}
+
+/* Media Queries */
+@media (max-width: 48rem) {
+    .contact-section {
+        padding: 1rem;
+    }
+
+    .contact-content {
+        max-width: 100%;
+    }
+
+    .contact-links {
+        gap: 0.5rem;
+    }
+
+    .contact-link img {
+        width: 2rem;
+        height: 2rem;
+    }
+}

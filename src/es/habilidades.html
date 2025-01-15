@@ -10,17 +10,22 @@
 <body>
     <header>
         <nav>
-            <ul>
+            <div class="menu-toggle" id="mobile-menu">
+                <span class="bar"></span>
+                <span class="bar"></span>
+                <span class="bar"></span>
+            </div>
+            <ul class="nav-list">
                 <li><a href="/inicio.html" class="nav-buttom">Inicio</a></li>
-                <li><a href="/src/es/sobre-mi.html" class="nav-buttom">Sobre Mi</a></li>
-                <li><a href="/src/es/projectos.html" class="nav-buttom">Proyectos</a></li>
-                <li><a href="/src/es/habilidades.html" class="nav-buttom">Habilidades</a></li>
+                <li><a href="/src/es/sobre-mi.html" class="nav-buttom">Sobre Mí</a></li>
+                <li><a href="/src/es/proyectos.html" class="nav-buttom">Proyectos</a></li>
+                <li><a href="/src/es/habilidades.html" class="nav-buttom active">Habilidades</a></li>
                 <li><a href="/src/es/contacto.html" class="nav-buttom">Contacto</a></li>
             </ul>
         </nav>
 
         <div class="change-language-container">
-            <a href="/src/en/skills.html" class="language-buttom">EN</a>
+            <a href="/src/en/skills.html" class="language-buttom"><img src="/assets/images/united-states-flag.png" alt="Bandera de Estados Unidos" class="flag-icon"></a>
         </div>
     </header>
 
@@ -28,21 +33,28 @@
         <section id="skills" class="skills-section">
             <div class="skills-content">
                 <h2 class="skills-subtitle">Habilidades</h2>
-                <p class="skills-text">Me especializo en desarrollo frontend con HTML, CSS y frameworks como React y Vue.js. En el backend, utilizo Spring Boot para crear API RESTful escalables y eficientes.</p>
-                <div class="skills-image">
-                    <img src="/assets/images/technologies/html5-brands-solid.svg" alt="icono de html5">
+                <p class="skills-text">Me especializo en desarrollo frontend con HTML, CSS y frameworks como React y Vue.js. En el backend, uso Spring Boot para construir APIs RESTful escalables y eficientes.</p>
+            </div>
+
+            <div class="skills-images">
+                <div class="skills-image-row">
+                    <div class="skills-image">
+                        <img src="/assets/images/technologies/html5-brands-solid.svg" alt="icono de html5">
+                    </div>
+                    <div class="skills-image">
+                        <img src="/assets/images/technologies/css3-brands-solid.svg" alt="icono de css3">
+                    </div>
                 </div>
-                <div class="skills-image">
-                    <img src="/assets/images/technologies/css3-brands-solid.svg" alt="icono de css3">
-                </div>
-                <div class="skills-image">
-                    <img src="/assets/images/technologies/react-brands-solid.svg" alt="icono de react">
-                </div>
-                <div class="skills-image">
-                    <img src="/assets/images/technologies/vue-brands-solid.svg" alt="icono de vue">
-                </div>
-                <div class="skills-image">
-                    <img src="/assets/images/technologies/springboot-brands-solid.svg" alt="icono de springboot">
+                <div class="skills-image-row">
+                    <div class="skills-image">
+                        <img src="/assets/images/technologies/react-brands-solid.svg" alt="icono de react">
+                    </div>
+                    <div class="skills-image">
+                        <img src="/assets/images/technologies/vue-brands-solid.svg" alt="icono de vue">
+                    </div>
+                    <div class="skills-image">
+                        <img src="/assets/images/technologies/springboot-brands-solid.svg" alt="icono de springboot">
+                    </div>
                 </div>
             </div>
         </section>
@@ -50,20 +62,23 @@
 
     <footer>
         <div class="footer-content">
-            <div class="social-image">
-                <a href="https://www.linkedin.com/in/sebastian-nicolas-cachis-gonzales-667b23308/" target="_blank" class="social-icon">
-                <img src="/assets/images/social-media/linkedin-brands-solid.svg" alt="icono de LinkedIn">
-                </a>
+            <div class="social-images">
+                <div class="social-image">
+                    <a href="https://www.linkedin.com/in/sebastian-nicolas-cachis-gonzales-667b23308/" target="_blank" class="social-icon">
+                        <img src="/assets/images/social-media/linkedin-brands-solid.svg" alt="LinkedIn icon">
+                    </a>
+                </div>
+                <div class="social-image">
+                    <a href="https://github.com/Dark7YT" target="_blank" class="social-icon">
+                        <img src="/assets/images/social-media/github-brands-solid.svg" alt="GitHub icon">
+                    </a>
+                </div>
             </div>
-            <div class="social-image">
-                <a href="https://github.com/Dark7YT" target="_blank" class="social-icon">
-                <img src="/assets/images/social-media/github-brands-solid.svg" alt="icono de GitHub">
-                </a>
-            </div>
-            <p>&copy; 2025 Sebastin Nicolás Cachis Gonzales. Todos los derechos reservados.</p>
+            <p class="footer-text">&copy; 2025 Sebastian Nicolás Cachis Gonzales. Todos los derechos reservados.</p>
         </div>
     </footer>
 
+    <script src="/scripts/skills.js"></script>
     <script src="/scripts/script.js"></script>
 </body>
 </html>

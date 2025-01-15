@@ -1,0 +1,140 @@
+/* Navbar Styles */
+header {
+    background-color: var(--navbar-bg);
+    padding: 1rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.nav-list {
+    list-style: none;
+    display: flex;
+    justify-content: center;
+    padding: 0;
+    margin: 0;
+    flex-grow: 1;
+    max-height: none;
+    overflow: visible;
+    transition: max-height 0.5s ease-out;
+}
+
+.nav-list.active {
+    max-height: 30rem;
+}
+
+.nav-list li {
+    margin: 0 2rem;
+}
+
+.nav-list li a {
+    color: var(--navbar-link);
+    text-decoration: none;
+    font-family: 'Anonymous Pro', serif;
+    font-size: 1.2rem;
+    position: relative;
+}
+
+.nav-list li a::after {
+    content: '';
+    position: absolute;
+    width: 0;
+    height: 0.125rem;
+    display: block;
+    margin-top: 0.3125rem;
+    right: 0;
+    background: var(--navbar-link-hover);
+    transition: width 0.3s ease;
+    -webkit-transition: width 0.3s ease;
+}
+
+.nav-list li a:hover::after,
+.nav-list li a.active::after {
+    width: 100%;
+    left: 0;
+    background: var(--navbar-link-hover);
+}
+
+.change-language-container {
+    text-align: right;
+}
+
+.change-language-container a {
+    color: var(--navbar-link);
+    text-decoration: none;
+    font-family: 'Anonymous Pro', serif;
+    font-size: 1.2rem;
+}
+
+.change-language-container a:hover {
+    color: var(--navbar-link-hover);
+}
+
+/* Mobile Menu */
+.menu-toggle {
+    display: none;
+    flex-direction: column;
+    cursor: pointer;
+}
+
+.menu-toggle .bar {
+    height: 0.1875rem;
+    width: 1.5625rem;
+    background-color: var(--navbar-link);
+    margin: 0.25rem 0;
+    transition: 0.3s;
+}
+
+.change-language-container {
+    display: flex;
+    align-items: center;
+}
+
+.language-buttom {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    text-decoration: none;
+    color: var(--primary-text);
+    font-size: 1rem;
+}
+
+.flag-icon {
+    width: 2.5rem;
+    height: auto;
+}
+
+/* Media Queries */
+@media (max-width: 48rem) {
+    .nav-list {
+        max-height: 0;
+        overflow: hidden;
+    }
+
+    .nav-list.active {
+        max-height: 30rem;
+    }
+
+    .nav-list {
+        display: flex;
+        flex-direction: column;
+        width: 100%;
+        text-align: center;
+    }
+
+    .nav-list li {
+        margin: 1rem 0;
+    }
+
+    .menu-toggle {
+        display: flex;
+    }
+
+    .language-buttom {
+        font-size: 0.875rem;
+    }
+
+    .flag-icon {
+        width: 2.5rem;
+    }
+}

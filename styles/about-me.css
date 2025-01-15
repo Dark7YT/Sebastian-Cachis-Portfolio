@@ -1,0 +1,125 @@
+/* About Me Style */
+.about-me-section {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 2rem;
+    background-color: var(--section-bg);
+    gap: 2rem;
+    min-height: 65.4vh;
+}
+
+.about-me-content {
+    text-align: center;
+    max-width: 40rem;
+    padding: 1rem;
+    border: 1px solid var(--secondary-color);
+    border-radius: 0.625rem;
+    transition: transform 0.7s ease-in-out, opacity 0.7s ease-in-out;
+    opacity: 0;
+    transform: translateY(-20px);
+}
+
+.about-me-subtitle {
+    font-size: 2rem;
+    margin-bottom: 1rem;
+}
+
+.about-me-text {
+    font-size: 1.25rem;
+    color: var(--secondary-text);
+    margin-bottom: 1.5rem;
+}
+
+.about-me-images {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 2rem;
+    transition: transform 0.7s ease-in-out, opacity 0.7s ease-in-out;
+    opacity: 0;
+    transform: translateY(-20px);
+}
+
+.about-me-image {
+    flex: 1 1 7.5rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.about-me-image:hover {
+    transform: scale(1.1);
+    box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.2);
+}
+
+.about-me-image img {
+    width: 100%;
+    max-width: 7.5rem;
+    border-radius: 0.625rem;
+    box-shadow: 0 0.25rem 0.5rem rgba(0, 0, 0, 0.1);
+    transition: transform 0.3s ease;
+}
+
+.about-me-image img:hover {
+    transform: rotate(5deg);
+}
+
+.info-card {
+    display: none;
+    width: 80%;
+    max-width: 500px;
+    background-color: var(--primary-bg);
+    color: var(--primary-text);
+    border: 1px solid var(--secondary-color);
+    border-radius: 0.625rem;
+    box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.2);
+    padding: 1rem;
+    margin-top: 2rem;
+    opacity: 0;
+    transform: translateY(100%);
+    transition: opacity 0.35s ease, transform 0.35s ease;
+}
+
+.info-card.show {
+    display: block;
+    opacity: 1;
+    transform: translateY(0);
+}
+
+.info-card.hide {
+    opacity: 0;
+    transform: translateY(100%);
+}
+
+.info-card-content {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    position: relative;
+}
+
+.close-btn {
+    font-size: 1.5rem;
+    cursor: pointer;
+    line-height: 1;
+}
+
+/* Media Queries */
+@media (max-width: 48rem) {
+    .about-me-content {
+        max-width: 100%;
+    }
+
+    .about-me-images {
+        flex-direction: row;
+        flex-wrap: wrap;
+        justify-content: center;
+    }
+
+    .about-me-image img {
+        max-width: 12.5rem;
+    }
+}

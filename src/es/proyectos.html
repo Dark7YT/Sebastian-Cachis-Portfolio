@@ -6,55 +6,60 @@
     <link rel="shortcut icon" href="/assets/images/favicon.ico" type="image/x-icon">
     <title>Portafolio - Sebastian Cachis</title>
     <link rel="stylesheet" href="/styles/style.css">
+    <link rel="stylesheet" href="/styles/projects.css">
 </head>
 <body>
     <header>
         <nav>
-            <ul>
+            <div class="menu-toggle" id="mobile-menu">
+                <span class="bar"></span>
+                <span class="bar"></span>
+                <span class="bar"></span>
+            </div>
+            <ul class="nav-list">
                 <li><a href="/inicio.html" class="nav-buttom">Inicio</a></li>
-                <li><a href="/src/es/sobre-mi.html" class="nav-buttom">Sobre Mi</a></li>
-                <li><a href="/src/es/projectos.html" class="nav-buttom">Proyectos</a></li>
+                <li><a href="/src/es/sobre-mi.html" class="nav-buttom">Sobre Mí</a></li>
+                <li><a href="/src/es/proyectos.html" class="nav-buttom active">Proyectos</a></li>
                 <li><a href="/src/es/habilidades.html" class="nav-buttom">Habilidades</a></li>
                 <li><a href="/src/es/contacto.html" class="nav-buttom">Contacto</a></li>
             </ul>
         </nav>
 
         <div class="change-language-container">
-            <a href="/src/en/projects.html" class="language-buttom">EN</a>
+            <a href="/src/en/projects.html" class="language-buttom"><img src="/assets/images/united-states-flag.png" alt="USA Flag" class="flag-icon"></a>
         </div>
     </header>
 
     <main>
         <section id="projects" class="projects-section">
+            <h2 class="projects-subtitle">Proyectos</h2>
             <div class="projects-content">
-                <h2 class="projects-subtitle">Projectos</h2>
-
                 <div class="project-card">
                     <h3 class="project-tile">RapiPay</h3>
                     <div class="project-image">
-                        <img src="/assets/images/projects/rapipay.png" alt="captura de pantalla de RapiPay">
+                        <img src="/assets/images/projects/rapipay.png" alt="Captura de pantalla del proyecto RapiPay">
                     </div>
                     <p class="project-text">Aplicación web para la gestión eficiente de facturas y pagarés en pequeñas empresas.</p>
                     <p class="project-text"><strong>Tecnologías:</strong> Vue.js, Spring Boot, MongoDB</p>
                     <p class="project-text"><a href="https://github.com/TradeFlow-RapiPay" target="_blank">Ver en GitHub</a></p>
                 </div>
-
+        
                 <div class="project-card">
                     <h3 class="project-tile">GetWork App</h3>
                     <div class="project-image">
-                        <img src="/assets/images/projects/getwork.png" alt="captura de pantalla de GetWork">
+                        <img src="/assets/images/projects/getwork.png" alt="Captura de pantalla de la aplicación GetWork">
                     </div>
-                    <p class="project-text">Plataforma para la formación de aspirantes a empleo en evaluaciones tecnológicas y habilidades profesionales.</p>
+                    <p class="project-text">Plataforma para capacitar a los solicitantes de empleo en evaluaciones técnicas y habilidades profesionales.</p>
                     <p class="project-text"><strong>Tecnologías:</strong> Vue.js, ASP.NET, MySQL</p>
                     <p class="project-text"><a href="https://github.com/CodepaceOrganization" target="_blank">Ver en GitHub</a></p>
                 </div>
-
+        
                 <div class="project-card">
                     <h3 class="project-tile">UrbanPass</h3>
                     <div class="project-image">
-                        <img src="/assets/images/projects/urbanpass.png" alt="captura de pantalla de UrbanPass">
+                        <img src="/assets/images/projects/urbanpass.png" alt="Captura de pantalla del proyecto UrbanPass">
                     </div>
-                    <p class="project-text">Solución digital para la compra y venta de entradas a eventos organizados por artistas urbanos emergentes. Busca aumentar la visibilidad de los artistas y conectarlos con un público más amplio.</p>
+                    <p class="project-text">Solución digital para la compra y venta de entradas a eventos organizados por artistas urbanos emergentes. Aumenta la visibilidad de los artistas y los conecta con una audiencia más amplia.</p>
                     <p class="project-text"><strong>Tecnologías:</strong> Vue.js, Spring Boot, MongoDB, Docker</p>
                     <p class="project-text"><a href="https://github.com/Dark7YT/Urban-Pass-Frontend" target="_blank">Ver en GitHub - Frontend</a></p>
                     <p class="project-text"><a href="https://github.com/Dark7YT/Urban.Pass.Platform" target="_blank">Ver en GitHub - Backend</a></p>
@@ -65,17 +70,19 @@
 
     <footer>
         <div class="footer-content">
-            <div class="social-image">
-                <a href="https://www.linkedin.com/in/sebastian-nicolas-cachis-gonzales-667b23308/" target="_blank" class="social-icon">
-                <img src="/assets/images/social-media/linkedin-brands-solid.svg" alt="icono de LinkedIn">
-                </a>
+            <div class="social-images">
+                <div class="social-image">
+                    <a href="https://www.linkedin.com/in/sebastian-nicolas-cachis-gonzales-667b23308/" target="_blank" class="social-icon">
+                        <img src="/assets/images/social-media/linkedin-brands-solid.svg" alt="Icono de LinkedIn">
+                    </a>
+                </div>
+                <div class="social-image">
+                    <a href="https://github.com/Dark7YT" target="_blank" class="social-icon">
+                        <img src="/assets/images/social-media/github-brands-solid.svg" alt="Icono de GitHub">
+                    </a>
+                </div>
             </div>
-            <div class="social-image">
-                <a href="https://github.com/Dark7YT" target="_blank" class="social-icon">
-                <img src="/assets/images/social-media/github-brands-solid.svg" alt="icono de GitHub">
-                </a>
-            </div>
-            <p>&copy; 2025 Sebastin Nicolás Cachis Gonzales. Todos los derechos reservados.</p>
+            <p class="footer-text">&copy; 2025 Sebastian Nicolás Cachis Gonzales. Todos los derechos reservados.</p>
         </div>
     </footer>
 

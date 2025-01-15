@@ -1,0 +1,31 @@
+@import url('https://fonts.googleapis.com/css2?family=Anonymous+Pro:ital,wght@0,400;0,700;1,400;1,700&display=swap');
+@import 'header.css';
+@import 'footer.css';
+@import 'home.css';
+@import 'about-me.css';
+@import 'projects.css';
+@import 'skills.css';
+@import 'contact.css';
+
+/* Color Variables */
+:root {
+    --primary-bg: #121212;
+    --secondary-color: #FF6F61;
+    --primary-text: #E4E4E4;
+    --secondary-text: #B0B0B0;
+    --navbar-bg: #1F1F1F;
+    --navbar-link: #FFFFFF;
+    --navbar-link-hover: #FF6F61;
+    --body-bg: #121212;
+    --section-bg: #1A1A1A;
+    --footer-bg: #1F1F1F;
+    --footer-text: #B0B0B0;
+    --footer-icon: #FFFFFF;
+}
+
+/* General Styles */
+body {
+    font-family: 'Anonymous Pro', serif;
+    background-color: var(--body-bg);
+    color: var(--primary-text);
+}

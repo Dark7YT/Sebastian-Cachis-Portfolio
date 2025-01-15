@@ -10,17 +10,22 @@
 <body>
     <header>
         <nav>
-            <ul>
+            <div class="menu-toggle" id="mobile-menu">
+                <span class="bar"></span>
+                <span class="bar"></span>
+                <span class="bar"></span>
+            </div>
+            <ul class="nav-list">
                 <li><a href="/" class="nav-buttom">Home</a></li>
                 <li><a href="/src/en/about-me.html" class="nav-buttom">About Me</a></li>
                 <li><a href="/src/en/projects.html" class="nav-buttom">Projects</a></li>
-                <li><a href="/src/en/skills.html" class="nav-buttom">Skills</a></li>
+                <li><a href="/src/en/skills.html" class="nav-buttom active">Skills</a></li>
                 <li><a href="/src/en/contact.html" class="nav-buttom">Contact</a></li>
             </ul>
         </nav>
 
         <div class="change-language-container">
-            <a href="/src/es/habilidades.html" class="language-buttom">ES</a>
+            <a href="/src/es/habilidades.html" class="language-buttom"><img src="/assets/images/spain-flag.png" alt="Spain Flag" class="flag-icon"></a>
         </div>
     </header>
 
@@ -29,20 +34,27 @@
             <div class="skills-content">
                 <h2 class="skills-subtitle">Skills</h2>
                 <p class="skills-text">I specialize in frontend development with HTML, CSS, and frameworks like React and Vue.js. On the backend, I use Spring Boot to build scalable and efficient RESTful APIs.</p>
-                <div class="skills-image">
-                    <img src="/assets/images/technologies/html5-brands-solid.svg" alt="html5 icon">
+            </div>
+
+            <div class="skills-images">
+                <div class="skills-image-row">
+                    <div class="skills-image">
+                        <img src="/assets/images/technologies/html5-brands-solid.svg" alt="html5 icon">
+                    </div>
+                    <div class="skills-image">
+                        <img src="/assets/images/technologies/css3-brands-solid.svg" alt="css3 icon">
+                    </div>
                 </div>
-                <div class="skills-image">
-                    <img src="/assets/images/technologies/css3-brands-solid.svg" alt="css3 icon">
-                </div>
-                <div class="skills-image">
-                    <img src="/assets/images/technologies/react-brands-solid.svg" alt="react icon">
-                </div>
-                <div class="skills-image">
-                    <img src="/assets/images/technologies/vue-brands-solid.svg" alt="vue icon">
-                </div>
-                <div class="skills-image">
-                    <img src="/assets/images/technologies/springboot-brands-solid.svg" alt="springboot icon">
+                <div class="skills-image-row">
+                    <div class="skills-image">
+                        <img src="/assets/images/technologies/react-brands-solid.svg" alt="react icon">
+                    </div>
+                    <div class="skills-image">
+                        <img src="/assets/images/technologies/vue-brands-solid.svg" alt="vue icon">
+                    </div>
+                    <div class="skills-image">
+                        <img src="/assets/images/technologies/springboot-brands-solid.svg" alt="springboot icon">
+                    </div>
                 </div>
             </div>
         </section>
@@ -50,20 +62,23 @@
 
     <footer>
         <div class="footer-content">
-            <div class="social-image">
-                <a href="https://www.linkedin.com/in/sebastian-nicolas-cachis-gonzales-667b23308/" target="_blank" class="social-icon">
-                <img src="/assets/images/social-media/linkedin-brands-solid.svg" alt="LinkedIn icon">
-                </a>
+            <div class="social-images">
+                <div class="social-image">
+                    <a href="https://www.linkedin.com/in/sebastian-nicolas-cachis-gonzales-667b23308/" target="_blank" class="social-icon">
+                        <img src="/assets/images/social-media/linkedin-brands-solid.svg" alt="LinkedIn icon">
+                    </a>
+                </div>
+                <div class="social-image">
+                    <a href="https://github.com/Dark7YT" target="_blank" class="social-icon">
+                        <img src="/assets/images/social-media/github-brands-solid.svg" alt="GitHub icon">
+                    </a>
+                </div>
             </div>
-            <div class="social-image">
-                <a href="https://github.com/Dark7YT" target="_blank" class="social-icon">
-                <img src="/assets/images/social-media/github-brands-solid.svg" alt="GitHub icon">
-                </a>
-            </div>
-            <p>&copy; 2025 Sebastian Nicolás Cachis Gonzales. All rights reserved.</p>
+            <p class="footer-text">&copy; 2025 Sebastian Nicolás Cachis Gonzales. All rights reserved.</p>
         </div>
     </footer>
 
+    <script src="/scripts/skills.js"></script>
     <script src="/scripts/script.js"></script>
 </body>
 </html>

@@ -4,51 +4,83 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="shortcut icon" href="/assets/images/favicon.ico" type="image/x-icon">
-    <title>Portafolio - Sebastian Cachis</title>
+    <title>Portafolio - Sebastián Cachis</title>
     <link rel="stylesheet" href="/styles/style.css">
+    <link rel="stylesheet" href="/styles/about-me.css">
 </head>
 <body>
     <header>
         <nav>
-            <ul>
+            <div class="menu-toggle" id="mobile-menu">
+                <span class="bar"></span>
+                <span class="bar"></span>
+                <span class="bar"></span>
+            </div>
+            <ul class="nav-list">
                 <li><a href="/inicio.html" class="nav-buttom">Inicio</a></li>
-                <li><a href="/src/es/sobre-mi.html" class="nav-buttom">Sobre Mi</a></li>
-                <li><a href="/src/es/projectos.html" class="nav-buttom">Proyectos</a></li>
+                <li><a href="/src/es/sobre-mi.html" class="nav-buttom active">Sobre Mí</a></li>
+                <li><a href="/src/es/proyectos.html" class="nav-buttom">Proyectos</a></li>
                 <li><a href="/src/es/habilidades.html" class="nav-buttom">Habilidades</a></li>
                 <li><a href="/src/es/contacto.html" class="nav-buttom">Contacto</a></li>
             </ul>
         </nav>
 
         <div class="change-language-container">
-            <a href="/src/en/about-me.html" class="language-buttom">EN</a>
+            <a href="/src/en/about-me.html" class="language-buttom"><img src="/assets/images/united-states-flag.png" alt="Bandera de Estados Unidos" class="flag-icon"></a>
         </div>
     </header>
 
     <main>
         <section id="about-me" class="about-me-section">
             <div class="about-me-content">
-                <h2 class="about-me-subtitle">Sobre mi</h2>
-                <p class="about-me-text">Estudiante de Ingeniería de Software en séptimo ciclo en la UPC, con sólida formación en desarrollo backend. Destaco en trabajo en equipo, liderazgo y resolución de problemas, con experiencia en metodologías ágiles como SCRUM. Enfocado en entregar soluciones innovadoras y de alta calidad alineadas con estándares del sector.</p>
+                <h2 class="about-me-subtitle">Sobre Mí</h2>
+                <p class="about-me-text">Soy Sebastián Nicolás Cachis Gonzales, estudiante de Ingeniería de Software en la Universidad Peruana de Ciencias Aplicadas (UPC), enfocado en desarrollo backend y metodologías ágiles. Combino habilidades técnicas y creatividad para ofrecer soluciones impactantes.</p>
+                <p class="about-me-text">Fuera de lo académico, disfruto de los videojuegos por sus historias envolventes, el fútbol por su trabajo en equipo y el anime por su arte y narrativas únicas.</p>
+            </div>
+    
+            <div class="about-me-images">
+                <div class="about-me-image" data-info="code">
+                    <img src="/assets/images/code-solid.png" alt="icono de código">
+                </div>
+                <div class="about-me-image" data-info="gamepad">
+                    <img src="/assets/images/gamepad-solid.png" alt="icono de un gamepad">
+                </div>
+                <div class="about-me-image" data-info="soccer">
+                    <img src="/assets/images/soccer-ball.png" alt="icono de una pelota de fútbol">
+                </div>
+                <div class="about-me-image" data-info="anime">
+                    <img src="/assets/images/naruto.png" alt="imagen de naruto">
+                </div>
+            </div>
+
+            <div class="info-card" id="info-card">
+                <div class="info-card-content">
+                    <div id="info-content"></div>
+                    <span class="close-btn" id="close-btn">&times;</span>
+                </div>
             </div>
         </section>
     </main>
 
     <footer>
         <div class="footer-content">
-            <div class="social-image">
-                <a href="https://www.linkedin.com/in/sebastian-nicolas-cachis-gonzales-667b23308/" target="_blank" class="social-icon">
-                <img src="/assets/images/social-media/linkedin-brands-solid.svg" alt="icono de LinkedIn">
-                </a>
+            <div class="social-images">
+                <div class="social-image">
+                    <a href="https://www.linkedin.com/in/sebastian-nicolas-cachis-gonzales-667b23308/" target="_blank" class="social-icon">
+                        <img src="/assets/images/social-media/linkedin-brands-solid.svg" alt="Icono de LinkedIn">
+                    </a>
+                </div>
+                <div class="social-image">
+                    <a href="https://github.com/Dark7YT" target="_blank" class="social-icon">
+                        <img src="/assets/images/social-media/github-brands-solid.svg" alt="Icono de GitHub">
+                    </a>
+                </div>
             </div>
-            <div class="social-image">
-                <a href="https://github.com/Dark7YT" target="_blank" class="social-icon">
-                <img src="/assets/images/social-media/github-brands-solid.svg" alt="icono de GitHub">
-                </a>
-            </div>
-            <p>&copy; 2025 Sebastin Nicolás Cachis Gonzales. Todos los derechos reservados.</p>
+            <p class="footer-text">&copy; 2025 Sebastián Nicolás Cachis Gonzales. Todos los derechos reservados.</p>
         </div>
     </footer>
 
+    <script src="/scripts/about-me.js"></script>
     <script src="/scripts/script.js"></script>
 </body>
 </html>

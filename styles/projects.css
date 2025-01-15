@@ -1,0 +1,110 @@
+/* Projects Style */
+.projects-section {
+    padding: 1rem;
+    background-color: var(--section-bg);
+    min-height: 68.8vh;
+    gap: 2rem;
+}
+
+.projects-subtitle {
+    font-size: 2rem;
+    margin-bottom: 2rem;
+    color: var(--primary-text);
+    text-align: left; /* Alinea el h2 a la izquierda */
+    margin-left: 2rem; /* Mueve el h2 a la derecha */
+    opacity: 0; /* Inicialmente oculto */
+    transform: translateX(-50px); /* Desplazado hacia la izquierda */
+    animation: fadeInLeft 1s forwards; /* Animación de fade desde la izquierda */
+}
+
+.projects-content {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(20rem, 1fr));
+    gap: 2rem;
+    justify-items: center;
+}
+
+.project-card {
+    background-color: var(--primary-bg);
+    border: 1px solid var(--secondary-color);
+    border-radius: 0.625rem;
+    box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.1);
+    padding: 1.5rem;
+    max-width: 25rem;
+    text-align: center;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    opacity: 0;
+    transform: translateY(50px);
+    animation: fadeInUp 1s forwards;
+}
+
+.project-card:nth-child(1) {
+    animation-delay: 0.5s;
+}
+
+.project-card:nth-child(2) {
+    animation-delay: 1s;
+}
+
+.project-card:nth-child(3) {
+    animation-delay: 1.5s;
+}
+
+@keyframes fadeInLeft {
+    to {
+        opacity: 1;
+        transform: translateX(0);
+    }
+}
+
+@keyframes fadeInUp {
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.project-card:hover {
+    transform: translateY(-0.5rem);
+    box-shadow: 0 1rem 2rem rgba(0, 0, 0, 0.2);
+}
+
+.project-tile {
+    font-size: 1.5rem;
+    margin-bottom: 1rem;
+    color: var(--secondary-color);
+}
+
+.project-image img {
+    width: 100%;
+    height: auto;
+    border-radius: 0.625rem;
+    margin-bottom: 1rem;
+}
+
+.project-text {
+    font-size: 1rem;
+    color: var(--primary-text);
+    margin-bottom: 1rem;
+}
+
+.project-text a {
+    color: var(--secondary-color);
+    text-decoration: none;
+    transition: color 0.3s ease;
+}
+
+.project-text a:hover {
+    color: var(--primary-color);
+}
+
+/* Media Queries */
+@media (max-width: 48rem) {
+    .projects-content {
+        grid-template-columns: 1fr;
+    }
+
+    .projects-subtitle {
+        margin-left: 1rem;
+    }
+}

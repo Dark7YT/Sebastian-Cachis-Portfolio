@@ -10,8 +10,13 @@
 <body>
     <header>
         <nav>
-            <ul>
-                <li><a href="/" class="nav-buttom">Home</a></li>
+            <div class="menu-toggle" id="mobile-menu">
+                <span class="bar"></span>
+                <span class="bar"></span>
+                <span class="bar"></span>
+            </div>
+            <ul class="nav-list">
+                <li><a href="/" class="nav-buttom active">Home</a></li>
                 <li><a href="/src/en/about-me.html" class="nav-buttom">About Me</a></li>
                 <li><a href="/src/en/projects.html" class="nav-buttom">Projects</a></li>
                 <li><a href="/src/en/skills.html" class="nav-buttom">Skills</a></li>
@@ -20,7 +25,7 @@
         </nav>
 
         <div class="change-language-container">
-            <a href="/inicio.html" class="language-buttom">ES</a>
+            <a href="/inicio.html" class="language-buttom"><img src="/assets/images/spain-flag.png" alt="Spain Flag" class="flag-icon"></a>
         </div>
     </header>
 
@@ -40,20 +45,23 @@
 
     <footer>
         <div class="footer-content">
-            <div class="social-image">
-                <a href="https://www.linkedin.com/in/sebastian-nicolas-cachis-gonzales-667b23308/" target="_blank" class="social-icon">
-                <img src="assets/images/social-media/linkedin-brands-solid.svg" alt="LinkedIn icon">
-                </a>
+            <div class="social-images">
+                <div class="social-image">
+                    <a href="https://www.linkedin.com/in/sebastian-nicolas-cachis-gonzales-667b23308/" target="_blank" class="social-icon">
+                        <img src="/assets/images/social-media/linkedin-brands-solid.svg" alt="LinkedIn icon">
+                    </a>
+                </div>
+                <div class="social-image">
+                    <a href="https://github.com/Dark7YT" target="_blank" class="social-icon">
+                        <img src="/assets/images/social-media/github-brands-solid.svg" alt="GitHub icon">
+                    </a>
+                </div>
             </div>
-            <div class="social-image">
-                <a href="https://github.com/Dark7YT" target="_blank" class="social-icon">
-                <img src="assets/images/social-media/github-brands-solid.svg" alt="GitHub icon">
-                </a>
-            </div>
-            <p>&copy; 2025 Sebastian Nicolás Cachis Gonzales. All rights reserved.</p>
+            <p class="footer-text">&copy; 2025 Sebastian Nicolás Cachis Gonzales. All rights reserved.</p>
         </div>
     </footer>
 
+    <script src="/scripts/home.js"></script>
     <script src="/scripts/script.js"></script>
 </body>
 </html>

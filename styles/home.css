@@ -69,15 +69,43 @@
         text-align: center;
         gap: 1rem;
         height: auto;
+        padding-top: 1rem; /* Add padding-top to move the content up */
+        padding-bottom: 2.2rem; /* Add padding-bottom to reduce the vertical size */
     }
 
     .home-content {
-        margin-bottom: 2rem;
+        margin-bottom: 0.5rem; /* Reduce the margin-bottom to move the image closer to the text */
         max-width: 100%;
+    }
+
+    .home-content h1 {
+        font-size: 2rem; /* Make the font size smaller */
+    }
+
+    .home-content .home-highlight-content {
+        font-size: 1.5rem; /* Make the font size smaller */
+    }
+
+    .home-content .home-subtitle {
+        font-size: 1.2rem; /* Make the font size smaller */
     }
 
     .home-image {
         flex: 0 0 auto;
+        transform: translateY(-50px); /* Initial position for the animation */
+        opacity: 0;
+        animation: fadeInDown 1s forwards; /* Apply the animation */
+    }
+
+    @keyframes fadeInDown {
+        from {
+            transform: translateY(-50px);
+            opacity: 0;
+        }
+        to {
+            transform: translateY(0);
+            opacity: 1;
+        }
     }
 
     .home-image img {

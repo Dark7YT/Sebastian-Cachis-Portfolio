@@ -5,6 +5,8 @@ header {
     display: flex;
     justify-content: space-between;
     align-items: center;
+    position: relative;
+    z-index: 1000;
 }
 
 /* Navigation List */
@@ -116,22 +118,47 @@ header {
     height: auto;
 }
 
-/* Media Queries */
+/* Overlay for the menu */
+.menu-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.5);
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity 0.3s ease;
+    z-index: 999;
+}
+
+.menu-overlay.active {
+    opacity: 1;
+    visibility: visible;
+}
+
+/* Mobile Menu Styles */
 @media (max-width: 48rem) {
-    .nav-list {
-        max-height: 0;
-        overflow: hidden;
+    .nav-container {
+        position: fixed;
+        top: 0.5rem;
+        left: -100%;
+        width: 60%; /* Adjust the width to be less wide */
+        height: 100vh; /* Make the height cover the entire screen */
+        background-color: var(--navbar-bg);
+        transition: left 0.3s ease;
+        z-index: 1000;
     }
 
-    .nav-list.active {
-        max-height: 30rem;
+    .nav-container.active {
+        left: 0;
     }
 
     .nav-list {
-        display: flex;
         flex-direction: column;
-        width: 100%;
-        text-align: center;
+        justify-content: flex-start; /* Align items to the top */
+        align-items: center;
+        margin-top:4.5rem; /* Add margin-top to move the nav-list down */
     }
 
     .nav-list li {

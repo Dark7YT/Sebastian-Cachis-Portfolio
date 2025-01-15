@@ -137,6 +137,18 @@ header {
     visibility: visible;
 }
 
+/* Close button for mobile menu */
+.close-menu {
+    display: none;
+    font-size: 2rem;
+    color: var(--navbar-link);
+    position: absolute;
+    top: 1rem;
+    right: 1rem;
+    cursor: pointer;
+    z-index: 1001;
+}
+
 /* Mobile Menu Styles */
 @media (max-width: 48rem) {
     .nav-container {
@@ -175,5 +187,15 @@ header {
 
     .flag-icon {
         width: 2.5rem;
+    }
+
+    .close-menu {
+        display: block;
+    }
+    
+    /* Disable interaction with the language switcher when the menu is active */
+    .change-language-container.disabled {
+        pointer-events: none;
+        opacity: 0.5;
     }
 }

@@ -6,17 +6,19 @@
     gap: 2rem;
 }
 
+/* Projects Subtitle */
 .projects-subtitle {
     font-size: 2rem;
     margin-bottom: 2rem;
     color: var(--primary-text);
-    text-align: left; /* Alinea el h2 a la izquierda */
-    margin-left: 2rem; /* Mueve el h2 a la derecha */
-    opacity: 0; /* Inicialmente oculto */
-    transform: translateX(-50px); /* Desplazado hacia la izquierda */
-    animation: fadeInLeft 1s forwards; /* Animación de fade desde la izquierda */
+    text-align: left;
+    margin-left: 2rem;
+    opacity: 0;
+    transform: translateX(-50px);
+    animation: fadeInLeft 1s forwards;
 }
 
+/* Projects Content */
 .projects-content {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(20rem, 1fr));
@@ -24,6 +26,7 @@
     justify-items: center;
 }
 
+/* Project Card */
 .project-card {
     background-color: var(--primary-bg);
     border: 1px solid var(--secondary-color);
@@ -38,6 +41,7 @@
     animation: fadeInUp 1s forwards;
 }
 
+/* Animation Delay for Project Cards */
 .project-card:nth-child(1) {
     animation-delay: 0.5s;
 }
@@ -50,6 +54,7 @@
     animation-delay: 1.5s;
 }
 
+/* Keyframes for Fade-in from Left */
 @keyframes fadeInLeft {
     to {
         opacity: 1;
@@ -57,6 +62,7 @@
     }
 }
 
+/* Keyframes for Fade-in from Bottom */
 @keyframes fadeInUp {
     to {
         opacity: 1;
@@ -64,17 +70,20 @@
     }
 }
 
+/* Hover Effect for Project Card */
 .project-card:hover {
     transform: translateY(-0.5rem);
     box-shadow: 0 1rem 2rem rgba(0, 0, 0, 0.2);
 }
 
+/* Project Title */
 .project-tile {
     font-size: 1.5rem;
     margin-bottom: 1rem;
     color: var(--secondary-color);
 }
 
+/* Project Image */
 .project-image img {
     width: 100%;
     height: auto;
@@ -82,18 +91,21 @@
     margin-bottom: 1rem;
 }
 
+/* Project Text */
 .project-text {
     font-size: 1rem;
     color: var(--primary-text);
     margin-bottom: 1rem;
 }
 
+/* Project Text Link */
 .project-text a {
     color: var(--secondary-color);
     text-decoration: none;
     transition: color 0.3s ease;
 }
 
+/* Hover Effect for Project Text Link */
 .project-text a:hover {
     color: var(--primary-color);
 }

@@ -9,6 +9,7 @@
     min-height: 65.4vh;
 }
 
+/* Contact Content */
 .contact-content {
     text-align: center;
     max-width: 40rem;
@@ -20,17 +21,20 @@
     transition: transform 1s ease-in-out, opacity 1s ease-in-out;
 }
 
+/* Contact Subtitle */
 .contact-subtitle {
     font-size: 2rem;
     margin-bottom: 1rem;
 }
 
+/* Contact Text */
 .contact-text {
     font-size: 1.25rem; 
     color: var(--secondary-text);
     margin-bottom: 1.5rem;
 }
 
+/* Contact Links */
 .contact-links {
     display: flex;
     flex-direction: row;
@@ -38,12 +42,14 @@
     justify-content: center;
 }
 
+/* Contact Link Images */
 .contact-link img {
     width: 3rem;
     height: 3rem;
     transition: transform 0.3s ease;
 }
 
+/* Hover Effect for Contact Link Images */
 .contact-link img:hover {
     transform: scale(1.1);
 }

@@ -7,6 +7,7 @@ header {
     align-items: center;
 }
 
+/* Navigation List */
 .nav-list {
     list-style: none;
     display: flex;
@@ -19,14 +20,17 @@ header {
     transition: max-height 0.5s ease-out;
 }
 
+/* Active Navigation List */
 .nav-list.active {
     max-height: 30rem;
 }
 
+/* Navigation List Item */
 .nav-list li {
     margin: 0 2rem;
 }
 
+/* Navigation List Link */
 .nav-list li a {
     color: var(--navbar-link);
     text-decoration: none;
@@ -35,6 +39,7 @@ header {
     position: relative;
 }
 
+/* Navigation List Link Hover and Active Effect */
 .nav-list li a::after {
     content: '';
     position: absolute;
@@ -55,10 +60,12 @@ header {
     background: var(--navbar-link-hover);
 }
 
+/* Language Change Container */
 .change-language-container {
     text-align: right;
 }
 
+/* Language Change Link */
 .change-language-container a {
     color: var(--navbar-link);
     text-decoration: none;
@@ -66,6 +73,7 @@ header {
     font-size: 1.2rem;
 }
 
+/* Language Change Link Hover Effect */
 .change-language-container a:hover {
     color: var(--navbar-link-hover);
 }
@@ -77,6 +85,7 @@ header {
     cursor: pointer;
 }
 
+/* Mobile Menu Bar */
 .menu-toggle .bar {
     height: 0.1875rem;
     width: 1.5625rem;
@@ -85,11 +94,13 @@ header {
     transition: 0.3s;
 }
 
+/* Language Button Container */
 .change-language-container {
     display: flex;
     align-items: center;
 }
 
+/* Language Button */
 .language-buttom {
     display: flex;
     align-items: center;
@@ -99,6 +110,7 @@ header {
     font-size: 1rem;
 }
 
+/* Flag Icon */
 .flag-icon {
     width: 2.5rem;
     height: auto;

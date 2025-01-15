@@ -48,27 +48,32 @@ Sebastian-Cachis-Portfolio/
 │ │ ├── spain-flag.png 
 │ │ └── usa-flag.png 
 ├── scripts/ 
-│ ├── about.js 
-│ ├── contact.js 
-│ ├── projects.js 
+│ ├── about-me.js 
+│ ├── contact.js
+│ ├── home.js
+│ ├── projects.js
+│ ├── script.js 
 │ └── skills.js 
-├── styles/ 
-│ ├── about.css 
-│ ├── contact.css 
-│ ├── projects.css 
-│ ├── skills.css 
-│ └── style.css 
-├── src/ 
-│ ├── en/ 
-│ │ ├── about-me.html 
-│ │ ├── contact.html 
-│ │ ├── projects.html 
-│ │ └── skills.html 
-│ └── es/ 
-│   ├── sobre-mi.html 
-│   ├── contacto.html 
-│   ├── proyectos.html 
+├── src/
+│ ├── en/
+│ │ ├── about-me.html
+│ │ ├── contact.html
+│ │ ├── projects.html
+│ │ └── skills.html
+│ └── es/
+│   ├── sobre-mi.html
+│   ├── contacto.html
+│   ├── proyectos.html
 │   └── habilidades.html
+├── styles/ 
+│ ├── about-me.css
+│ ├── contact.css
+│ ├── footer.css
+│ ├── header.css
+│ ├── home.css
+│ ├── projects.css
+│ ├── skills.css
+│ └── style.css
 ├── index.html
 └── inicion.html
 ```
@@ -113,18 +118,12 @@ To set up the project locally, follow these steps:
    
    ```scripts/```
    * Contains JavaScript files for dynamic functionality:
-      * ```about.js```: Handles interactivity for the "About Me" section.
+      * ```about-me.js```: Handles interactivity for the "About Me" section.
       * ```contact.js```: Handles the "Contact" section.
-      * ```projects.js```: Scripts for managing project displays.
-      * ```skills.js```: Scripts for skills animations and interactivity.
-
-   ```styles/```
-   * Contains CSS files for styling each section:
-      * ```about.css```: Specific styles for the "About Me" section.
-      * ```contact.css```: Specific styles for the "Contact" section.
-      * ```projects.css```: Specific styles for the "Projects" section.
-      * ```skills.css```: Specific styles for the "Skills" section.
-      * ```style.css```: Global styles applied across the entire website.
+      * ```home.js```: Handles the "Home" section.
+      * ```projects.js```: Handles the "Projects" section.
+      * ```script.js```: Handles the navigation bar functionality.
+      * ```skills.js```: Handles the "Skills" section..
 
       ```src/```
    * Organized HTML files for bilingual support:
@@ -139,6 +138,18 @@ To set up the project locally, follow these steps:
          * ```contacto.html```: Contact page in Spanish.
          * ```proyectos.html```: Projects page in Spanish.
          * ```habilidades.html```: Skills page in Spanish.
+   
+   ```styles/```
+   * Contains CSS files for styling each section:
+      * ```about.css```: Specific styles for the "About Me" section.
+      * ```contact.css```: Specific styles for the "Contact" section.
+      * ```footer.css```: Specific styles for the "Footer" section.
+      * ```heander.css```: Specific styles for the "Header" section.
+      * ```home.css```: Specific styles for the "Home" section.
+      * ```projects.css```: Specific styles for the "Projects" section.
+      * ```skills.css```: Specific styles for the "Skills" section.
+      * ```style.css```: Global styles applied across the entire website.
+
    
 ## 🤝 Contributing
 

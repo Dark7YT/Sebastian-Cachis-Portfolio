@@ -1,0 +1,16 @@
+{
+  "portfolio_title": "Sebastian Cachis - Portafolio",
+  "greeting": "¡Hola, soy Sebastian Cachis!",
+  "welcome_message": "Bienvenido a mi portafolio profesional.",
+  "navbar_home": "Inicio",
+  "navbar_about": "Sobre Mí",
+  "navbar_projects": "Proyectos",
+  "navbar_contact": "Contacto",
+  "toggle_language_es": "Español",
+  "toggle_language_en": "English",
+  "toggle_theme_dark": "Modo Oscuro",
+  "toggle_theme_light": "Modo Claro",
+  "error_boundary_oops": "¡Ups! Algo salió mal.",
+  "error_boundary_message": "Por favor, intenta recargar la página. Si el problema persiste, contacta con el soporte.",
+  "error_boundary_title": "Error Inesperado"
+}

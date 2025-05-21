@@ -1,0 +1,84 @@
+/* src/styles/index.css */
+
+@import url('https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap');
+@import "tailwindcss";
+
+@custom-variant dark (&:where(.dark, .dark *));
+
+@theme {
+  --font-montserrat: 'Montserrat', sans-serif;
+  --font-inter: 'Inter', sans-serif;
+}
+
+/* --- Global & Element Base Styles --- */
+
+html {
+  box-sizing: border-box;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  scroll-behavior: smooth;
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: inherit;
+}
+
+body {
+  font-family: var(--font-inter);
+  min-height: 100vh;
+  line-height: 1.6;
+
+}
+
+h1, h2, h3, h4, h5, h6 {
+  font-family: var(--font-montserrat);
+  line-height: 1.2;
+  font-weight: 600;
+}
+
+p,
+ul,
+ol,
+li,
+dl,
+dt,
+dd,
+blockquote,
+td,
+th,
+label,
+caption,
+span,
+button,
+input,
+select,
+textarea {
+  font-family: inherit; /* Ensures Inter is used unless overridden */
+}
+
+a {
+  font-family: inherit;
+  @apply text-sky-600 hover:underline dark:text-sky-400;
+}
+
+img,
+picture,
+video,
+canvas,
+svg {
+  display: block;
+  max-width: 100%;
+  height: auto;
+}
+
+/* --- Utility Font Classes (Optional but can be handy) --- */
+
+.font-montserrat {
+  font-family: var(--font-montserrat);
+}
+
+.font-inter {
+  font-family: var(--font-inter);
+}

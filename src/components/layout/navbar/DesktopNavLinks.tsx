@@ -1,0 +1,32 @@
+import React from 'react';
+import { useTranslation } from 'react-i18next';
+import { NAV_LINKS, type NavLink as NavLinkType } from '../../../constants/navigation';
+import { cn } from '../../../lib/utils';
+
+interface DesktopNavLinksProps {
+  activeSection: string;
+  onNavLinkClick: (sectionId: string) => void;
+}
+
+export const DesktopNavLinks: React.FC<DesktopNavLinksProps> = ({ activeSection, onNavLinkClick }) => {
+  const { t } = useTranslation();
+  return (
+    <div className="hidden md:flex md:space-x-2 lg:space-x-4">
+      {NAV_LINKS.map((link: NavLinkType) => (
+        <a
+          key={link.id}
+          href={link.href}
+          onClick={() => onNavLinkClick(link.id)}
+          className={cn(
+            "px-3 py-2 rounded-md text-sm font-medium transition-colors duration-150",
+            activeSection === link.id
+              ? "bg-sky-100 text-sky-600 dark:bg-sky-700/30 dark:text-sky-400" // Usando paleta sky para activo
+              : "text-slate-700 hover:bg-slate-200/70 dark:text-neutral-300 dark:hover:bg-neutral-800/70"
+          )}
+        >
+          {t(link.labelKey)}
+        </a>
+      ))}
+    </div>
+  );
+};

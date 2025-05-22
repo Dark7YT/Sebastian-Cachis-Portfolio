@@ -1,13 +1,23 @@
-/* src/styles/index.css */
-
 @import url('https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap');
 @import "tailwindcss";
 
+/* --- Custom Tailwind Configuration --- */
 @custom-variant dark (&:where(.dark, .dark *));
 
 @theme {
+  /* Fuentes */
   --font-montserrat: 'Montserrat', sans-serif;
   --font-inter: 'Inter', sans-serif;
+
+  /* --- Paleta 1: "Verde Bosque y Piedra Caliza" (Modo Claro como base) --- */
+  --color-background-page-light: theme('colors.stone.100');    /* #f5f5f4 */
+  --color-background-content-light: theme('colors.white');       /* #ffffff */
+  --color-text-primary-light: theme('colors.stone.800');       /* #292524 */
+  --color-text-secondary-light: theme('colors.stone.600');     /* #57534e */
+  --color-border-subtle-light: theme('colors.stone.300');      /* #d6d3d1 */
+  --color-accent-light: theme('colors.emerald.600');           /* #059669 */
+  --color-accent-light-hover: theme('colors.emerald.700');     /* #047857 */
+  --color-accent-text-on-accent-light: theme('colors.white');
 }
 
 /* --- Global & Element Base Styles --- */
@@ -17,6 +27,13 @@ html {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   scroll-behavior: smooth;
+  
+  /* Aplicar colores base de la página y transición */
+  @apply bg-stone-100 text-stone-800; /* Paleta 1 - Claro */
+  /* Paleta 1 - Oscuro (ej. zinc-950 para fondo, stone-100 para texto) */
+  @apply dark:bg-zinc-950 dark:text-stone-100; 
+  
+  @apply transition-colors duration-500 ease-in-out;
 }
 
 *,
@@ -29,13 +46,13 @@ body {
   font-family: var(--font-inter);
   min-height: 100vh;
   line-height: 1.6;
-
 }
 
 h1, h2, h3, h4, h5, h6 {
   font-family: var(--font-montserrat);
   line-height: 1.2;
-  font-weight: 600;
+  font-weight: 600; /* Semibold */
+  /* Color se aplicará con utilidades, ej: text-stone-800 dark:text-stone-100 */
 }
 
 p,
@@ -50,31 +67,32 @@ td,
 th,
 label,
 caption,
-span,
+span {
+  font-family: inherit;
+  /* Color se aplicará con utilidades, ej: text-stone-700 dark:text-stone-300 */
+}
+
 button,
 input,
 select,
 textarea {
-  font-family: inherit; /* Ensures Inter is used unless overridden */
+  font-family: inherit;
 }
 
 a {
   font-family: inherit;
-  @apply text-sky-600 hover:underline dark:text-sky-400;
+  /* Acento Verde para enlaces */
+  @apply text-emerald-600 hover:text-emerald-700;
+  @apply dark:text-emerald-500 dark:hover:text-emerald-400;
+  @apply hover:underline;
+  @apply transition-colors duration-150 ease-in-out;
 }
 
-img,
-picture,
-video,
-canvas,
-svg {
-  display: block;
-  max-width: 100%;
-  height: auto;
+hr {
+  @apply border-stone-300 dark:border-zinc-700; /* Ajustado a la nueva paleta */
 }
 
-/* --- Utility Font Classes (Optional but can be handy) --- */
-
+/* --- Utility Font Classes --- */
 .font-montserrat {
   font-family: var(--font-montserrat);
 }

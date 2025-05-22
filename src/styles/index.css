@@ -119,3 +119,30 @@ hr {
   from, to { color: transparent; }
   50% { color: inherit; } 
 }
+
+@layer utilities {
+  .animate-fast-pulse {
+    animation: fast-pulse 0.8s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+  }
+}
+
+@keyframes fast-pulse {
+  0%, 100% {
+    opacity: 1;
+  }
+  50% {
+    opacity: .5;
+  }
+}
+
+/* Si quieres un parpadeo más tipo "on/off" como un cursor real: */
+@layer utilities {
+  .animate-caret-blink {
+    animation: caret-blink 1s step-end infinite;
+  }
+}
+
+@keyframes caret-blink {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0; }
+}

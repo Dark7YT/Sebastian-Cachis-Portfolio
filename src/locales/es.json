@@ -22,6 +22,24 @@
   "terminal_interests": "Intereses",
   "terminal_tech_art_music": "Tecnología, Anime, Música",
 
+  "footer_rights_reserved": "Todos los derechos reservados.",
+  "footer_built_with": "Hecho en",
+  "footer_by": "por",
+  "footer_find_me_on": "Encuéntrame en",
+  "footer_github_aria": "Perfil de Sebastian Cachis en GitHub",
+  "footer_linkedin_aria": "Perfil de Sebastian Cachis en LinkedIn",
+  "footer_email_aria": "Enviar un correo electrónico a Sebastian Cachis",
+  "footer_twitter_aria": "Perfil de Sebastian Cachis en Twitter/X",
+  "footer_scroll_top": "Volver arriba",
+
+  "footer_quick_links": "Enlaces Rápidos",
+  "footer_technologies_used": "Tecnologías Utilizadas",
+  "footer_bio_placeholder": "Estudiante de Ingeniería de Software, aspirando a ser desarrollador full-stack.",
+
+  "footer_nav_home": "Ir a Inicio",
+  "footer_nav_about": "Ir a Sobre Mí",
+  "footer_nav_projects": "Ir a Proyectos",
+
   "error_boundary_oops": "¡Ups! Algo salió mal.",
   "error_boundary_message": "Por favor, intenta recargar la página. Si el problema persiste, contacta con el soporte.",
   "error_boundary_title": "Error Inesperado"

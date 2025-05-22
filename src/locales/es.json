@@ -9,6 +9,19 @@
   "navbar_contact": "Contacto",
   "navbar_open_menu": "Abrir menú", 
   "navbar_close_menu": "Cerrar menú",
+  "terminal_name": "Sebastian Cachis",
+  "terminal_career": "Carrera",
+  "terminal_software_engineer": "Ingeniería de Software",
+  "terminal_age": "Edad",
+  "terminal_years_old": "años",
+
+  "terminal_location": "Ubicación",
+  "terminal_city_country": "Lima, Perú",
+  "terminal_status": "Situacion la",
+  "terminal_availability": "Trabajando actualmente",
+  "terminal_interests": "Intereses",
+  "terminal_tech_art_music": "Tecnología, Anime, Música",
+
   "error_boundary_oops": "¡Ups! Algo salió mal.",
   "error_boundary_message": "Por favor, intenta recargar la página. Si el problema persiste, contacta con el soporte.",
   "error_boundary_title": "Error Inesperado"

@@ -1,7 +1,6 @@
-import React, { Component, type ErrorInfo, type ReactNode } from 'react';
+import { Component, type ErrorInfo, type ReactNode } from 'react';
 import { withTranslation, type WithTranslation } from 'react-i18next';
 import { AlertTriangle } from 'lucide-react'; 
-import DynamicTitleUpdater from './DynamicTitleUpdater';
 
 interface Props extends WithTranslation {
   children: ReactNode;

@@ -8,9 +8,6 @@ interface ThemeProviderProps {
 
 export function ThemeProvider({ children }: ThemeProviderProps) {
   const [theme, setTheme] = useState<Theme>(() => {
-    // La clase 'dark' ya debería estar en <html> gracias al script en index.html
-    // Esta lógica ahora principalmente sirve para inicializar el estado de React
-    // y para que React sepa cuál es el tema actual.
 
     let initialTheme: Theme = 'light'; // Fallback
     if (typeof window !== 'undefined') {
@@ -23,18 +20,17 @@ export function ThemeProvider({ children }: ThemeProviderProps) {
         }
       }
     }
-    // No necesitamos console.log aquí para la inicialización si el script del head funciona.
     return initialTheme;
   });
 
   useEffect(() => {
     if (typeof window !== 'undefined') {
       const root = window.document.documentElement;
-      root.classList.remove('dark', 'light'); // Quitar ambas
+      root.classList.remove('dark', 'light'); 
       if (theme === 'dark') {
         root.classList.add('dark');
       } else {
-        root.classList.add('light'); // Añadir 'light' para el tema claro explícito
+        root.classList.add('light');
       }
       localStorage.setItem('theme', theme);
     }

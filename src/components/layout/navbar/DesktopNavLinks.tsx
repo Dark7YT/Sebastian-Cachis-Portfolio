@@ -20,7 +20,7 @@ export const DesktopNavLinks: React.FC<DesktopNavLinksProps> = ({ activeSection,
           className={cn(
             "px-3 py-2 rounded-md text-sm font-medium transition-colors duration-150",
             activeSection === link.id
-              ? "bg-sky-100 text-sky-600 dark:bg-sky-700/30 dark:text-sky-400" // Usando paleta sky para activo
+              ? "bg-sky-100 text-sky-600 dark:bg-sky-700/30 dark:text-sky-400" 
               : "text-slate-700 hover:bg-slate-200/70 dark:text-neutral-300 dark:hover:bg-neutral-800/70"
           )}
         >

@@ -1,8 +1,7 @@
-// src/constants/navigation.ts
 export interface NavLink {
-  labelKey: string; // Clave para i18n
-  href: string;     // Para el ancla #section-id
-  id: string;       // Para asociar con la sección (scroll spy)
+  labelKey: string;
+  href: string; 
+  id: string;
 }
 
 export const NAV_LINKS: NavLink[] = [

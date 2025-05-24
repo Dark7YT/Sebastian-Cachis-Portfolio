@@ -1,67 +1,110 @@
-// TopBarControls.tsx
 import { useTranslation } from 'react-i18next';
 import { useTheme } from '../../../hooks/useTheme';
 import { Button } from '../../../components/ui/Button'; 
 import { Moon, Sun, Languages } from 'lucide-react';
-import { motion, AnimatePresence, useReducedMotion } from 'framer-motion';
+import { motion, AnimatePresence, useReducedMotion, type Variants } from 'framer-motion';
 
 export const TopBarControls = () => {
   const { t, i18n } = useTranslation();
   const { theme, toggleTheme } = useTheme();
   const prefersReducedMotion = useReducedMotion();
 
-  // Determina idioma y textos
   const isSpanish = i18n.language === 'es';
   const currentLanguageCode = isSpanish ? 'ES' : 'EN';
   const langButtonLabel = t(isSpanish ? 'toggle_language_en' : 'toggle_language_es');
   const themeButtonLabel = t(theme === 'light' ? 'toggle_theme_dark' : 'toggle_theme_light');
 
-  // Animaciones solo si no hay reduced motion
-  const themeIconVariants = prefersReducedMotion ? undefined : {
-    enter: { rotateY: -180, opacity: 0, scale: 0.8 },
-    center: { rotateY: 0, opacity: 1, scale: 1, transition: { duration: 0.3, ease: "easeOut" }},
-    exit: { rotateY: 180, opacity: 0, scale: 0.8, transition: { duration: 0.3, ease: "easeIn" }},
+  const themeIconSwitchVariants: Variants = prefersReducedMotion ? {} : {
+    enter: (direction: number) => ({
+      y: direction > 0 ? 10 : -10,
+      x: direction > 0 ? -10 : 10,
+      opacity: 0,
+      scale: 0.7,
+      rotateZ: direction * -90,
+    }),
+    center: {
+      zIndex: 1,
+      y: 0,
+      x: 0,
+      opacity: 1,
+      scale: 1,
+      rotateZ: 0,
+      transition: {
+        duration: 0.35,
+        ease: [0.215, 0.610, 0.355, 1.000],
+      },
+    },
+    exit: (direction: number) => ({
+      zIndex: 0,
+      y: direction > 0 ? -10 : 10,
+      x: direction > 0 ? 10 : -10,
+      opacity: 0,
+      scale: 0.7,
+      rotateZ: direction * 90,
+      transition: {
+        duration: 0.3,
+        ease: [0.550, 0.055, 0.675, 0.190],
+      },
+    }),
   };
-  const iconHoverVariants = prefersReducedMotion ? undefined : {
-    rest: { rotate: 0, scale: 1 },
-    hover: { rotate: 15, scale: 1.1, transition: { type: "spring", stiffness: 300, damping: 10 }}
+  
+  const iconWrapperHoverVariants = prefersReducedMotion ? undefined : {
+    rest: { scale: 1 },
+    hover: { scale: 1.15, transition: { type: "spring", stiffness: 400, damping: 10 } }
   };
+
   const languageButtonHoverProps = prefersReducedMotion ? {} : {
     scale: 1.1,
     transition: { type: "spring", stiffness: 300, damping: 10 }
   };
 
+  const themeChangeDirection = theme === 'light' ? 1 : -1;
+
   return (
     <div className="flex items-center space-x-1 sm:space-x-2">
-      {/* Botón de tema */}
-      <Button
-        variant="icon" 
-        size="icon" 
-        onClick={toggleTheme} 
-        aria-label={themeButtonLabel} 
-        title={themeButtonLabel}
-        className="relative overflow-hidden flex items-center justify-center text-slate-700 dark:text-neutral-300"
+      <motion.div
+        variants={iconWrapperHoverVariants}
+        initial="rest"
+        whileHover="hover"
       >
-        <AnimatePresence mode="wait" initial={false}>
-          <motion.div 
-            key={theme} 
-            variants={themeIconVariants}
-            initial="enter" 
-            animate="center" 
-            exit="exit"
-            whileHover="hover" 
-          >
-            <motion.div 
-              variants={iconHoverVariants} 
-              className="flex items-center justify-center"
-            >
-              {theme === 'light' ? <Moon className="h-5 w-5" /> : <Sun className="h-5 w-5" />}
-            </motion.div>
-          </motion.div>
-        </AnimatePresence>
-      </Button>
+        <Button
+          variant="icon" 
+          size="icon" 
+          onClick={toggleTheme} 
+          aria-label={themeButtonLabel} 
+          title={themeButtonLabel}
+          className="relative overflow-hidden flex items-center justify-center text-slate-700 dark:text-neutral-300 w-8 h-8 sm:w-9 sm:h-9"
+        >
+          <AnimatePresence mode="wait" initial={false} custom={themeChangeDirection}>
+            {theme === 'light' ? (
+              <motion.div
+                key="moon" 
+                custom={themeChangeDirection}
+                variants={themeIconSwitchVariants}
+                initial="enter" 
+                animate="center" 
+                exit="exit"
+                className="absolute flex items-center justify-center"
+              >
+                <Moon className="h-5 w-5" />
+              </motion.div>
+            ) : (
+              <motion.div
+                key="sun"
+                custom={themeChangeDirection * -1}
+                variants={themeIconSwitchVariants}
+                initial="enter"
+                animate="center"
+                exit="exit"
+                className="absolute flex items-center justify-center"
+              >
+                <Sun className="h-5 w-5" />
+              </motion.div>
+            )}
+          </AnimatePresence>
+        </Button>
+      </motion.div>
 
-      {/* Botón de idioma */}
       <motion.div 
         whileHover={languageButtonHoverProps}
         whileTap={{ scale: 0.95 }}

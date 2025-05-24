@@ -1,4 +1,3 @@
-// Navbar.tsx
 import { useState, useEffect, useRef, useMemo, useCallback } from 'react';
 import { motion, AnimatePresence, useReducedMotion } from 'framer-motion';
 import { cn } from '../../lib/utils';
@@ -11,7 +10,7 @@ import { DesktopNavLinks } from './navbar/DesktopNavLinks';
 import { TopBarControls } from './navbar/TopBarControls';
 import { MobileNavPanel } from './navbar/MobileNavPanel';
 import { ProfileTerminalCard } from './navbar/ProfileTerminalCard';
-import { AnimatedHamburgerIcon } from '../ui/AnimatedHamburgerIcon'; // Asegúrate que la ruta sea correcta
+import { AnimatedHamburgerIcon } from '../ui/AnimatedHamburgerIcon'; 
 
 export const Navbar = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
@@ -84,14 +83,13 @@ export const Navbar = () => {
     setCurrentNameColorClass(getNameColor());
   }, [theme, getNameColor]);
 
-  // Efecto para controlar el overflow del body cuando el menú móvil está abierto
   useEffect(() => {
     if (isMenuOpen) {
       document.body.style.overflow = 'hidden';
     } else {
       document.body.style.overflow = '';
     }
-    return () => { // Cleanup
+    return () => { 
       document.body.style.overflow = '';
     };
   }, [isMenuOpen]);
@@ -101,8 +99,6 @@ export const Navbar = () => {
   const mobilePanelAnimationDuration = 0.4; 
   const mobilePanelExitDuration = 0.3; 
 
-  // Posición de origen para el circular reveal (relativas AL PANEL que se revela).
-  // Estos son los valores que probablemente necesites ajustar más finamente.
   const [circleOrigin, setCircleOrigin] = useState({ x: "92%", y: "25px" }); // Valores por defecto ajustables
 
   useEffect(() => {
@@ -113,28 +109,17 @@ export const Navbar = () => {
       const btnCenterXViewport = btnRect.left + btnRect.width / 2;
       
       const panelOriginX = btnCenterXViewport - navRect.left;
-      
-      // Como MobileNavPanel se renderiza con top-full, su Y relativo al viewport
-      // sería navRect.bottom. El origen Y del círculo es relativo al tope del panel.
-      // Si el botón está en la parte superior de la navbar, y el panel debajo,
-      // un valor Y pequeño (como "20px" o "25px") suele funcionar bien para que el círculo
-      // emane desde la región del botón.
-      // const panelOriginYCalculated = (btnRect.top + btnRect.height / 2) - navRect.bottom; // Esto sería negativo
-      
+    
       const panelWidthApproximation = window.innerWidth; 
 
-      // Ajustar `y` a un valor fijo puede ser más estable que un cálculo complejo de Y relativo
-      // a menos que el alto del navbar varíe mucho.
       setCircleOrigin({
         x: `${(panelOriginX / panelWidthApproximation) * 100}%`,
-        y: `25px` // Valor fijo ajustado visualmente. O podrías usar panelOriginYCalculated si es más preciso
+        y: `25px`
       });
     } else if (!isClient) {
-        // Valores por defecto iniciales (ya establecidos en useState)
         setCircleOrigin({ x: "92%", y: "25px" });
     }
-    // No recalcular constantemente, solo al abrir el menú si el layout pudiera haber cambiado.
-  }, [isClient, isMenuOpen]); // Dependencias
+  }, [isClient, isMenuOpen]);
 
   return (
     <motion.nav

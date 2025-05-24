@@ -1,3 +1,4 @@
+// Navbar.tsx
 import { useState, useEffect, useRef, useMemo, useCallback } from 'react';
 import { motion, AnimatePresence, useReducedMotion } from 'framer-motion';
 import { cn } from '../../lib/utils';
@@ -10,7 +11,7 @@ import { DesktopNavLinks } from './navbar/DesktopNavLinks';
 import { TopBarControls } from './navbar/TopBarControls';
 import { MobileNavPanel } from './navbar/MobileNavPanel';
 import { ProfileTerminalCard } from './navbar/ProfileTerminalCard';
-import { AnimatedHamburgerIcon } from '../ui/AnimatedHamburgerIcon';
+import { AnimatedHamburgerIcon } from '../ui/AnimatedHamburgerIcon'; // Asegúrate que la ruta sea correcta
 
 export const Navbar = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
@@ -20,6 +21,10 @@ export const Navbar = () => {
   const { t } = useTranslation();
   const nameRef = useRef<HTMLSpanElement>(null);
   const profileCardRef = useRef<HTMLDivElement>(null);
+  const hamburgerButtonRef = useRef<HTMLButtonElement>(null); 
+  const navRef = useRef<HTMLElement>(null); 
+  const [isClient, setIsClient] = useState(false);
+
   const prefersReducedMotion = useReducedMotion();
   const { theme } = useTheme();
 
@@ -40,13 +45,17 @@ export const Navbar = () => {
 
   const [currentNameColorClass, setCurrentNameColorClass] = useState(getNameColor());
 
+  useEffect(() => {
+    setIsClient(true);
+  }, []);
+
   useOnClickOutside([nameRef, profileCardRef], () => {
     if (isProfileCardOpen) setIsProfileCardOpen(false);
   });
 
   const handleNavLinkClick = useCallback((sectionId: string) => {
     setActiveSection(sectionId);
-    setIsProfileCardOpen(false);
+    setIsProfileCardOpen(false); 
   }, []);
 
   useEffect(() => {
@@ -75,14 +84,61 @@ export const Navbar = () => {
     setCurrentNameColorClass(getNameColor());
   }, [theme, getNameColor]);
 
+  // Efecto para controlar el overflow del body cuando el menú móvil está abierto
+  useEffect(() => {
+    if (isMenuOpen) {
+      document.body.style.overflow = 'hidden';
+    } else {
+      document.body.style.overflow = '';
+    }
+    return () => { // Cleanup
+      document.body.style.overflow = '';
+    };
+  }, [isMenuOpen]);
+
   const menuButtonLabel = isMenuOpen ? t('navbar_close_menu') : t('navbar_open_menu');
   
-  // Duración de la animación del panel móvil (la ajustaremos cuando vea MobileNavPanel.tsx)
-  const mobilePanelAnimationDuration = 0.3; // Ejemplo
+  const mobilePanelAnimationDuration = 0.4; 
+  const mobilePanelExitDuration = 0.3; 
+
+  // Posición de origen para el circular reveal (relativas AL PANEL que se revela).
+  // Estos son los valores que probablemente necesites ajustar más finamente.
+  const [circleOrigin, setCircleOrigin] = useState({ x: "92%", y: "25px" }); // Valores por defecto ajustables
+
+  useEffect(() => {
+    if (hamburgerButtonRef.current && navRef.current && isClient && isMenuOpen) { // Calcular solo cuando se abre
+      const navRect = navRef.current.getBoundingClientRect();
+      const btnRect = hamburgerButtonRef.current.getBoundingClientRect();
+
+      const btnCenterXViewport = btnRect.left + btnRect.width / 2;
+      
+      const panelOriginX = btnCenterXViewport - navRect.left;
+      
+      // Como MobileNavPanel se renderiza con top-full, su Y relativo al viewport
+      // sería navRect.bottom. El origen Y del círculo es relativo al tope del panel.
+      // Si el botón está en la parte superior de la navbar, y el panel debajo,
+      // un valor Y pequeño (como "20px" o "25px") suele funcionar bien para que el círculo
+      // emane desde la región del botón.
+      // const panelOriginYCalculated = (btnRect.top + btnRect.height / 2) - navRect.bottom; // Esto sería negativo
+      
+      const panelWidthApproximation = window.innerWidth; 
+
+      // Ajustar `y` a un valor fijo puede ser más estable que un cálculo complejo de Y relativo
+      // a menos que el alto del navbar varíe mucho.
+      setCircleOrigin({
+        x: `${(panelOriginX / panelWidthApproximation) * 100}%`,
+        y: `25px` // Valor fijo ajustado visualmente. O podrías usar panelOriginYCalculated si es más preciso
+      });
+    } else if (!isClient) {
+        // Valores por defecto iniciales (ya establecidos en useState)
+        setCircleOrigin({ x: "92%", y: "25px" });
+    }
+    // No recalcular constantemente, solo al abrir el menú si el layout pudiera haber cambiado.
+  }, [isClient, isMenuOpen]); // Dependencias
 
   return (
     <motion.nav
-      // ... (clases y estilos de la navbar sin cambios)
+      ref={navRef} 
       className={cn(
         "fixed top-0 left-0 right-0 z-50 w-full",
         isScrolled || isMenuOpen || isProfileCardOpen
@@ -133,6 +189,7 @@ export const Navbar = () => {
             </div>
             <div className="md:hidden">
               <Button
+                ref={hamburgerButtonRef} 
                 variant="icon"
                 size="icon"
                 onClick={() => {
@@ -141,14 +198,12 @@ export const Navbar = () => {
                 }}
                 aria-label={menuButtonLabel}
                 title={menuButtonLabel}
-                className="text-slate-700 dark:text-neutral-300 hover:text-emerald-500 dark:hover:text-emerald-400" // Añadido hover para consistencia
+                className="text-slate-700 dark:text-neutral-300 hover:text-emerald-500 dark:hover:text-emerald-400"
               >
-                {/* Reemplazar el AnimatePresence y los motion.div de Menu/X con AnimatedHamburgerIcon */}
                 <AnimatedHamburgerIcon 
                   isOpen={isMenuOpen}
-                  // Pasar la duración de la animación del panel para sincronizar
-                  transitionDuration={mobilePanelAnimationDuration} 
-                  className="h-5 w-5" // Ajustar tamaño si es necesario
+                  transitionDuration={isMenuOpen ? mobilePanelAnimationDuration : mobilePanelExitDuration} 
+                  className="h-5 w-5" 
                 />
               </Button>
             </div>
@@ -156,17 +211,19 @@ export const Navbar = () => {
         </div>
       </div>
 
-      <AnimatePresence>
+      <AnimatePresence mode="wait">
         {isMenuOpen && (
           <MobileNavPanel
             activeSection={activeSection}
             onNavLinkClick={(sectionId) => {
               handleNavLinkClick(sectionId);
-              setIsMenuOpen(false);
+              setIsMenuOpen(false); 
             }}
             closeMenu={() => setIsMenuOpen(false)}
-            // Pasar la duración para que MobileNavPanel también la use
-            animationDuration={mobilePanelAnimationDuration} 
+            animationDuration={mobilePanelAnimationDuration}
+            exitAnimationDuration={mobilePanelExitDuration}
+            circleOriginX={circleOrigin.x} 
+            circleOriginY={circleOrigin.y} 
           />
         )}
       </AnimatePresence>

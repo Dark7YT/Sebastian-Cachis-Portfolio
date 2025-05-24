@@ -8,6 +8,7 @@ interface MobileNavPanelProps {
   activeSection: string;
   onNavLinkClick: (sectionId: string) => void;
   closeMenu: () => void;
+  animationDuration?: number;
 }
 
 export const MobileNavPanel: React.FC<MobileNavPanelProps> = ({

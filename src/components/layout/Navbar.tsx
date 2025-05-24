@@ -1,7 +1,6 @@
 import { useState, useEffect, useRef, useMemo, useCallback } from 'react';
 import { motion, AnimatePresence, useReducedMotion } from 'framer-motion';
 import { cn } from '../../lib/utils';
-import { Menu, X } from 'lucide-react';
 import { Button } from '../ui/Button';
 import { useTranslation } from 'react-i18next';
 import { useOnClickOutside } from '../../hooks/useOnClickOutside';
@@ -11,6 +10,7 @@ import { DesktopNavLinks } from './navbar/DesktopNavLinks';
 import { TopBarControls } from './navbar/TopBarControls';
 import { MobileNavPanel } from './navbar/MobileNavPanel';
 import { ProfileTerminalCard } from './navbar/ProfileTerminalCard';
+import { AnimatedHamburgerIcon } from '../ui/AnimatedHamburgerIcon';
 
 export const Navbar = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
@@ -23,7 +23,6 @@ export const Navbar = () => {
   const prefersReducedMotion = useReducedMotion();
   const { theme } = useTheme();
 
-  // Memoiza los colores para evitar recreación
   const nameColors = useMemo(() => ({
     light: "text-emerald-500",
     dark: "text-emerald-400",
@@ -31,7 +30,6 @@ export const Navbar = () => {
     hoverDark: "text-emerald-300"
   }), []);
 
-  // Calcula el color actual y hover según el tema
   const getNameColor = useCallback(
     (isHover = false) => {
       if (theme === 'dark') return isHover ? nameColors.hoverDark : nameColors.dark;
@@ -42,18 +40,15 @@ export const Navbar = () => {
 
   const [currentNameColorClass, setCurrentNameColorClass] = useState(getNameColor());
 
-  // Cierra el card de perfil al hacer click fuera
   useOnClickOutside([nameRef, profileCardRef], () => {
     if (isProfileCardOpen) setIsProfileCardOpen(false);
   });
 
-  // Handler para navegación
   const handleNavLinkClick = useCallback((sectionId: string) => {
     setActiveSection(sectionId);
     setIsProfileCardOpen(false);
   }, []);
 
-  // Efecto para cerrar el card de perfil al hacer scroll
   useEffect(() => {
     const handleScroll = () => {
       setIsScrolled(window.scrollY > 20);
@@ -63,7 +58,6 @@ export const Navbar = () => {
     return () => window.removeEventListener('scroll', handleScroll);
   }, [isProfileCardOpen]);
 
-  // Efecto para observar secciones y actualizar la sección activa
   useEffect(() => {
     const observerOptions = { root: null, rootMargin: '-50% 0px -50% 0px', threshold: 0 };
     const observerCallback = (entries: IntersectionObserverEntry[]) => {
@@ -77,15 +71,18 @@ export const Navbar = () => {
     return () => sections.forEach(section => observer.unobserve(section));
   }, []);
 
-  // Efecto para actualizar el color del nombre según el tema
   useEffect(() => {
     setCurrentNameColorClass(getNameColor());
   }, [theme, getNameColor]);
 
   const menuButtonLabel = isMenuOpen ? t('navbar_close_menu') : t('navbar_open_menu');
+  
+  // Duración de la animación del panel móvil (la ajustaremos cuando vea MobileNavPanel.tsx)
+  const mobilePanelAnimationDuration = 0.3; // Ejemplo
 
   return (
     <motion.nav
+      // ... (clases y estilos de la navbar sin cambios)
       className={cn(
         "fixed top-0 left-0 right-0 z-50 w-full",
         isScrolled || isMenuOpen || isProfileCardOpen
@@ -96,7 +93,6 @@ export const Navbar = () => {
     >
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex items-center justify-between h-16 md:h-20">
-          {/* Nombre y card de perfil */}
           <div className="flex-shrink-0 relative">
             <motion.span
               ref={nameRef}
@@ -124,7 +120,6 @@ export const Navbar = () => {
             </div>
           </div>
 
-          {/* Navegación de escritorio */}
           <div className="hidden md:flex items-center">
             <DesktopNavLinks
               activeSection={activeSection}
@@ -132,7 +127,6 @@ export const Navbar = () => {
             />
           </div>
 
-          {/* Controles y menú móvil */}
           <div className="flex items-center space-x-2 sm:space-x-3 md:space-x-4">
             <div className="flex">
               <TopBarControls />
@@ -147,38 +141,21 @@ export const Navbar = () => {
                 }}
                 aria-label={menuButtonLabel}
                 title={menuButtonLabel}
-                className="text-slate-700 dark:text-neutral-300"
+                className="text-slate-700 dark:text-neutral-300 hover:text-emerald-500 dark:hover:text-emerald-400" // Añadido hover para consistencia
               >
-                <AnimatePresence mode="wait" initial={false}>
-                  {isMenuOpen ? (
-                    <motion.div
-                      key="close"
-                      initial={{ rotate: -90, opacity: 0 }}
-                      animate={{ rotate: 0, opacity: 1 }}
-                      exit={{ rotate: 90, opacity: 0 }}
-                      transition={{ duration: 0.2 }}
-                    >
-                      <X className="h-6 w-6" />
-                    </motion.div>
-                  ) : (
-                    <motion.div
-                      key="open"
-                      initial={{ rotate: 90, opacity: 0 }}
-                      animate={{ rotate: 0, opacity: 1 }}
-                      exit={{ rotate: -90, opacity: 0 }}
-                      transition={{ duration: 0.2 }}
-                    >
-                      <Menu className="h-6 w-6" />
-                    </motion.div>
-                  )}
-                </AnimatePresence>
+                {/* Reemplazar el AnimatePresence y los motion.div de Menu/X con AnimatedHamburgerIcon */}
+                <AnimatedHamburgerIcon 
+                  isOpen={isMenuOpen}
+                  // Pasar la duración de la animación del panel para sincronizar
+                  transitionDuration={mobilePanelAnimationDuration} 
+                  className="h-5 w-5" // Ajustar tamaño si es necesario
+                />
               </Button>
             </div>
           </div>
         </div>
       </div>
 
-      {/* Panel de navegación móvil */}
       <AnimatePresence>
         {isMenuOpen && (
           <MobileNavPanel
@@ -188,6 +165,8 @@ export const Navbar = () => {
               setIsMenuOpen(false);
             }}
             closeMenu={() => setIsMenuOpen(false)}
+            // Pasar la duración para que MobileNavPanel también la use
+            animationDuration={mobilePanelAnimationDuration} 
           />
         )}
       </AnimatePresence>

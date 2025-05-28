@@ -33,7 +33,6 @@ interface MobileNavPanelProps {
 export const MobileNavPanel: React.FC<MobileNavPanelProps> = ({
   activeSection,
   onNavLinkClick,
-  closeMenu,
   circleOrigin,
   animationTiming,
   hamburgerPosition

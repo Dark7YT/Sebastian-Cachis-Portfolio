@@ -29,7 +29,7 @@ export const DesktopNavLinks: React.FC<DesktopNavLinksProps> = ({
           <a
             key={id}
             href={href}
-            onClick={(e) => handleClick(e, id)} // ✅ USAR la nueva función
+            onClick={(e) => handleClick(e, id)}
             className={cn(
               "px-3 py-2 rounded-md text-sm font-medium",
               "transition-smooth",

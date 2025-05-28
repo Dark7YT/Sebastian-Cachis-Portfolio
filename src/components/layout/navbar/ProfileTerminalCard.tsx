@@ -108,7 +108,7 @@ const TerminalLine: React.FC<TerminalLineProps> = React.memo(({
     }
   }, [isTypingComplete, handleFinished]);
 
-  // ✅ COMPONENTES ESPECIALIZADOS CON TIPEO
+  // ✅ COMPONENTES ESPECIALIZADOS CON REFS CORREGIDOS:
 
   if (isHeader) {
     return (
@@ -134,7 +134,7 @@ const TerminalLine: React.FC<TerminalLineProps> = React.memo(({
     );
   }
 
-  // ✅ COMANDO CON TIPEO
+  // ✅ COMANDO CON REF CORREGIDO
   return (
     <p
       ref={lineRef as React.RefObject<HTMLParagraphElement>}
@@ -310,7 +310,7 @@ export const ProfileTerminalCard: React.FC<ProfileTerminalCardProps> = ({ isOpen
   const terminalState = useTerminalState(isOpen);
   const linesContainerRef = useRef<HTMLDivElement>(null);
   const titleBarRef = useRef<HTMLDivElement>(null);
-  const firstLineRef = useRef<HTMLParagraphElement | null>(null);
+  const firstLineRef = useRef<HTMLElement | null>(null); // ✅ TIPO CORREGIDO
 
   // ✅ COMANDOS MEMOIZADOS
   const terminalCommands = useMemo((): TerminalCommand[] => [

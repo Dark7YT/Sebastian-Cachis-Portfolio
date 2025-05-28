@@ -4,7 +4,6 @@ import { Github, Linkedin, Mail, Twitter } from 'lucide-react';
 import { cn } from '../../lib/utils';
 import { NAV_LINKS, type NavLink as NavLinkType } from '../../constants/navigation';
 import { FlagText } from '../ui/FlagText';
-import { useState } from 'react';
 import { useScrollToSection } from '../../hooks/useScrollToSection';
 
 // Arrays estáticos fuera del componente para evitar recreación
@@ -52,47 +51,6 @@ const techLinkBaseClass = cn(
   "transform transition-all duration-300 ease-out" // ✅ Transición suave
 );
 
-// ✅ Agregar al inicio del componente Footer, después de las otras variantes:
-
-const letterHoverVariants = {
-  initial: { y: 0 },
-  hover: { y: -2 },
-};
-
-// ✅ Componente para texto con efecto letra por letra
-const AnimatedText: React.FC<{ text: string; className?: string }> = ({ text, className }) => {
-  const [hoveredIndex, setHoveredIndex] = useState<number | null>(null);
-  
-  return (
-    <span className={className}>
-      {text.split('').map((char, index) => (
-        <motion.span
-          key={index}
-          variants={letterHoverVariants}
-          initial="initial"
-          animate={hoveredIndex === index ? "hover" : "initial"}
-          transition={{ 
-            type: "spring", 
-            stiffness: 400, 
-            damping: 15,
-            mass: 0.5
-          }}
-          onMouseEnter={() => setHoveredIndex(index)}
-          onMouseLeave={() => setHoveredIndex(null)}
-          className="inline-block"
-          style={{ 
-            transformOrigin: 'bottom center',
-            // ✅ Mantener espacios normales
-            minWidth: char === ' ' ? '0.25em' : 'auto'
-          }}
-        >
-          {char === ' ' ? '\u00A0' : char} {/* ✅ Espacio no rompible */}
-        </motion.span>
-      ))}
-    </span>
-  );
-};
-
 export const Footer = () => {
   const { t } = useTranslation();
   const currentYear = new Date().getFullYear();
@@ -131,11 +89,6 @@ export const Footer = () => {
       opacity: 1, scale: 1,
       transition: { delay: prefersReducedMotion ? 0 : i * 0.05, type: "spring", stiffness: 200, damping: 12 }
     }),
-  };
-
-  const iconHoverEffect = prefersReducedMotion ? {} : {
-    y: -3, scale: 1.15,
-    transition: { type: 'spring', stiffness: 300, damping: 8 }
   };
 
   return (

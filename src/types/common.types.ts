@@ -1,5 +1,5 @@
-import { type MotionProps, type Variants } from 'framer-motion';
-import { type ComponentPropsWithoutRef, type ReactNode } from 'react';
+import { type Variants } from 'framer-motion';
+import { type ReactNode } from 'react';
 
 // Tipos base para componentes
 export interface BaseComponentProps {
@@ -77,7 +77,7 @@ export interface TerminalLineProps {
   isLast?: boolean;
   promptUser?: string;
   promptHost?: string;
-  lineRef?: React.RefObject<HTMLParagraphElement>;
+  lineRef?: React.RefObject<HTMLElement | null>; // ✅ TIPO MÁS FLEXIBLE
   delay?: number;
 }
 

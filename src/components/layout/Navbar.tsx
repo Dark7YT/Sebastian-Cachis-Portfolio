@@ -1,9 +1,7 @@
 import { useState, useEffect, useRef, useMemo, useCallback } from 'react';
 import { motion, AnimatePresence, useReducedMotion } from 'framer-motion';
 import { cn } from '../../lib/utils';
-import { useTranslation } from 'react-i18next';
 import { useOnClickOutside } from '../../hooks/useOnClickOutside';
-import { useTheme } from '../../hooks/useTheme';
 import { useScrollToSection } from '../../hooks/useScrollToSection';
 
 import { DesktopNavLinks } from './navbar/DesktopNavLinks';
@@ -20,13 +18,11 @@ export const Navbar = () => {
   const [hamburgerPosition, setHamburgerPosition] = useState({ x: 0, y: 0 });
   const [isClient, setIsClient] = useState(false);
 
-  const { t } = useTranslation();
   const nameRef = useRef<HTMLSpanElement>(null);
   const profileCardRef = useRef<HTMLDivElement>(null);
   const navRef = useRef<HTMLElement>(null);
 
   const prefersReducedMotion = useReducedMotion();
-  const { theme } = useTheme();
   const { scrollTo } = useScrollToSection();
 
   // Duración de animaciones - Optimizado para la nueva secuencia

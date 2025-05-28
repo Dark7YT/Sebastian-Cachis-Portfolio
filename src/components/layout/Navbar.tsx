@@ -1,52 +1,74 @@
 import { useState, useEffect, useRef, useMemo, useCallback } from 'react';
 import { motion, AnimatePresence, useReducedMotion } from 'framer-motion';
 import { cn } from '../../lib/utils';
-import { Button } from '../ui/Button';
 import { useTranslation } from 'react-i18next';
 import { useOnClickOutside } from '../../hooks/useOnClickOutside';
 import { useTheme } from '../../hooks/useTheme';
+import { useScrollToSection } from '../../hooks/useScrollToSection';
 
 import { DesktopNavLinks } from './navbar/DesktopNavLinks';
 import { TopBarControls } from './navbar/TopBarControls';
 import { MobileNavPanel } from './navbar/MobileNavPanel';
 import { ProfileTerminalCard } from './navbar/ProfileTerminalCard';
-import { AnimatedHamburgerIcon } from '../ui/AnimatedHamburgerIcon'; 
+import { FloatingHamburgerButton } from '../ui/FloatingHamburgerButton';
 
 export const Navbar = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [isProfileCardOpen, setIsProfileCardOpen] = useState(false);
   const [activeSection, setActiveSection] = useState<string>('home');
   const [isScrolled, setIsScrolled] = useState(false);
+  const [hamburgerPosition, setHamburgerPosition] = useState({ x: 0, y: 0 });
+  const [isClient, setIsClient] = useState(false);
+
   const { t } = useTranslation();
   const nameRef = useRef<HTMLSpanElement>(null);
   const profileCardRef = useRef<HTMLDivElement>(null);
-  const hamburgerButtonRef = useRef<HTMLButtonElement>(null); 
-  const navRef = useRef<HTMLElement>(null); 
-  const [isClient, setIsClient] = useState(false);
+  const navRef = useRef<HTMLElement>(null);
 
   const prefersReducedMotion = useReducedMotion();
   const { theme } = useTheme();
+  const { scrollTo } = useScrollToSection();
 
-  const nameColors = useMemo(() => ({
-    light: "text-emerald-500",
-    dark: "text-emerald-400",
-    hoverLight: "text-emerald-600",
-    hoverDark: "text-emerald-300"
+  // Duración de animaciones - Optimizado para la nueva secuencia
+  const animationTiming = useMemo(() => ({
+    panelEntry: 0.5,     // Círculo se expande (un poco más lento para suavidad)
+    panelExit: 0.45,     // Círculo se contrae (coordinado con items)
+    hamburger: 0.3,      // Hamburguesa ↔ X
+    items: 0.28          // Items aparecen/desaparecen
   }), []);
 
-  const getNameColor = useCallback(
-    (isHover = false) => {
-      if (theme === 'dark') return isHover ? nameColors.hoverDark : nameColors.dark;
-      return isHover ? nameColors.hoverLight : nameColors.light;
-    },
-    [theme, nameColors]
-  );
+  // Calcular origen del círculo relativo al viewport
+  const circleOrigin = useMemo(() => {
+    if (!isClient || hamburgerPosition.x === 0) {
+      return { x: "92%", y: "25px" };
+    }
 
-  const [currentNameColorClass, setCurrentNameColorClass] = useState(getNameColor());
+    const viewportWidth = window.innerWidth;
+    const originX = (hamburgerPosition.x / viewportWidth) * 100;
+    const originY = hamburgerPosition.y;
 
+    return {
+      x: `${Math.min(Math.max(originX, 5), 95)}%`,
+      y: `${Math.min(Math.max(originY, 10), 100)}px`
+    };
+  }, [hamburgerPosition, isClient]);
+
+  // Efectos
   useEffect(() => {
     setIsClient(true);
   }, []);
+
+  useEffect(() => {
+    if (isMenuOpen) {
+      document.body.style.overflow = 'hidden';
+    } else {
+      document.body.style.overflow = '';
+    }
+    
+    return () => {
+      document.body.style.overflow = '';
+    };
+  }, [isMenuOpen]);
 
   useOnClickOutside([nameRef, profileCardRef], () => {
     if (isProfileCardOpen) setIsProfileCardOpen(false);
@@ -54,8 +76,16 @@ export const Navbar = () => {
 
   const handleNavLinkClick = useCallback((sectionId: string) => {
     setActiveSection(sectionId);
-    setIsProfileCardOpen(false); 
-  }, []);
+    setIsProfileCardOpen(false);
+    
+    // ✅ AGREGAR scroll suave
+    scrollTo(sectionId);
+    
+    // ✅ CERRAR menú móvil si está abierto
+    if (isMenuOpen) {
+      setIsMenuOpen(false);
+    }
+  }, [scrollTo, isMenuOpen]);
 
   useEffect(() => {
     const handleScroll = () => {
@@ -79,139 +109,119 @@ export const Navbar = () => {
     return () => sections.forEach(section => observer.unobserve(section));
   }, []);
 
-  useEffect(() => {
-    setCurrentNameColorClass(getNameColor());
-  }, [theme, getNameColor]);
+  const handleMenuToggle = useCallback(() => {
+    setIsMenuOpen(prev => !prev);
+    setIsProfileCardOpen(false);
+  }, []);
 
-  useEffect(() => {
-    if (isMenuOpen) {
-      document.body.style.overflow = 'hidden';
-    } else {
-      document.body.style.overflow = '';
-    }
-    return () => { 
-      document.body.style.overflow = '';
-    };
-  }, [isMenuOpen]);
+  const handleMenuClose = useCallback(() => {
+    setIsMenuOpen(false);
+  }, []);
 
-  const menuButtonLabel = isMenuOpen ? t('navbar_close_menu') : t('navbar_open_menu');
-  
-  const mobilePanelAnimationDuration = 0.4; 
-  const mobilePanelExitDuration = 0.3; 
-
-  const [circleOrigin, setCircleOrigin] = useState({ x: "92%", y: "25px" }); // Valores por defecto ajustables
-
-  useEffect(() => {
-    if (hamburgerButtonRef.current && navRef.current && isClient && isMenuOpen) { // Calcular solo cuando se abre
-      const navRect = navRef.current.getBoundingClientRect();
-      const btnRect = hamburgerButtonRef.current.getBoundingClientRect();
-
-      const btnCenterXViewport = btnRect.left + btnRect.width / 2;
-      
-      const panelOriginX = btnCenterXViewport - navRect.left;
-    
-      const panelWidthApproximation = window.innerWidth; 
-
-      setCircleOrigin({
-        x: `${(panelOriginX / panelWidthApproximation) * 100}%`,
-        y: `25px`
-      });
-    } else if (!isClient) {
-        setCircleOrigin({ x: "92%", y: "25px" });
-    }
-  }, [isClient, isMenuOpen]);
+  const handleHamburgerPositionCalculated = useCallback((position: { x: number; y: number }) => {
+    setHamburgerPosition(position);
+  }, []);
 
   return (
-    <motion.nav
-      ref={navRef} 
-      className={cn(
-        "fixed top-0 left-0 right-0 z-50 w-full",
-        isScrolled || isMenuOpen || isProfileCardOpen
-          ? "bg-slate-100/90 dark:bg-neutral-950/90 backdrop-blur-lg shadow-md"
-          : "bg-transparent",
-        "transition-colors duration-300 ease-in-out"
-      )}
-    >
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="flex items-center justify-between h-16 md:h-20">
-          <div className="flex-shrink-0 relative">
-            <motion.span
-              ref={nameRef}
-              onClick={() => setIsProfileCardOpen(prev => !prev)}
-              onHoverStart={() => {
-                if (!prefersReducedMotion) setCurrentNameColorClass(getNameColor(true));
-              }}
-              onHoverEnd={() => {
-                setCurrentNameColorClass(getNameColor());
-              }}
-              whileTap={{ scale: prefersReducedMotion ? 1 : 0.98 }}
-              className={cn(
-                "font-montserrat font-extrabold",
-                currentNameColorClass,
-                "text-xl sm:text-2xl",
-                "cursor-pointer select-none transition-colors duration-200 ease-out"
-              )}
-            >
-              Sebastian Cachis
-            </motion.span>
-            <div ref={profileCardRef}>
-              <AnimatePresence>
-                {isProfileCardOpen && <ProfileTerminalCard isOpen={isProfileCardOpen} />}
-              </AnimatePresence>
-            </div>
-          </div>
-
-          <div className="hidden md:flex items-center">
-            <DesktopNavLinks
-              activeSection={activeSection}
-              onNavLinkClick={handleNavLinkClick}
-            />
-          </div>
-
-          <div className="flex items-center space-x-2 sm:space-x-3 md:space-x-4">
-            <div className="flex">
-              <TopBarControls />
-            </div>
-            <div className="md:hidden">
-              <Button
-                ref={hamburgerButtonRef} 
-                variant="icon"
-                size="icon"
-                onClick={() => {
-                  setIsMenuOpen(!isMenuOpen);
-                  setIsProfileCardOpen(false);
+    <>
+      {/* Navbar Principal - Z-index normal */}
+      <motion.nav
+        ref={navRef}
+        className={cn(
+          "fixed top-0 left-0 right-0 z-navbar w-full",
+          
+          // Estados del fondo con Tailwind v4.1
+          isScrolled || isMenuOpen || isProfileCardOpen ? [
+            "bg-primary/90 backdrop-blur-lg shadow-md" // Clase semántica
+          ] : "bg-transparent",
+          
+          // Transición suave usando nuestra utilidad
+          "transition-theme-ultra" // ✅ CAMBIAR a transición ultra suave
+        )}
+      >
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="flex items-center justify-between h-16 md:h-20">
+            {/* Logo/Nombre con transiciones */}
+            <div className="flex-shrink-0 relative">
+              <motion.span
+                ref={nameRef}
+                onClick={() => setIsProfileCardOpen(prev => !prev)}
+                whileHover={{ 
+                  scale: prefersReducedMotion ? 1 : 1.05, // ✅ Verificar preferencias
+                  transition: { 
+                    type: "spring", 
+                    stiffness: 400, 
+                    damping: 20,
+                    duration: 0.2
+                  }
                 }}
-                aria-label={menuButtonLabel}
-                title={menuButtonLabel}
-                className="text-slate-700 dark:text-neutral-300 hover:text-emerald-500 dark:hover:text-emerald-400"
+                whileTap={{ 
+                  scale: prefersReducedMotion ? 1 : 0.98 // ✅ Efecto al hacer clic
+                }}
+                className={cn(
+                  "font-montserrat font-extrabold text-xl sm:text-2xl",
+                  "cursor-pointer select-none inline-block", // ✅ AGREGAR inline-block
+                  "text-accent-600 dark:text-accent-400", // Color fijo
+                  "transform-gpu" // ✅ OPTIMIZACIÓN para GPU
+                )}
+                style={{
+                  transformOrigin: "center center" // ✅ ASEGURAR origen de transformación
+                }}
               >
-                <AnimatedHamburgerIcon 
-                  isOpen={isMenuOpen}
-                  transitionDuration={isMenuOpen ? mobilePanelAnimationDuration : mobilePanelExitDuration} 
-                  className="h-5 w-5" 
+                Sebastian Cachis
+              </motion.span>
+              
+              {/* Profile card */}
+              <div ref={profileCardRef}>
+                <AnimatePresence>
+                  {isProfileCardOpen && <ProfileTerminalCard isOpen={isProfileCardOpen} />}
+                </AnimatePresence>
+              </div>
+            </div>
+
+            {/* Navegación Desktop */}
+            <div className="hidden md:flex items-center">
+              <DesktopNavLinks
+                activeSection={activeSection}
+                onNavLinkClick={handleNavLinkClick}
+              />
+            </div>
+
+            {/* Controles - perfectamente alineados */}
+            <div className="flex items-center space-x-2 sm:space-x-4 md:space-x-4">
+              {/* Controles de tema e idioma */}
+              <TopBarControls />
+              
+              {/* Botón Hamburguesa - Con más separación hacia la izquierda */}
+              <div className="md:hidden ml-2 sm:ml-3">
+                <FloatingHamburgerButton
+                  isMenuOpen={isMenuOpen}
+                  onToggle={handleMenuToggle}
+                  onPositionCalculated={handleHamburgerPositionCalculated}
+                  animationDuration={animationTiming.hamburger}
                 />
-              </Button>
+              </div>
             </div>
           </div>
         </div>
-      </div>
+      </motion.nav>
 
+      {/* Panel Móvil con Revelación Circular - POR DEBAJO DE LA HAMBURGUESA */}
       <AnimatePresence mode="wait">
         {isMenuOpen && (
           <MobileNavPanel
             activeSection={activeSection}
             onNavLinkClick={(sectionId) => {
               handleNavLinkClick(sectionId);
-              setIsMenuOpen(false); 
+              handleMenuClose();
             }}
-            closeMenu={() => setIsMenuOpen(false)}
-            animationDuration={mobilePanelAnimationDuration}
-            exitAnimationDuration={mobilePanelExitDuration}
-            circleOriginX={circleOrigin.x} 
-            circleOriginY={circleOrigin.y} 
+            closeMenu={handleMenuClose}
+            circleOrigin={circleOrigin}
+            animationTiming={animationTiming}
+            hamburgerPosition={hamburgerPosition}
           />
         )}
       </AnimatePresence>
-    </motion.nav>
+    </>
   );
 };

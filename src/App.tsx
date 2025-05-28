@@ -20,36 +20,38 @@ function App() {
         </p>
       </div>
     }>
-      <DynamicTitleUpdater titleKey="portfolio_title" />
-      <Navbar />
-      
-      <main>
-        {/* Placeholder Sections - Reemplazar con tus componentes de sección reales */}
-        <section id="home" className="min-h-screen bg-slate-50 dark:bg-neutral-950 pt-20 flex items-center justify-center">
-          <h1 className="text-5xl font-montserrat font-bold">Inicio</h1>
-        </section>
-        <section id="about" className="min-h-screen bg-white dark:bg-neutral-900 pt-20 flex items-center justify-center">
-          <h1 className="text-5xl font-montserrat font-bold">Sobre Mí</h1>
-        </section>
-        <section id="projects" className="min-h-screen bg-slate-50 dark:bg-neutral-950 pt-20 flex items-center justify-center">
-          <h1 className="text-5xl font-montserrat font-bold">Proyectos</h1>
-        </section>
-        <section id="skills" className="min-h-screen bg-white dark:bg-neutral-900 pt-20 flex items-center justify-center">
-          <h1 className="text-5xl font-montserrat font-bold">Habilidades</h1>
-        </section>
-        <section id="experience" className="min-h-screen bg-slate-50 dark:bg-neutral-950 pt-20 flex items-center justify-center">
-          <h1 className="text-5xl font-montserrat font-bold">Experiencia</h1>
-        </section>
-        <section id="education" className="min-h-screen bg-white dark:bg-neutral-900 pt-20 flex items-center justify-center">
-          <h1 className="text-5xl font-montserrat font-bold">Educación</h1>
-        </section>
-        <section id="contact" className="min-h-screen bg-slate-50 dark:bg-neutral-950 pt-20 flex items-center justify-center">
-          <h1 className="text-5xl font-montserrat font-bold">Contacto</h1>
-        </section>
-      </main>
+      <div className="min-h-screen bg-primary text-primary transition-theme-ultra">
+        <DynamicTitleUpdater titleKey="portfolio_title" />
+        <Navbar />
         
-      <Footer />
-      <ScrollToTopButton />
+        <main>
+          {/* Placeholder Sections - Reemplazar con tus componentes de sección reales */}
+          <section id="home" className="min-h-screen bg-slate-50 dark:bg-neutral-950 pt-20 flex items-center justify-center">
+            <h1 className="text-5xl font-montserrat font-bold">Inicio</h1>
+          </section>
+          <section id="about" className="min-h-screen bg-white dark:bg-neutral-900 pt-20 flex items-center justify-center">
+            <h1 className="text-5xl font-montserrat font-bold">Sobre Mí</h1>
+          </section>
+          <section id="projects" className="min-h-screen bg-slate-50 dark:bg-neutral-950 pt-20 flex items-center justify-center">
+            <h1 className="text-5xl font-montserrat font-bold">Proyectos</h1>
+          </section>
+          <section id="skills" className="min-h-screen bg-white dark:bg-neutral-900 pt-20 flex items-center justify-center">
+            <h1 className="text-5xl font-montserrat font-bold">Habilidades</h1>
+          </section>
+          <section id="experience" className="min-h-screen bg-slate-50 dark:bg-neutral-950 pt-20 flex items-center justify-center">
+            <h1 className="text-5xl font-montserrat font-bold">Experiencia</h1>
+          </section>
+          <section id="education" className="min-h-screen bg-white dark:bg-neutral-900 pt-20 flex items-center justify-center">
+            <h1 className="text-5xl font-montserrat font-bold">Educación</h1>
+          </section>
+          <section id="contact" className="min-h-screen bg-slate-50 dark:bg-neutral-950 pt-20 flex items-center justify-center">
+            <h1 className="text-5xl font-montserrat font-bold">Contacto</h1>
+          </section>
+        </main>
+          
+        <Footer />
+        <ScrollToTopButton />
+      </div>
     </ErrorBoundary>
   );
 }

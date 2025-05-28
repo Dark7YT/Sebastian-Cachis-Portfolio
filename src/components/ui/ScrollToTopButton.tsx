@@ -77,7 +77,7 @@ export const ScrollToTopButton = () => {
           initial="hidden"
           animate="visible"
           exit="exitEpic"
-          className="fixed bottom-6 right-6 z-50 sm:bottom-8 sm:right-8"
+          className="fixed bottom-6 right-6 z-scroll-top sm:bottom-8 sm:right-8" // Usando variable z-index
         >
           <Button
             variant="secondary"
@@ -85,7 +85,7 @@ export const ScrollToTopButton = () => {
             onClick={handleClick}
             aria-label={t('footer_scroll_top')}
             title={t('footer_scroll_top')}
-            className="p-3 shadow-xl bg-slate-100/70 dark:bg-neutral-800/70 hover:bg-slate-200/90 dark:hover:bg-neutral-700/90 backdrop-blur-md rounded-lg text-slate-700 dark:text-neutral-200"
+            className="p-3 shadow-xl bg-secondary/70 hover:bg-secondary/90 backdrop-blur-md rounded-lg text-primary transition-smooth" // Usando clase de transición
           >
             <ArrowUp className="h-5 w-5 sm:h-6 sm:w-6" />
           </Button>

@@ -9,19 +9,37 @@
   "navbar_contact": "Contact",
   "navbar_open_menu": "Open menu",
   "navbar_close_menu": "Close menu",
+  
   "terminal_name": "Name",
   "terminal_career": "Career",
   "terminal_software_engineer": "Software Engineering",
   "terminal_age": "Age",
   "terminal_years_old": "years old",
-
   "terminal_location": "Location",
   "terminal_city_country": "Lima, Peru",
   "terminal_status": "Status",
   "terminal_availability": "Currently working",
   "terminal_interests": "Interests",
   "terminal_tech_art_music": "Technology, Anime, Music",
-
+  
+  "terminal_last_login": "Last login",
+  "terminal_on": "on",
+  "terminal_console": "console",
+  "terminal_terminal_title": "sebastian@portfolio — zsh",
+  "terminal_terminal_title_mobile": "sebastian@portfolio",
+  "terminal_prompt_user": "sebastian",
+  "terminal_prompt_host": "portfolio",
+  
+  "terminal_cmd_who": "whoami",
+  "terminal_cmd_role": "cat ~/.career",
+  "terminal_cmd_age": "age",
+  "terminal_cmd_location": "pwd",
+  
+  "terminal_output_name": "Sebastian Cachis",
+  "terminal_output_role": "Software Engineering",
+  "terminal_output_age_suffix": "years old",
+  "terminal_output_location": "Lima, Peru",
+  
   "footer_rights_reserved": "All rights reserved.",
   "footer_built_with": "Made in",
   "footer_by": "by",
@@ -31,15 +49,13 @@
   "footer_email_aria": "Send an email to Sebastian Cachis",
   "footer_twitter_aria": "Sebastian Cachis's Twitter/X profile",
   "footer_scroll_top": "Scroll to top",
-
   "footer_quick_links": "Quick Links",
   "footer_technologies_used": "Technologies Used",
   "footer_bio_placeholder": "Software Engineering student, aspiring full-stack developer.",
-
   "footer_nav_home": "Go to Home",
   "footer_nav_about": "Go to About Me",
   "footer_nav_projects": "Go to Projects",
-
+  
   "error_boundary_oops": "Oops! Something went wrong.",
   "error_boundary_message": "Please try reloading the page. If the problem persists, contact support.",
   "error_boundary_title": "Unexpected Error"

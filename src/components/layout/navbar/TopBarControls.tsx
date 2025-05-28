@@ -73,7 +73,7 @@ export const TopBarControls = () => {
           onClick={toggleTheme} 
           aria-label={themeButtonLabel} 
           title={themeButtonLabel}
-          className="relative overflow-hidden flex items-center justify-center text-slate-700 dark:text-neutral-300 w-8 h-8 sm:w-9 sm:h-9"
+          className="relative overflow-hidden flex items-center justify-center text-primary w-8 h-8 sm:w-9 sm:h-9 transition-colors-only hover:text-accent" // CAMBIADO a transition-colors-only
         >
           <AnimatePresence mode="wait" initial={false} custom={themeChangeDirection}>
             {theme === 'light' ? (

@@ -2,38 +2,74 @@ import React, { type ButtonHTMLAttributes } from 'react';
 import { cn } from '../../lib/utils';
 
 export interface ButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
-  variant?: 'primary' | 'secondary' | 'ghost' | 'icon' | 'destructive' | 'link';
+  variant?: 'primary' | 'secondary' | 'ghost' | 'icon' | 'destructive' | 'link' | 'outline';
   size?: 'sm' | 'md' | 'lg' | 'icon';
-  asChild?: boolean;
 }
 
 const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
   ({ className, variant = 'primary', size = 'md', children, ...props }, ref) => {
-    const baseClasses =
-      'inline-flex items-center justify-center rounded-md text-sm font-medium ring-offset-background transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50';
+    
+    // Clases base para todos los botones
+    const baseClasses = cn(
+      "inline-flex items-center justify-center rounded-md text-sm font-medium",
+      "transition-smooth", // Usando nuestra clase personalizada
+      "focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-offset-2",
+      "focus-visible:ring-accent/50 focus-visible:ring-offset-white dark:focus-visible:ring-offset-neutral-950",
+      "disabled:pointer-events-none disabled:opacity-50"
+    );
 
+    // Variantes usando las nuevas clases semánticas
     const variantClasses = {
-      primary: 'bg-sky-600 text-primary-foreground hover:bg-sky-600/90 dark:bg-sky-500 dark:hover:bg-sky-500/90 text-white',
-      secondary: 'bg-slate-200 text-secondary-foreground hover:bg-slate-200/80 dark:bg-neutral-700 dark:text-neutral-100 dark:hover:bg-neutral-700/80',
-      ghost: 'hover:bg-slate-100 hover:text-accent-foreground dark:hover:bg-neutral-800 dark:hover:text-neutral-100',
-      icon: 'hover:bg-slate-100 hover:text-accent-foreground dark:hover:bg-neutral-800 dark:hover:text-neutral-100', // Variante para botones solo con icono
-      destructive: 'bg-red-600 text-destructive-foreground hover:bg-red-600/90 dark:bg-red-700 dark:hover:bg-red-700/90 text-white',
-      link: 'text-primary underline-offset-4 hover:underline dark:text-sky-400',
+      primary: cn(
+        "bg-accent text-white",
+        "hover:bg-accent-hover",
+        "shadow-sm"
+      ),
+      secondary: cn(
+        "bg-tertiary text-primary border border-default",
+        "hover:bg-secondary hover:text-primary",
+        "shadow-sm"
+      ),
+      outline: cn(
+        "border border-accent text-accent bg-transparent",
+        "hover:bg-accent hover:text-white",
+        "shadow-sm"
+      ),
+      ghost: cn(
+        "text-primary bg-transparent",
+        "hover:bg-tertiary hover:text-accent"
+      ),
+      icon: cn(
+        "text-primary bg-transparent",
+        "hover:bg-tertiary hover:text-accent",
+        "rounded-lg" // Un poco más redondeado para iconos
+      ),
+      destructive: cn(
+        "bg-red-600 text-white",
+        "hover:bg-red-700 dark:bg-red-700 dark:hover:bg-red-800",
+        "shadow-sm"
+      ),
+      link: cn(
+        "text-accent bg-transparent p-0 h-auto",
+        "hover:text-accent-hover hover:underline",
+        "underline-offset-4"
+      )
     };
 
+    // Tamaños
     const sizeClasses = {
-      sm: 'h-9 px-3',
-      md: 'h-10 px-4 py-2',
-      lg: 'h-11 px-8 text-base',
-      icon: 'h-10 w-10',
+      sm: "h-8 px-3 text-xs",
+      md: "h-10 px-4 py-2",
+      lg: "h-12 px-6 text-base",
+      icon: "h-10 w-10 p-0"
     };
 
     return (
       <button
         className={cn(
           baseClasses,
-          variantClasses[variant || 'primary'], 
-          sizeClasses[size || 'md'],
+          variantClasses[variant],
+          sizeClasses[size],
           className
         )}
         ref={ref}
@@ -44,6 +80,7 @@ const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
     );
   }
 );
+
 Button.displayName = 'Button';
 
 export { Button };

@@ -4,6 +4,8 @@ import { Github, Linkedin, Mail, Twitter } from 'lucide-react';
 import { cn } from '../../lib/utils';
 import { NAV_LINKS, type NavLink as NavLinkType } from '../../constants/navigation';
 import { FlagText } from '../ui/FlagText';
+import { useState } from 'react';
+import { useScrollToSection } from '../../hooks/useScrollToSection';
 
 // Arrays estáticos fuera del componente para evitar recreación
 const socialLinks = [
@@ -13,42 +15,101 @@ const socialLinks = [
   { name: 'Email', href: 'mailto:sebastianjae21@gmail.com', icon: Mail, ariaLabelKey: 'footer_email_aria' },
 ];
 
+// ✅ TECNOLOGÍAS SIN HOVER ROJO - mantienen sus gradientes originales
 const portfolioTechStack = [
   {
     name: 'React',
     href: 'https://react.dev/',
-    className: 'bg-gradient-to-br from-sky-400 to-sky-600 hover:from-sky-500 hover:to-sky-700 text-white'
+    className: 'bg-gradient-to-br from-sky-400 to-sky-600 hover:from-sky-500 hover:to-sky-700 text-white hover:shadow-lg hover:shadow-sky-500/30'
   },
   {
     name: 'TypeScript',
     href: 'https://www.typescriptlang.org/docs/',
-    className: 'bg-gradient-to-br from-blue-500 to-blue-700 hover:from-blue-600 hover:to-blue-800 text-white'
+    className: 'bg-gradient-to-br from-blue-500 to-blue-700 hover:from-blue-600 hover:to-blue-800 text-white hover:shadow-lg hover:shadow-blue-500/30'
   },
   {
     name: 'Tailwind CSS',
     href: 'https://tailwindcss.com/docs',
-    className: 'bg-gradient-to-br from-cyan-400 to-cyan-600 hover:from-cyan-500 hover:to-cyan-700 text-white'
+    className: 'bg-gradient-to-br from-cyan-400 to-cyan-600 hover:from-cyan-500 hover:to-cyan-700 text-white hover:shadow-lg hover:shadow-cyan-500/30'
   },
   {
     name: 'Vite',
     href: 'https://vitejs.dev/guide/',
-    className: 'bg-gradient-to-br from-purple-500 via-pink-500 to-orange-400 hover:from-purple-600 hover:via-pink-600 hover:to-orange-500 text-white'
+    className: 'bg-gradient-to-br from-purple-500 via-pink-500 to-orange-400 hover:from-purple-600 hover:via-pink-600 hover:to-orange-500 text-white hover:shadow-lg hover:shadow-purple-500/30'
   },
   {
     name: 'Framer Motion',
     href: 'https://www.framer.com/motion/',
-    className: 'bg-gradient-to-br from-pink-500 via-purple-600 to-fuchsia-600 hover:from-pink-600 hover:via-purple-700 hover:to-fuchsia-700 text-white'
+    className: 'bg-gradient-to-br from-pink-500 via-purple-600 to-fuchsia-600 hover:from-pink-600 hover:via-purple-700 hover:to-fuchsia-700 text-white hover:shadow-lg hover:shadow-pink-500/30'
   }
 ];
 
-// Clases comunes para enlaces de stack
-const techLinkBaseClass =
-  "text-xs font-medium px-3 py-1.5 rounded-full transition-transform duration-150 ease-out !text-white";
+// ✅ CLASES BASE MEJORADAS para tecnologías
+const techLinkBaseClass = cn(
+  "text-xs font-medium px-3 py-1.5 rounded-full transition-smooth !text-white",
+  "hover:scale-105", // ✅ Solo escalado sutil
+  "active:scale-95", // ✅ Efecto al hacer clic
+  "transform transition-all duration-300 ease-out" // ✅ Transición suave
+);
+
+// ✅ Agregar al inicio del componente Footer, después de las otras variantes:
+
+const letterHoverVariants = {
+  initial: { y: 0 },
+  hover: { y: -2 },
+};
+
+// ✅ Componente para texto con efecto letra por letra
+const AnimatedText: React.FC<{ text: string; className?: string }> = ({ text, className }) => {
+  const [hoveredIndex, setHoveredIndex] = useState<number | null>(null);
+  
+  return (
+    <span className={className}>
+      {text.split('').map((char, index) => (
+        <motion.span
+          key={index}
+          variants={letterHoverVariants}
+          initial="initial"
+          animate={hoveredIndex === index ? "hover" : "initial"}
+          transition={{ 
+            type: "spring", 
+            stiffness: 400, 
+            damping: 15,
+            mass: 0.5
+          }}
+          onMouseEnter={() => setHoveredIndex(index)}
+          onMouseLeave={() => setHoveredIndex(null)}
+          className="inline-block"
+          style={{ 
+            transformOrigin: 'bottom center',
+            // ✅ Mantener espacios normales
+            minWidth: char === ' ' ? '0.25em' : 'auto'
+          }}
+        >
+          {char === ' ' ? '\u00A0' : char} {/* ✅ Espacio no rompible */}
+        </motion.span>
+      ))}
+    </span>
+  );
+};
 
 export const Footer = () => {
   const { t } = useTranslation();
   const currentYear = new Date().getFullYear();
   const prefersReducedMotion = useReducedMotion();
+  
+  // ✅ AGREGAR hook de scroll suave
+  const { scrollTo } = useScrollToSection({
+    duration: 1000, // ✅ Scroll más lento desde el footer
+    easing: 'ease-out'
+  });
+
+  // ✅ FUNCIÓN para manejar clicks en enlaces rápidos
+  const handleQuickLinkClick = (e: React.MouseEvent<HTMLAnchorElement>, href: string) => {
+    e.preventDefault();
+    const sectionId = href.replace('#', '');
+    scrollTo(sectionId);
+  };
 
   // Variantes de animación
   const footerVariants = {
@@ -85,21 +146,25 @@ export const Footer = () => {
       viewport={{ once: true, amount: 0.1 }}
       className={cn(
         "py-12 md:py-16 px-4 sm:px-6 lg:px-8",
-        "bg-slate-100 dark:bg-neutral-950",
-        "border-t border-slate-200 dark:border-neutral-800",
-        "text-slate-700 dark:text-neutral-400 text-sm"
+        "bg-tertiary",
+        "border-t border-default",
+        "text-secondary text-sm",
+        "transition-theme-ultra" // ✅ CAMBIAR a transición ultra suave
       )}
     >
       <div className="max-w-6xl mx-auto">
         <div className="grid grid-cols-1 md:grid-cols-[2fr_1fr_1.5fr] lg:grid-cols-[2.5fr_1fr_1.5fr] gap-8 md:gap-10 lg:gap-12 mb-10 md:mb-12 text-left">
+          
           {/* Bio y redes */}
           <motion.div variants={columnContentVariants} className="space-y-4 md:pr-6 lg:pr-8">
-            <h2 className="text-xl font-montserrat font-bold text-slate-800 dark:text-neutral-100">
+            {/* ✅ NOMBRE CON HOVER AGREGADO */}
+            <h2 className="text-xl font-montserrat font-bold text-primary hover:text-red-600 dark:hover:text-red-400 transition-smooth cursor-pointer">
               Sebastian Cachis
             </h2>
-            <p className="text-sm leading-relaxed text-slate-600 dark:text-neutral-300">
+            <p className="text-sm leading-relaxed text-secondary">
               {t('footer_bio_placeholder')}
             </p>
+            {/* Redes sociales */}
             <div className="flex space-x-4 pt-2">
               {socialLinks.map((link, index) => (
                 <motion.a
@@ -112,11 +177,50 @@ export const Footer = () => {
                   variants={iconItemVariants}
                   initial="hidden"
                   animate="visible"
-                  whileHover={iconHoverEffect}
+                  whileHover={{
+                    scale: 1.1,
+                    rotate: 3,
+                    transition: { 
+                      type: "spring", 
+                      stiffness: 300, 
+                      damping: 15 
+                    }
+                  }}
                   whileTap={{ scale: 0.9 }}
-                  className="text-slate-500 dark:text-neutral-400 hover:text-sky-500 dark:hover:text-sky-400 transition-colors"
+                  className={cn(
+                    "relative overflow-hidden", // ✅ CLAVE: relative + overflow-hidden
+                    "text-muted transition-smooth p-2 rounded-full",
+                    "group" // ✅ Para efectos de grupo
+                  )}
                 >
-                  <link.icon className="w-6 h-6" />
+                  {/* ✅ FONDO HOVER QUE SIGUE LA TRANSFORMACIÓN */}
+                  <div 
+                    className={cn(
+                      "absolute inset-0 rounded-full",
+                      "bg-red-50 dark:bg-red-950/30",
+                      "opacity-0 group-hover:opacity-100",
+                      "transition-all duration-300 ease-out",
+                      "shadow-lg shadow-red-500/20 group-hover:shadow-red-500/30"
+                    )}
+                  />
+                  
+                  {/* ✅ BORDE HOVER QUE SIGUE LA TRANSFORMACIÓN */}
+                  <div 
+                    className={cn(
+                      "absolute inset-0 rounded-full border",
+                      "border-transparent group-hover:border-red-200 dark:group-hover:border-red-800/50",
+                      "transition-all duration-300 ease-out"
+                    )}
+                  />
+                  
+                  {/* ✅ ICONO CON TRANSFORMACIÓN DE COLOR */}
+                  <link.icon 
+                    className={cn(
+                      "w-6 h-6 relative z-10",
+                      "text-muted group-hover:text-red-600 dark:group-hover:text-red-400",
+                      "transition-colors duration-300 ease-out"
+                    )}
+                  />
                 </motion.a>
               ))}
             </div>
@@ -124,25 +228,67 @@ export const Footer = () => {
 
           {/* Enlaces rápidos */}
           <motion.div variants={columnContentVariants} className="space-y-4">
-            <h3 className="text-base font-montserrat font-semibold text-slate-800 dark:text-neutral-200">
+            {/* ✅ TÍTULO CON HOVER AGREGADO */}
+            <h3 className="text-base font-montserrat font-semibold text-primary hover:text-red-600 dark:hover:text-red-400 transition-smooth cursor-pointer">
               {t('footer_quick_links')}
             </h3>
+            {/* ✅ ENLACES RÁPIDOS con hover rojo mejorado */}
             <div className="flex flex-wrap gap-3 md:gap-4">
               {NAV_LINKS.map((link: NavLinkType, index) => (
                 <motion.a
                   key={link.id}
                   href={link.href}
+                  onClick={(e) => handleQuickLinkClick(e, link.href)}
                   aria-label={t(link.labelKey)}
                   title={t(link.labelKey)}
                   custom={index + socialLinks.length}
                   variants={iconItemVariants}
                   initial="hidden"
                   animate="visible"
-                  whileHover={iconHoverEffect}
+                  whileHover={{
+                    scale: 1.1,
+                    rotate: -2,
+                    transition: { 
+                      type: "spring", 
+                      stiffness: 300, 
+                      damping: 15 
+                    }
+                  }}
                   whileTap={{ scale: 0.9 }}
-                  className="p-2 rounded-full text-slate-500 dark:text-neutral-400 hover:bg-slate-200 dark:hover:bg-neutral-800 hover:text-sky-500 dark:hover:text-sky-400 transition-colors"
+                  className={cn(
+                    "relative overflow-hidden", // ✅ CLAVE: relative + overflow-hidden
+                    "p-2.5 rounded-full transition-smooth",
+                    "group" // ✅ Para efectos de grupo
+                  )}
                 >
-                  <link.icon className="w-5 h-5" />
+                  {/* ✅ FONDO HOVER QUE SIGUE LA TRANSFORMACIÓN */}
+                  <div 
+                    className={cn(
+                      "absolute inset-0 rounded-full",
+                      "bg-red-50 dark:bg-red-950/30",
+                      "opacity-0 group-hover:opacity-100",
+                      "transition-all duration-300 ease-out",
+                      "shadow-lg shadow-red-500/20 group-hover:shadow-red-500/30"
+                    )}
+                  />
+                  
+                  {/* ✅ BORDE HOVER QUE SIGUE LA TRANSFORMACIÓN */}
+                  <div 
+                    className={cn(
+                      "absolute inset-0 rounded-full border",
+                      "border-transparent group-hover:border-red-200 dark:group-hover:border-red-800/50",
+                      "transition-all duration-300 ease-out"
+                    )}
+                  />
+                  
+                  {/* ✅ ICONO CON TRANSFORMACIÓN DE COLOR */}
+                  <link.icon 
+                    className={cn(
+                      "w-5 h-5 relative z-10",
+                      "text-muted group-hover:text-red-600 dark:group-hover:text-red-400",
+                      "transition-colors duration-300 ease-out"
+                    )}
+                  />
                 </motion.a>
               ))}
             </div>
@@ -150,7 +296,8 @@ export const Footer = () => {
 
           {/* Stack tecnológico */}
           <motion.div variants={columnContentVariants} className="space-y-4">
-            <h3 className="text-base font-montserrat font-semibold text-slate-800 dark:text-neutral-200">
+            {/* ✅ TÍTULO CON HOVER AGREGADO */}
+            <h3 className="text-base font-montserrat font-semibold text-primary hover:text-red-600 dark:hover:text-red-400 transition-smooth cursor-pointer">
               {t('footer_technologies_used')}
             </h3>
             <div className="flex flex-wrap gap-2">
@@ -175,17 +322,106 @@ export const Footer = () => {
         </div>
 
         {/* Pie de página */}
-        <motion.div variants={columnContentVariants} className="pt-8 border-t border-slate-200/80 dark:border-neutral-700/80">
+        <motion.div variants={columnContentVariants} className="pt-8 border-t border-subtle">
           <div className="flex flex-col sm:flex-row justify-between items-center text-xs">
-            <p className="text-slate-600 dark:text-neutral-600 mb-2 sm:mb-0">
-              © {currentYear} Sebastian Cachis. {t('footer_rights_reserved')}
-            </p>
-            <p className="text-slate-600 dark:text-neutral-600 flex items-center gap-1">
-              {t('footer_built_with')}
-              <span className="text-red-600 animate-pulse">
-                <FlagText countryCode="PE" flagSize="sm" textClassName="text-neutral-200" />
-              </span>
-            </p>
+            {/* ✅ COPYRIGHT CON ELEVACIÓN SUTIL */}
+            <motion.p 
+              className="text-muted hover:text-red-600 dark:hover:text-red-400 transition-all duration-500 mb-2 sm:mb-0 cursor-pointer"
+              whileHover={{ 
+                scale: 1.02,
+                y: -1,
+                transition: { 
+                  type: "spring", 
+                  stiffness: 300, 
+                  damping: 20,
+                  staggerChildren: 0.02,
+                  delayChildren: 0.1
+                }
+              }}
+            >
+              <motion.span className="inline-block">
+                {`© ${currentYear} Sebastian Cachis. ${t('footer_rights_reserved')}`.split('').map((char, index) => (
+                  <motion.span
+                    key={index}
+                    className="inline-block"
+                    variants={{
+                      hover: { 
+                        y: -2,
+                        transition: { 
+                          type: "spring", 
+                          stiffness: 400, 
+                          damping: 15,
+                          delay: index * 0.01 // ✅ Retraso progresivo
+                        }
+                      }
+                    }}
+                    style={{ minWidth: char === ' ' ? '0.25em' : 'auto' }}
+                  >
+                    {char === ' ' ? '\u00A0' : char}
+                  </motion.span>
+                ))}
+              </motion.span>
+            </motion.p>
+            
+            {/* ✅ "HECHO EN PE" CON ELEVACIÓN SUTIL */}
+            <motion.p 
+              className="text-muted hover:text-red-600 dark:hover:text-red-400 transition-all duration-500 cursor-pointer flex items-center gap-1"
+              whileHover={{ 
+                scale: 1.02,
+                y: -1,
+                transition: { 
+                  type: "spring", 
+                  stiffness: 300, 
+                  damping: 20,
+                  staggerChildren: 0.02,
+                  delayChildren: 0.1
+                }
+              }}
+            >
+              {/* ✅ TEXTO "HECHO EN" CON EFECTO LETRA POR LETRA */}
+              <motion.span className="inline-block">
+                {t('footer_built_with').split('').map((char, index) => (
+                  <motion.span
+                    key={index}
+                    className="inline-block"
+                    variants={{
+                      hover: { 
+                        y: -2,
+                        transition: { 
+                          type: "spring", 
+                          stiffness: 400, 
+                          damping: 15,
+                          delay: index * 0.01 // ✅ Retraso progresivo
+                        }
+                      }
+                    }}
+                    style={{ minWidth: char === ' ' ? '0.25em' : 'auto' }}
+                  >
+                    {char === ' ' ? '\u00A0' : char}
+                  </motion.span>
+                ))}
+              </motion.span>
+              
+              {/* ✅ BANDERA CON EFECTO ESPECIAL */}
+              <motion.span 
+                className="text-accent"
+                variants={{
+                  hover: { 
+                    y: -3,
+                    scale: 1.1,
+                    rotate: [0, -5, 5, 0],
+                    transition: { 
+                      type: "spring", 
+                      stiffness: 400, 
+                      damping: 15,
+                      delay: t('footer_built_with').length * 0.01 + 0.05 // ✅ Después del texto
+                    }
+                  }
+                }}
+              >
+                <FlagText countryCode="PE" flagSize="sm" textClassName="text-accent" />
+              </motion.span>
+            </motion.p>
           </div>
         </motion.div>
       </div>

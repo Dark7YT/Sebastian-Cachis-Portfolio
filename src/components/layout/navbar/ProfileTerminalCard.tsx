@@ -1,275 +1,527 @@
-import React, { useEffect, useState, useRef } from 'react';
-import { motion, type Variants } from 'framer-motion';
+import React, { useEffect, useState, useRef, useMemo, useCallback } from 'react';
+import { motion } from 'framer-motion';
 import { useTranslation } from 'react-i18next';
 import { useAge } from '../../../hooks/useAge';
 import { useTypedText } from '../../../hooks/useTypedText';
+import { useResponsive } from '../../../hooks/useResponsive';
 import { cn } from '../../../lib/utils';
+import { COMPONENT_VARIANTS } from '../../../config/animation.variants';
+import type { TerminalCommand, TerminalLineProps } from '../../../types/common.types';
 
+// ✅ INTERFACES OPTIMIZADAS
 interface ProfileTerminalCardProps {
   isOpen: boolean;
 }
 
-const TerminalLine: React.FC<{
-  text: string;
-  isLast?: boolean;
-  startTyping: boolean;
-  onFinished?: () => void;
-  lineRef?: React.RefObject<HTMLParagraphElement | null>;
-}> = ({ text, isLast = false, startTyping, onFinished, lineRef }) => {
-  const prompt = "$ ";
-  const textToType = startTyping ? text : '';
-  const typedContent = useTypedText(textToType, 50, 0);
+interface TerminalDimensions {
+  width: number;
+  height: number;
+}
 
-  const cursorIsVisibleAfterTyping = isLast && typedContent.length === text.length;
+interface TerminalState {
+  currentLineIndex: number;
+  isClient: boolean;
+  showContent: boolean;
+  headerRendered: boolean;
+}
+
+// ✅ CONSTANTES CENTRALIZADAS
+const TERMINAL_CONSTANTS = {
+  DELAYS: {
+    INITIAL_OPEN: 200,        // ✅ REDUCIDO de 600ms
+    HEADER_TO_COMMAND: 150,   // ✅ REDUCIDO de 200ms  
+    BETWEEN_LINES: 80,        // ✅ REDUCIDO de 100ms
+  },
+  DIMENSIONS: {
+    TITLE_BAR_HEIGHT: 36,
+    SINGLE_LINE_HEIGHT: 20,
+    LINE_SPACING: 6,
+    PADDING_TOP: 20,
+    PADDING_BOTTOM: 28,
+    MIN_WIDTH_MOBILE: 300,
+    MAX_WIDTH_DESKTOP: 420,
+    MIN_WIDTH_DESKTOP: 380,
+    TRIANGLE_OFFSET: "32px",
+    LEFT_OFFSET: "1rem",
+  },
+  TYPING_SPEEDS: {
+    HEADER: 25,    // ✅ MÁS RÁPIDO para header (era 60)
+    COMMAND: 35,   // ✅ VELOCIDAD MEDIA para comandos
+    OUTPUT: 45,    // ✅ MÁS LENTO para outputs (más realista)
+  },
+  TIMING_DELAYS: {
+    HEADER: 200,   // ✅ REDUCIDO
+    COMMAND: 150,  // ✅ REDUCIDO  
+    OUTPUT: 100,   // ✅ REDUCIDO
+  },
+} as const;
+
+// ✅ COMPONENTE TERMINAL LINE OPTIMIZADO
+const TerminalLine: React.FC<TerminalLineProps> = React.memo(({ 
+  text, 
+  isLast = false, 
+  startTyping, 
+  onFinished, 
+  lineRef, 
+  isCommand = true, 
+  isOutput = false,
+  isHeader = false,
+  promptUser = "sebastian",
+  promptHost = "portfolio",
+  delay = 0
+}) => {
+  const prompt = isCommand ? `➜ ${promptUser}@${promptHost} ` : "";
+  const promptSymbol = isCommand ? "$ " : "";
+  
+  // ✅ VELOCIDADES CENTRALIZADAS
+  const typingSpeed = useMemo(() => {
+    if (isHeader) return TERMINAL_CONSTANTS.TYPING_SPEEDS.HEADER;
+    if (isCommand) return TERMINAL_CONSTANTS.TYPING_SPEEDS.COMMAND;
+    return TERMINAL_CONSTANTS.TYPING_SPEEDS.OUTPUT;
+  }, [isHeader, isCommand]);
+
+  // ✅ USAR HOOK DE TIPEO INMEDIATAMENTE
+  const typedContent = useTypedText(startTyping ? text : '', typingSpeed, delay);
+  
+  // ✅ ESTADO DEL CURSOR
+  const isTypingComplete = typedContent.length === text.length && text.length > 0;
+  const cursorIsVisibleAfterTyping = isLast && isTypingComplete;
   const showCursor = startTyping && (typedContent.length < text.length || cursorIsVisibleAfterTyping);
 
+  // ✅ CALLBACK OPTIMIZADO
+  const handleFinished = useCallback(() => {
+    if (!onFinished || !isTypingComplete) return;
+
+    const delayTime = isHeader 
+      ? TERMINAL_CONSTANTS.TIMING_DELAYS.HEADER
+      : isCommand 
+        ? TERMINAL_CONSTANTS.TIMING_DELAYS.COMMAND 
+        : TERMINAL_CONSTANTS.TIMING_DELAYS.OUTPUT;
+
+    const timeout = setTimeout(onFinished, delayTime);
+    return () => clearTimeout(timeout);
+  }, [onFinished, isHeader, isCommand, isTypingComplete]);
+
   useEffect(() => {
-    if (startTyping && typedContent.length === text.length && onFinished) {
-      onFinished();
+    if (isTypingComplete) {
+      return handleFinished();
     }
-  }, [typedContent, text, startTyping, onFinished]);
+  }, [isTypingComplete, handleFinished]);
 
-  const lineVariants: Variants = {
-    hidden: { opacity: 0, y: 10 },
-    visible: { opacity: 1, y: 0, transition: { duration: 0.3, ease: "easeOut" } }
-  };
+  // ✅ COMPONENTES ESPECIALIZADOS CON TIPEO
 
+  if (isHeader) {
+    return (
+      <div
+        ref={lineRef as React.RefObject<HTMLDivElement>}
+        className="font-mono text-xs text-neutral-500 mb-2 border-b border-neutral-800/30 pb-1.5"
+      >
+        <span>{typedContent}</span>
+        {showCursor && <TerminalCursor />}
+      </div>
+    );
+  }
+
+  if (isOutput) {
+    return (
+      <p
+        ref={lineRef as React.RefObject<HTMLParagraphElement>}
+        className="font-mono text-sm leading-relaxed whitespace-nowrap pl-4 font-medium"
+      >
+        <span className="text-accent-200 font-semibold">{typedContent}</span>
+        {showCursor && <TerminalCursor variant="accent" />}
+      </p>
+    );
+  }
+
+  // ✅ COMANDO CON TIPEO
   return (
-    <motion.p
+    <p
       ref={lineRef as React.RefObject<HTMLParagraphElement>}
-      variants={lineVariants}
-      className="font-mono text-xs sm:text-sm leading-normal sm:leading-relaxed whitespace-nowrap"
+      className="font-mono text-xs leading-relaxed whitespace-nowrap"
     >
-      {startTyping && <span className="text-emerald-400 select-none">{prompt}</span>}
-      <span className="text-neutral-200">{typedContent}</span>
-      {showCursor && <span className="bg-emerald-400 w-[0.5em] h-[1em] inline-block animate-caret-blink ml-0.5 align-middle"></span>}
-    </motion.p>
+      {startTyping && (
+        <>
+          <span className="text-accent-400 select-none font-bold">{prompt}</span>
+          <span className="text-accent-500 select-none">{promptSymbol}</span>
+        </>
+      )}
+      <span className="text-neutral-300">{typedContent}</span>
+      {showCursor && <TerminalCursor variant="accent" />}
+    </p>
   );
+});
+
+TerminalLine.displayName = 'TerminalLine';
+
+// ✅ COMPONENTE CURSOR REUTILIZABLE
+const TerminalCursor: React.FC<{ variant?: 'default' | 'accent' }> = React.memo(({ variant = 'default' }) => (
+  <span 
+    className={cn(
+      "w-[0.4em] h-[0.9em] inline-block animate-caret-blink ml-0.5 align-middle",
+      variant === 'accent' ? "bg-accent-400" : "bg-neutral-400"
+    )}
+  />
+));
+
+TerminalCursor.displayName = 'TerminalCursor';
+
+// ✅ COMPONENTE CONTROLES MAC OPTIMIZADO
+const MacWindowControls: React.FC = React.memo(() => (
+  <div className="flex space-x-1.5">
+    {[
+      { color: '#ff5f57', hoverColor: '#ff4136' },
+      { color: '#ffbd2e', hoverColor: '#ff9500' },
+      { color: '#28ca42', hoverColor: '#00d100' },
+    ].map((control, index) => (
+      <motion.div
+        key={index}
+        className="w-3 h-3 rounded-full cursor-pointer"
+        style={{ backgroundColor: control.color }}
+        whileHover={{ 
+          backgroundColor: control.hoverColor,
+          scale: 1.1,
+          transition: { duration: 0.2 }
+        }}
+        whileTap={{ scale: 0.95 }}
+      />
+    ))}
+  </div>
+));
+
+MacWindowControls.displayName = 'MacWindowControls';
+
+// ✅ HOOK PERSONALIZADO PARA DIMENSIONES DEL TERMINAL
+const useTerminalDimensions = (
+  terminalCommands: TerminalCommand[], 
+  promptUser: string, 
+  promptHost: string,
+  isSpanish: boolean
+): TerminalDimensions => {
+  const { isMobile, width } = useResponsive();
+
+  return useMemo(() => {
+    const longestCommand = Math.max(
+      ...terminalCommands.map(cmd => 
+        `➜ ${promptUser}@${promptHost} $ ${cmd.command}`.length
+      )
+    );
+    const longestOutput = Math.max(
+      ...terminalCommands.map(cmd => `    ${cmd.output}`.length)
+    );
+    const maxContentLength = Math.max(longestCommand, longestOutput);
+    
+    let baseWidth = maxContentLength * 7;
+    
+    if (isMobile) {
+      baseWidth = Math.min(baseWidth + 48, width - 32);
+      baseWidth = Math.max(baseWidth, TERMINAL_CONSTANTS.DIMENSIONS.MIN_WIDTH_MOBILE);
+    } else {
+      baseWidth = Math.min(baseWidth + 64, TERMINAL_CONSTANTS.DIMENSIONS.MAX_WIDTH_DESKTOP);
+      baseWidth = Math.max(baseWidth, TERMINAL_CONSTANTS.DIMENSIONS.MIN_WIDTH_DESKTOP);
+    }
+    
+    if (isSpanish) {
+      baseWidth = Math.ceil(baseWidth * 1.1);
+    }
+
+    // ✅ CÁLCULO DE ALTURA OPTIMIZADO
+    const totalLines = 1 + (terminalCommands.length * 2) + 1;
+    const contentHeight = 
+      (totalLines * TERMINAL_CONSTANTS.DIMENSIONS.SINGLE_LINE_HEIGHT) + 
+      ((totalLines - 1) * TERMINAL_CONSTANTS.DIMENSIONS.LINE_SPACING);
+    
+    const totalHeight = 
+      TERMINAL_CONSTANTS.DIMENSIONS.TITLE_BAR_HEIGHT + 
+      TERMINAL_CONSTANTS.DIMENSIONS.PADDING_TOP + 
+      contentHeight + 
+      TERMINAL_CONSTANTS.DIMENSIONS.PADDING_BOTTOM;
+
+    return { width: baseWidth, height: totalHeight };
+  }, [terminalCommands, promptUser, promptHost, isSpanish, isMobile, width]);
 };
 
-const MacWindowControls: React.FC = () => (
-  <div className="flex space-x-1.5 sm:space-x-2">
-    <div className="w-2.5 h-2.5 sm:w-3 sm:h-3 rounded-full bg-red-500"></div>
-    <div className="w-2.5 h-2.5 sm:w-3 sm:h-3 rounded-full bg-yellow-400"></div>
-    <div className="w-2.5 h-2.5 sm:w-3 sm:h-3 rounded-full bg-green-500"></div>
-  </div>
-);
+// ✅ HOOK PERSONALIZADO PARA ESTADO DEL TERMINAL
+const useTerminalState = (isOpen: boolean) => {
+  const [state, setState] = useState<TerminalState>({
+    currentLineIndex: -1,
+    isClient: false,
+    showContent: false,
+    headerRendered: false,
+  });
 
+  useEffect(() => {
+    setState(prev => ({ ...prev, isClient: true }));
+  }, []);
+
+  useEffect(() => {
+    if (isOpen) {
+      setState({
+        currentLineIndex: -1,
+        isClient: true,
+        showContent: false,
+        headerRendered: false,
+      });
+      
+      // ✅ INICIO MÁS RÁPIDO PARA QUE EL TIPEO SE VEA INMEDIATAMENTE
+      const timeout = setTimeout(() => {
+        setState(prev => ({
+          ...prev,
+          showContent: true,
+          currentLineIndex: 0, // ✅ COMENZAR INMEDIATAMENTE CON HEADER
+        }));
+      }, 200); // ✅ REDUCIDO DE 600ms a 200ms
+
+      return () => clearTimeout(timeout);
+    } else {
+      setState(prev => ({
+        ...prev,
+        currentLineIndex: -1,
+        showContent: false,
+        headerRendered: false,
+      }));
+    }
+  }, [isOpen]);
+
+  const updateLineIndex = useCallback((updater: (prev: number) => number) => {
+    setState(prev => ({
+      ...prev,
+      currentLineIndex: updater(prev.currentLineIndex),
+    }));
+  }, []);
+
+  const setHeaderRendered = useCallback((rendered: boolean) => {
+    setState(prev => ({ ...prev, headerRendered: rendered }));
+  }, []);
+
+  return {
+    ...state,
+    updateLineIndex,
+    setHeaderRendered,
+  };
+};
+
+// ✅ COMPONENTE PRINCIPAL OPTIMIZADO
 export const ProfileTerminalCard: React.FC<ProfileTerminalCardProps> = ({ isOpen }) => {
-  const { t } = useTranslation();
+  const { t, i18n } = useTranslation();
+  const { isMobile } = useResponsive();
   const age = useAge('2004-10-07');
-  const [currentLineIndex, setCurrentLineIndex] = useState(-1);
-  const [cardDimensions, setCardDimensions] = useState<{ width: number; height: number }>({ width: 0, height: 0 });
-  const [isClient, setIsClient] = useState(false);
-
+  
+  const terminalState = useTerminalState(isOpen);
   const linesContainerRef = useRef<HTMLDivElement>(null);
   const titleBarRef = useRef<HTMLDivElement>(null);
   const firstLineRef = useRef<HTMLParagraphElement | null>(null);
 
-  const linesData = [
-    { labelKey: "terminal_name", value: "Sebastian Cachis" },
-    { labelKey: "terminal_career", value: t('terminal_software_engineer') },
-    { labelKey: "terminal_age", value: age, valueSuffixKey: "terminal_years_old" },
-    { labelKey: "terminal_location", value: t('terminal_city_country') },
-    { labelKey: "terminal_status", value: t('terminal_availability') },
-    { labelKey: "terminal_interests", value: t('terminal_tech_art_music') },
-  ];
+  // ✅ COMANDOS MEMOIZADOS
+  const terminalCommands = useMemo((): TerminalCommand[] => [
+    { 
+      command: t('terminal_cmd_who'),
+      output: t('terminal_output_name')
+    },
+    { 
+      command: t('terminal_cmd_role'),
+      output: t('terminal_output_role')
+    },
+    { 
+      command: t('terminal_cmd_age'),
+      output: `${age} ${t('terminal_output_age_suffix')}`
+    },
+    { 
+      command: t('terminal_cmd_location'),
+      output: t('terminal_output_location')
+    }
+  ], [t, age]);
 
-  useEffect(() => {
-    setIsClient(true);
-  }, []);
+  const promptUser = t('terminal_prompt_user');
+  const promptHost = t('terminal_prompt_host');
+  const isSpanish = i18n.language === 'es';
 
-  useEffect(() => {
-    if (isOpen && linesContainerRef.current && titleBarRef.current && firstLineRef.current && isClient) {
-      let currentCalculatedWidth = 0;
-      const tempSpan = document.createElement('span');
-      const pElementStyle = getComputedStyle(firstLineRef.current);
-      tempSpan.style.fontFamily = pElementStyle.fontFamily;
-      tempSpan.style.fontSize = pElementStyle.fontSize;
-      tempSpan.style.visibility = 'hidden';
-      tempSpan.style.position = 'absolute';
-      tempSpan.style.whiteSpace = 'nowrap';
-      document.body.appendChild(tempSpan);
+  // ✅ DIMENSIONES CALCULADAS
+  const cardDimensions = useTerminalDimensions(
+    terminalCommands, 
+    promptUser, 
+    promptHost, 
+    isSpanish
+  );
 
-      linesData.forEach(line => {
-        const fullText = `$ ${t(line.labelKey)}: ${line.value}${line.valueSuffixKey ? ` ${t(line.valueSuffixKey)}` : ''}`;
-        tempSpan.textContent = fullText;
-        if (tempSpan.offsetWidth > currentCalculatedWidth) {
-          currentCalculatedWidth = tempSpan.offsetWidth;
-        }
+  // ✅ HANDLERS OPTIMIZADOS
+  const handleLineFinished = useCallback(() => {
+    const timeout = setTimeout(() => {
+      terminalState.updateLineIndex(prevIndex => {
+        const maxIndex = 1 + (terminalCommands.length * 2);
+        return prevIndex < maxIndex ? prevIndex + 1 : prevIndex;
       });
-      document.body.removeChild(tempSpan);
+    }, TERMINAL_CONSTANTS.DELAYS.BETWEEN_LINES);
 
-      const linesContainerStyle = getComputedStyle(linesContainerRef.current);
-      const paddingLeft = parseFloat(linesContainerStyle.paddingLeft);
-      const paddingRight = parseFloat(linesContainerStyle.paddingRight);
-      const horizontalPadding = paddingLeft + paddingRight;
+    return () => clearTimeout(timeout);
+  }, [terminalState.updateLineIndex, terminalCommands.length]);
 
-      const additionalPaddingForLooks = window.innerWidth < 768 ? 10 : 15;
-      const baseWidth = currentCalculatedWidth + horizontalPadding + additionalPaddingForLooks;
+  const handleHeaderFinished = useCallback(() => {
+    terminalState.setHeaderRendered(true);
+    const timeout = setTimeout(() => {
+      terminalState.updateLineIndex(() => 1);
+    }, TERMINAL_CONSTANTS.DELAYS.HEADER_TO_COMMAND);
 
-      const additionalWidthFactor = window.innerWidth < 768 ? 1.03 : 1.05;
-      const minAdditionalWidth = window.innerWidth < 768 ? 10 : 20;
+    return () => clearTimeout(timeout);
+  }, [terminalState.setHeaderRendered, terminalState.updateLineIndex]);
 
-      let newCalculatedWidth = Math.max(baseWidth * additionalWidthFactor, baseWidth + minAdditionalWidth);
-      const overallMinWidth = window.innerWidth < 768 ? 260 : 300;
-      newCalculatedWidth = Math.max(newCalculatedWidth, overallMinWidth);
+  // ✅ DATOS CALCULADOS
+  const terminalTitle = isMobile 
+    ? t('terminal_terminal_title_mobile')
+    : t('terminal_terminal_title');
 
-      const extraWidthForScroll = 30;
-      let finalWidth = newCalculatedWidth + extraWidthForScroll;
-
-      const titleBarHeight = titleBarRef.current.offsetHeight;
-      const singleLineHeight = firstLineRef.current.offsetHeight;
-
-      const linesContainerPaddingTop = parseFloat(linesContainerStyle.paddingTop);
-      const linesContainerPaddingBottom = parseFloat(linesContainerStyle.paddingBottom);
-
-      const gapBetweenLines = window.innerWidth < 768 ?
-        (linesData.length > 1 ? 4 : 0) :
-        (linesData.length > 1 ? 6 : 0);
-
-      const linesContentNaturalHeight = (linesData.length * singleLineHeight) +
-        (linesData.length > 1 ? (linesData.length - 1) * gapBetweenLines : 0);
-
-      let totalCalculatedHeight = titleBarHeight + linesContainerPaddingTop + linesContentNaturalHeight + linesContainerPaddingBottom;
-      const extraHeightPadding = 10;
-      totalCalculatedHeight += extraHeightPadding;
-
-      setCardDimensions({ width: finalWidth, height: totalCalculatedHeight });
-    }
-  }, [isOpen, linesData, t, isClient]);
-
-  useEffect(() => {
-    if (isOpen) {
-      setCurrentLineIndex(0);
-    } else {
-      setCurrentLineIndex(-1);
-    }
-  }, [isOpen]);
-
-  const handleLineFinished = () => {
-    setCurrentLineIndex(prevIndex => prevIndex < linesData.length - 1 ? prevIndex + 1 : prevIndex);
-  };
-
-  const terminalCardOverallVariants: Variants = {
-    hidden: {
-      opacity: 0,
-      scale: 0.95,
-      y: -20,
-    },
-    visible: {
-      opacity: 1,
-      scale: 1,
-      y: 0,
-      transition: {
-        duration: 0.3,
-        ease: "easeOut",
-        when: "beforeChildren",
-        staggerChildren: 0.07,
-      },
-    },
-    exit: {
-      opacity: 0,
-      scale: 0.95,
-      y: -15,
-      transition: {
-        duration: 0.2,
-        ease: [0.4, 0, 1, 1],
-        when: "afterChildren",
+  const formattedDate = useMemo(() => {
+    const currentDate = new Date();
+    return currentDate.toLocaleDateString(
+      isSpanish ? 'es-ES' : 'en-US', 
+      { 
+        day: 'numeric',
+        month: 'short', 
+        year: 'numeric',
+        hour: '2-digit',
+        minute: '2-digit'
       }
-    }
-  };
+    );
+  }, [isSpanish]);
 
-  const titleBarVariants: Variants = {
-    hidden: { opacity: 0, y: -10 },
-    visible: { opacity: 1, y: 0, transition: { duration: 0.25, ease: "easeOut" } },
-  };
+  const maxLineIndex = 1 + (terminalCommands.length * 2);
+  const allLinesFinished = terminalState.currentLineIndex >= maxLineIndex;
 
-  const linesContainerVariants: Variants = {
-    hidden: { opacity: 0 },
-    visible: { opacity: 1, transition: { duration: 0.2 } },
-  };
-
+  // ✅ RENDER GUARD
   if (!isOpen) return null;
-
-  const terminalTitle = "sebas -- zsh";
-  const leftOffsetValue = "1rem";
-  const triangleRelativeOffset = "25px";
-
-  const parseOffsetToPx = (offset: string): number => {
-    if (!isClient) return 0;
-    const value = parseFloat(offset.match(/(\d*\.?\d+)/)?.[0] || '0');
-    if (offset.includes('rem')) return value * 16;
-    if (offset.includes('px')) return value;
-    return value;
-  };
-  const currentLeftOffsetPx = parseOffsetToPx(leftOffsetValue);
 
   return (
     <motion.div
       key="profile-terminal-card"
-      variants={terminalCardOverallVariants}
+      variants={COMPONENT_VARIANTS.terminalCard}
       initial="hidden"
       animate="visible"
       exit="exit"
       className={cn(
-        "absolute top-full mt-2 md:mt-3 z-20",
-        `left-[${leftOffsetValue}]`,
+        "absolute top-full mt-2 md:mt-3 z-profile-card",
+        `left-[${TERMINAL_CONSTANTS.DIMENSIONS.LEFT_OFFSET}]`,
         "md:right-auto md:w-auto",
-        "bg-neutral-800/95 backdrop-blur-md",
-        "shadow-2xl rounded-lg border border-neutral-700/40",
-        "overflow-hidden origin-top flex flex-col text-neutral-200"
+        "bg-neutral-950/98 backdrop-blur-md",
+        "shadow-2xl rounded-lg border border-neutral-700/50",
+        "overflow-hidden origin-top flex flex-col text-neutral-100",
+        "transition-theme-ultra font-mono",
+        "ring-1 ring-neutral-600/20 shadow-black/50"
       )}
       style={{
-        width: cardDimensions.width > 0 && isClient
-          ? `${Math.min(
-            cardDimensions.width,
-            window.innerWidth - currentLeftOffsetPx - 16
-          )}px`
-          : (isClient ? undefined : 'auto'),
-        height: (isOpen && cardDimensions.height > 0 && isClient) ? `${cardDimensions.height}px` : 'auto',
-        maxHeight: '85vh',
+        width: cardDimensions.width > 0 && terminalState.isClient
+          ? `${Math.min(cardDimensions.width, window.innerWidth - 12)}px`
+          : (terminalState.isClient ? undefined : 'auto'),
+        height: (isOpen && cardDimensions.height > 0 && terminalState.isClient) 
+          ? `${cardDimensions.height}px` 
+          : 'auto',
+        maxHeight: '70vh',
       }}
     >
+      {/* ✅ TRIÁNGULO INDICADOR */}
       <div
-        className="absolute -top-[9px] w-0 h-0"
+        className="absolute -top-[7px] w-0 h-0"
         style={{
-          left: triangleRelativeOffset,
-          borderLeft: '10px solid transparent',
-          borderRight: '10px solid transparent',
-          borderBottom: `10px solid rgb(38 38 38 / 1)`,
+          left: TERMINAL_CONSTANTS.DIMENSIONS.TRIANGLE_OFFSET,
+          borderLeft: '8px solid transparent',
+          borderRight: '8px solid transparent',
+          borderBottom: `8px solid rgb(10 10 10 / 0.98)`,
         }}
       />
-      <motion.div
+      
+      {/* ✅ BARRA DE TÍTULO - SIN ANIMACIÓN */}
+      <div
         ref={titleBarRef}
-        variants={titleBarVariants}
-        className="flex items-center h-8 sm:h-9 px-3 sm:px-4 bg-neutral-700/80 border-b border-neutral-600/50 flex-shrink-0"
+        className={cn(
+          "flex items-center px-3",
+          "h-8 sm:h-9",
+          "bg-neutral-800/95 border-b border-neutral-600/50",
+          "flex-shrink-0"
+        )}
       >
         <MacWindowControls />
-        <div className="flex-grow text-center text-xs sm:text-sm font-mono text-neutral-400 select-none truncate px-2">
+        <div className="flex-grow text-center text-xs font-mono text-neutral-300 select-none truncate px-3">
           {terminalTitle}
         </div>
-        <div className="w-12 sm:w-16 flex-shrink-0"></div>
-      </motion.div>
-      <motion.div
+        <div className="w-8 sm:w-10 flex-shrink-0" />
+      </div>
+      
+      {/* ✅ CONTENIDO DEL TERMINAL - SIN FADE IN */}
+      <div
         ref={linesContainerRef}
-        variants={linesContainerVariants}
-        className="p-2.5 sm:p-3 space-y-1 sm:space-y-1.5 overflow-x-auto overflow-y-hidden flex-grow-0"
+        className={cn(
+          "px-3 py-5",
+          "space-y-1.5",
+          "overflow-x-auto overflow-y-hidden flex-grow-0",
+          "bg-neutral-950/25"
+        )}
       >
-        {linesData.map((line, index) => {
-          const textForLine = `${t(line.labelKey)}: ${line.value}${line.valueSuffixKey ? ` ${t(line.valueSuffixKey)}` : ''}`;
-          return (
-            <TerminalLine
-              key={line.labelKey}
-              lineRef={index === 0 ? firstLineRef : undefined}
-              text={textForLine}
-              isLast={index === linesData.length - 1 && currentLineIndex >= linesData.length - 1}
-              startTyping={currentLineIndex >= index}
-              onFinished={currentLineIndex === index ? handleLineFinished : undefined}
-            />
-          );
-        })}
-      </motion.div>
+        {/* ✅ HEADER DINÁMICO CON TIPEO INMEDIATO */}
+        {terminalState.showContent && terminalState.currentLineIndex >= 0 && !terminalState.headerRendered && (
+          <TerminalLine
+            text={`${t('terminal_last_login')}: ${formattedDate} ${t('terminal_on')} ${t('terminal_console')}`}
+            startTyping={true}
+            onFinished={handleHeaderFinished}
+            isHeader={true}
+            delay={0} // ✅ SIN DELAY para iniciar inmediatamente
+          />
+        )}
+
+        {/* ✅ HEADER ESTÁTICO (YA RENDERIZADO) */}
+        {terminalState.showContent && terminalState.headerRendered && (
+          <div className="font-mono text-xs text-neutral-500 mb-2 border-b border-neutral-800/30 pb-1.5">
+            {`${t('terminal_last_login')}: ${formattedDate} ${t('terminal_on')} ${t('terminal_console')}`}
+          </div>
+        )}
+
+        {/* ✅ COMANDOS Y OUTPUTS CON TIPEO SECUENCIAL */}
+        {terminalState.showContent && terminalState.headerRendered && 
+          terminalCommands.map((cmd, index) => {
+            const commandIndex = 1 + (index * 2);
+            const outputIndex = commandIndex + 1;
+            
+            return (
+              <React.Fragment key={`command-${index}`}>
+                {/* Comando con tipeo */}
+                {terminalState.currentLineIndex >= commandIndex && (
+                  <TerminalLine
+                    lineRef={index === 0 ? firstLineRef : undefined}
+                    text={cmd.command}
+                    startTyping={true} // ✅ SIEMPRE INICIAR TIPEO
+                    onFinished={terminalState.currentLineIndex === commandIndex ? handleLineFinished : undefined}
+                    isCommand={true}
+                    promptUser={promptUser}
+                    promptHost={promptHost}
+                    delay={0} // ✅ SIN DELAY ADICIONAL
+                  />
+                )}
+                
+                {/* Output con tipeo */}
+                {terminalState.currentLineIndex >= outputIndex && (
+                  <TerminalLine
+                    text={cmd.output}
+                    startTyping={true} // ✅ SIEMPRE INICIAR TIPEO
+                    onFinished={terminalState.currentLineIndex === outputIndex ? handleLineFinished : undefined}
+                    isOutput={true}
+                    delay={0} // ✅ SIN DELAY ADICIONAL
+                  />
+                )}
+              </React.Fragment>
+            );
+          })
+        }
+        
+        {/* ✅ PROMPT FINAL CON TIPEO DE CURSOR */}
+        {terminalState.showContent && terminalState.headerRendered && allLinesFinished && (
+          <div className="font-mono text-xs">
+            <span className="text-accent-400 font-bold">➜ </span>
+            <span className="text-accent-400">{promptUser}@{promptHost}</span>
+            <span className="text-neutral-500 mx-1">:</span>
+            <span className="text-accent-300">~</span>
+            <span className="text-accent-500 ml-2">$</span>
+            <span className="text-accent-400 ml-2 animate-caret-blink">▋</span>
+          </div>
+        )}
+      </div>
     </motion.div>
   );
 };

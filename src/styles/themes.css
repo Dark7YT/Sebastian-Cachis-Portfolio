@@ -1,0 +1,71 @@
+/*
+ * Semantic color tokens — switch via [data-theme]
+ * Añadir un nuevo tema = agregar un bloque aquí, sin tocar componentes.
+ */
+
+@layer base {
+  :root,
+  [data-theme='dark'] {
+    color-scheme: dark;
+
+    --color-bg-base: #0a0a0b;
+    --color-bg-surface: #111114;
+    --color-bg-elevated: #18181c;
+    --color-bg-inverse: #fafaf7;
+
+    --color-border: #26262c;
+    --color-border-strong: #3a3a42;
+
+    --color-text-primary: #f5f5f7;
+    --color-text-secondary: #a0a0a8;
+    --color-text-muted: #6b6b74;
+    --color-text-inverse: #15151a;
+
+    --color-accent: #f5b841;
+    --color-accent-hover: #ffd27a;
+    --color-accent-muted: rgb(245 184 65 / 0.14);
+    --color-accent-contrast: #15151a;
+
+    --color-success: #4ade80;
+    --color-danger: #f87171;
+
+    --gradient-hero:
+      radial-gradient(ellipse 80% 50% at 50% 0%, rgb(245 184 65 / 0.12), transparent 70%),
+      radial-gradient(ellipse 60% 40% at 100% 100%, rgb(245 184 65 / 0.06), transparent 70%);
+
+    --shadow-card: 0 1px 2px rgb(0 0 0 / 0.6), 0 8px 24px rgb(0 0 0 / 0.4);
+    --shadow-accent: 0 0 0 1px rgb(245 184 65 / 0.3), 0 8px 32px rgb(245 184 65 / 0.12);
+  }
+
+  [data-theme='light'] {
+    color-scheme: light;
+
+    --color-bg-base: #fafaf7;
+    --color-bg-surface: #ffffff;
+    --color-bg-elevated: #f2f0ea;
+    --color-bg-inverse: #0a0a0b;
+
+    --color-border: #e6e2d8;
+    --color-border-strong: #c8c2b2;
+
+    --color-text-primary: #15151a;
+    --color-text-secondary: #4a4a55;
+    --color-text-muted: #7a7a85;
+    --color-text-inverse: #f5f5f7;
+
+    --color-accent: #b8860b;
+    --color-accent-hover: #9c720a;
+    --color-accent-muted: rgb(184 134 11 / 0.12);
+    --color-accent-contrast: #fafaf7;
+
+    --color-success: #16a34a;
+    --color-danger: #dc2626;
+
+    --gradient-hero:
+      radial-gradient(ellipse 80% 50% at 50% 0%, rgb(184 134 11 / 0.08), transparent 70%),
+      radial-gradient(ellipse 60% 40% at 100% 100%, rgb(184 134 11 / 0.04), transparent 70%);
+
+    --shadow-card: 0 1px 2px rgb(15 15 26 / 0.06), 0 8px 24px rgb(15 15 26 / 0.08);
+    --shadow-accent: 0 0 0 1px rgb(184 134 11 / 0.25), 0 8px 32px rgb(184 134 11 / 0.1);
+  }
+}

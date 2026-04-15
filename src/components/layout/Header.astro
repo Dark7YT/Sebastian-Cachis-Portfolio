@@ -21,7 +21,7 @@ const sections: { id: string; label: string }[] = [
 ---
 
 <header
-  class="sticky top-0 z-40 border-b border-[color:var(--color-border)] bg-[color:var(--color-base)]/80 backdrop-blur-md"
+  class="sticky top-0 z-40 border-b border-[color:var(--color-border)] bg-[color:var(--color-bg-base)]/80 backdrop-blur-md"
   data-site-header
 >
   <div class="container-wide flex h-16 items-center justify-between gap-4 sm:h-20">
@@ -52,7 +52,7 @@ const sections: { id: string; label: string }[] = [
       <button
         type="button"
         data-mobile-menu-open
-        class="inline-flex size-10 items-center justify-center rounded-full border border-[color:var(--color-border)] bg-[color:var(--color-surface)] text-[color:var(--color-text-secondary)] transition hover:border-[color:var(--color-accent)] hover:text-[color:var(--color-accent)] lg:hidden focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[color:var(--color-accent)]"
+        class="inline-flex size-10 items-center justify-center rounded-full border border-[color:var(--color-border)] bg-[color:var(--color-bg-surface)] text-[color:var(--color-text-secondary)] transition hover:border-[color:var(--color-accent)] hover:text-[color:var(--color-accent)] lg:hidden focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[color:var(--color-accent)]"
         aria-label={t.nav.menu}
         aria-controls="mobile-nav"
         aria-expanded="false"
@@ -65,7 +65,7 @@ const sections: { id: string; label: string }[] = [
   <div
     id="mobile-nav"
     data-mobile-menu
-    class="fixed inset-0 z-50 hidden bg-[color:var(--color-base)]/95 backdrop-blur-lg lg:hidden"
+    class="fixed inset-0 z-50 hidden bg-[color:var(--color-bg-base)]/95 backdrop-blur-lg lg:hidden"
     aria-hidden="true"
   >
     <div class="container-wide flex h-16 items-center justify-between sm:h-20">

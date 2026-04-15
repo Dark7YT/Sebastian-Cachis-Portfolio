@@ -1,0 +1,13 @@
+---
+interface Props {
+  as?: keyof HTMLElementTagNameMap;
+  wide?: boolean;
+  class?: string;
+}
+const { as: Tag = 'div', wide = false, class: className = '' } = Astro.props;
+const base = wide ? 'container-wide' : 'container-content';
+---
+
+<Tag class={`${base} ${className}`.trim()}>
+  <slot />
+</Tag>

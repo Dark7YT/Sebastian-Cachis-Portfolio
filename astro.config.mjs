@@ -1,6 +1,7 @@
 // @ts-check
 import { defineConfig } from 'astro/config';
 import vercel from '@astrojs/vercel';
+import icon from 'astro-icon';
 import tailwindcss from '@tailwindcss/vite';
 
 // https://astro.build/config
@@ -11,6 +12,59 @@ export default defineConfig({
     webAnalytics: { enabled: false },
     imageService: true,
   }),
+  integrations: [
+    icon({
+      include: {
+        lucide: [
+          'sun',
+          'moon',
+          'monitor',
+          'menu',
+          'x',
+          'languages',
+          'arrow-right',
+          'arrow-up-right',
+          'arrow-down',
+          'mail',
+          'phone',
+          'map-pin',
+          'github',
+          'linkedin',
+          'file-text',
+          'external-link',
+          'check',
+          'sparkles',
+          'zap',
+          'layers',
+          'database',
+          'code-2',
+          'cloud',
+          'lock',
+        ],
+        'simple-icons': [
+          'react',
+          'nextdotjs',
+          'astro',
+          'tailwindcss',
+          'typescript',
+          'javascript',
+          'nodedotjs',
+          'spring',
+          'openjdk',
+          'python',
+          'postgresql',
+          'apachekafka',
+          'rabbitmq',
+          'amazonwebservices',
+          'docker',
+          'git',
+          'github',
+          'linkedin',
+          'resend',
+        ],
+      },
+    }),
+  ],
   i18n: {
     defaultLocale: 'es',
     locales: ['es', 'en'],

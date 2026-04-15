@@ -12,15 +12,19 @@
     "astro": "astro",
     "format": "prettier --write .",
     "format:check": "prettier --check .",
-    "lint": "eslint ."
+    "lint": "eslint .",
+    "check": "astro check"
   },
   "dependencies": {
+    "@astrojs/vercel": "^10.0.4",
     "astro": "^6.1.6"
   },
   "devDependencies": {
+    "@astrojs/check": "^0.9.8",
     "eslint": "^10.2.0",
     "eslint-plugin-astro": "^1.7.0",
     "prettier": "^3.8.3",
-    "prettier-plugin-astro": "^0.14.1"
+    "prettier-plugin-astro": "^0.14.1",
+    "typescript": "^5.9.3"
   }
 }

@@ -3,6 +3,7 @@ export const prerender = true;
 
 import BaseLayout from '@layouts/BaseLayout.astro';
 import Header from '@components/layout/Header.astro';
+import Footer from '@components/layout/Footer.astro';
 import Hero from '@components/sections/Hero.astro';
 import About from '@components/sections/About.astro';
 import Experience from '@components/sections/Experience.astro';
@@ -27,5 +28,6 @@ const path = '/en/';
     <Stack t={t.stack} />
     <Contact t={t.contact} locale={locale} />
   </main>
+  <Footer t={t.footer} />
   <GsapReveal />
 </BaseLayout>

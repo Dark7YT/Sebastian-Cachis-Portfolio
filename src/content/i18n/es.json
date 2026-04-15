@@ -21,14 +21,20 @@
     "ctaContact": "Contactarme"
   },
   "about": {
-    "heading": "Sobre mí",
+    "eyebrow": "Sobre mí",
+    "heading": "Ingeniería de software orientada a producto y arquitectura que escala.",
+    "body": [
+      "Soy Full Stack Jr. con foco en arquitectura de software (DDD, CQRS, microservicios, event-driven) y experiencia trabajando en el sector financiero con Grupo Coril, Alfin Banco y ecomserv.",
+      "En mi día a día combino Java/Spring Boot y Next.js para construir plataformas que tienen que ser confiables, trazables y auditables. Me interesa especialmente el equilibrio entre decisiones técnicas a largo plazo y entregas continuas que mueven el negocio.",
+      "Estudio Ingeniería de Software en UPC, pertenezco al décimo superior y tengo inglés nivel C1. Vivo en Lima, Perú."
+    ],
     "downloadCv": "Descargar CV",
-    "highlights": {
-      "experience": "Años de experiencia",
-      "stack": "Stack principal",
-      "languages": "Idiomas",
-      "location": "Ubicación"
-    }
+    "highlights": [
+      { "label": "Experiencia", "value": "4+ años" },
+      { "label": "Stack principal", "value": "Java · Spring · Next.js" },
+      { "label": "Idiomas", "value": "Español · Inglés C1" },
+      { "label": "Ubicación", "value": "Lima, Perú" }
+    ]
   },
   "experience": {
     "heading": "Experiencia",

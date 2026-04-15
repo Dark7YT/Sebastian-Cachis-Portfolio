@@ -1,4 +1,6 @@
 ---
+export const prerender = true;
+
 import BaseLayout from '@layouts/BaseLayout.astro';
 import Header from '@components/layout/Header.astro';
 import Hero from '@components/sections/Hero.astro';
@@ -6,6 +8,7 @@ import About from '@components/sections/About.astro';
 import Experience from '@components/sections/Experience.astro';
 import Projects from '@components/sections/Projects.astro';
 import Stack from '@components/sections/Stack.astro';
+import Contact from '@components/sections/Contact.astro';
 import GsapReveal from '@components/islands/GsapReveal.astro';
 import { useTranslations } from '@lib/i18n';
 
@@ -22,6 +25,7 @@ const path = '/es/';
     <Experience t={t.experience} locale={locale} />
     <Projects t={t.projects} locale={locale} />
     <Stack t={t.stack} />
+    <Contact t={t.contact} locale={locale} />
   </main>
   <GsapReveal />
 </BaseLayout>

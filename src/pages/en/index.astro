@@ -2,6 +2,7 @@
 import BaseLayout from '@layouts/BaseLayout.astro';
 import Header from '@components/layout/Header.astro';
 import Hero from '@components/sections/Hero.astro';
+import About from '@components/sections/About.astro';
 import { useTranslations } from '@lib/i18n';
 
 const locale = 'en';
@@ -13,5 +14,6 @@ const path = '/en/';
   <Header locale={locale} t={t} path={path} />
   <main>
     <Hero t={t.hero} />
+    <About t={t.about} />
   </main>
 </BaseLayout>

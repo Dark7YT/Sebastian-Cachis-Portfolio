@@ -1,15 +1,46 @@
 ---
-import BaseLayout from '@layouts/BaseLayout.astro';
+/**
+ * Root entry — redirección client-side al locale correcto.
+ * Orden de preferencia:
+ *   1. Cookie `lang` (elección manual del usuario)
+ *   2. localStorage.lang (fallback si cookie se pierde)
+ *   3. navigator.language (auto-detección del navegador)
+ *   4. 'es' (fallback final)
+ *
+ * Se sirve como HTML minimal sin el layout completo (sin fonts ni CSS)
+ * para resolver el redirect en <20ms y evitar flash de contenido.
+ */
+const defaultLocale = 'es';
 ---
 
-<BaseLayout locale="es">
-  <main class="container-content section-padding">
-    <h1 class="text-[length:var(--text-hero)] leading-[var(--text-hero--line-height)]">
-      Sebastian Cachis
-    </h1>
-    <p class="mt-6 max-w-2xl text-lg text-[color:var(--color-text-secondary)]">
-      Desarrollador Full Stack · Next.js &amp; Spring Boot · Arquitectura modular, microservicios y
-      cloud.
-    </p>
-  </main>
-</BaseLayout>
+<!doctype html>
+<html lang={defaultLocale}>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <meta name="robots" content="noindex" />
+    <title>Sebastian Cachis</title>
+    <link rel="alternate" hreflang="es" href="https://sebastian-cachis.vercel.app/es/" />
+    <link rel="alternate" hreflang="en" href="https://sebastian-cachis.vercel.app/en/" />
+    <link rel="alternate" hreflang="x-default" href="https://sebastian-cachis.vercel.app/es/" />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <noscript><meta http-equiv="refresh" content="0;url=/es/" /></noscript>
+    <script is:inline>
+      (function () {
+        try {
+          var cookieMatch = document.cookie.match(/(?:^|;\s*)lang=(es|en)/);
+          var stored = localStorage.getItem('lang');
+          var nav = (navigator.language || navigator.userLanguage || 'es').toLowerCase();
+          var target =
+            (cookieMatch && cookieMatch[1]) ||
+            (stored === 'es' || stored === 'en' ? stored : null) ||
+            (nav.indexOf('es') === 0 ? 'es' : 'en');
+          location.replace('/' + target + '/');
+        } catch (_) {
+          location.replace('/es/');
+        }
+      })();
+    </script>
+  </head>
+  <body></body>
+</html>

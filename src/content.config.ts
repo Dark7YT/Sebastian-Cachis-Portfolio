@@ -30,8 +30,14 @@ const linkSchema = z.object({
   caseStudy: z.string().optional(),
 });
 
+const generateLocalizedId = ({ entry }: { entry: string }) => entry.replace(/\.md$/, '');
+
 const experience = defineCollection({
-  loader: glob({ pattern: '**/*.md', base: './src/content/experience' }),
+  loader: glob({
+    pattern: '**/*.md',
+    base: './src/content/experience',
+    generateId: generateLocalizedId,
+  }),
   schema: z.object({
     locale: localeSchema,
     company: z.string(),
@@ -52,7 +58,11 @@ const experience = defineCollection({
 });
 
 const projects = defineCollection({
-  loader: glob({ pattern: '**/*.md', base: './src/content/projects' }),
+  loader: glob({
+    pattern: '**/*.md',
+    base: './src/content/projects',
+    generateId: generateLocalizedId,
+  }),
   schema: z.object({
     locale: localeSchema,
     slug: z.string(),

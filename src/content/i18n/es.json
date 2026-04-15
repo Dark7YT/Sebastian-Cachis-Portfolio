@@ -1,0 +1,96 @@
+{
+  "meta": {
+    "title": "Sebastian Cachis — Desarrollador Full Stack",
+    "description": "Desarrollador Full Stack especializado en Next.js, Spring Boot y arquitectura de software preparada para escalar."
+  },
+  "nav": {
+    "about": "Sobre mí",
+    "experience": "Experiencia",
+    "projects": "Proyectos",
+    "stack": "Stack",
+    "contact": "Contacto",
+    "menu": "Menú",
+    "close": "Cerrar"
+  },
+  "hero": {
+    "eyebrow": "Desarrollador Full Stack",
+    "name": "Sebastian Cachis",
+    "tagline": "Construyo plataformas financieras con arquitectura preparada para escalar.",
+    "metric": "97.5% de reducción en procesos regulatorios en Alfin Banco.",
+    "ctaProjects": "Ver proyectos",
+    "ctaContact": "Contactarme"
+  },
+  "about": {
+    "heading": "Sobre mí",
+    "downloadCv": "Descargar CV",
+    "highlights": {
+      "experience": "Años de experiencia",
+      "stack": "Stack principal",
+      "languages": "Idiomas",
+      "location": "Ubicación"
+    }
+  },
+  "experience": {
+    "heading": "Experiencia",
+    "present": "Actualidad"
+  },
+  "projects": {
+    "heading": "Proyectos",
+    "viewCase": "Ver caso",
+    "viewLive": "Ver en vivo",
+    "viewCode": "Ver código",
+    "ndaBadge": "Caso de estudio (NDA)"
+  },
+  "stack": {
+    "heading": "Stack técnico",
+    "groups": {
+      "backend": "Backend",
+      "frontend": "Frontend",
+      "architecture": "Arquitectura",
+      "data": "Datos",
+      "messaging": "Mensajería",
+      "cloud": "Cloud & DevOps",
+      "testing": "Testing",
+      "tools": "Herramientas"
+    }
+  },
+  "contact": {
+    "heading": "Contacto",
+    "intro": "¿Un proyecto, una oportunidad o una conversación técnica? Escríbeme.",
+    "form": {
+      "name": "Nombre",
+      "email": "Correo electrónico",
+      "subject": "Asunto",
+      "message": "Mensaje",
+      "submit": "Enviar mensaje",
+      "sending": "Enviando…",
+      "success": "Mensaje enviado. Te responderé pronto.",
+      "error": "No pude enviar el mensaje. Intenta nuevamente."
+    },
+    "direct": {
+      "email": "Correo",
+      "phone": "Teléfono",
+      "location": "Ubicación",
+      "github": "GitHub",
+      "linkedin": "LinkedIn"
+    }
+  },
+  "footer": {
+    "rights": "Todos los derechos reservados",
+    "builtWith": "Construido con Astro",
+    "repo": "Ver repositorio"
+  },
+  "toggles": {
+    "theme": {
+      "label": "Cambiar tema",
+      "dark": "Oscuro",
+      "light": "Claro",
+      "system": "Sistema"
+    },
+    "language": {
+      "label": "Cambiar idioma",
+      "es": "Español",
+      "en": "English"
+    }
+  }
+}

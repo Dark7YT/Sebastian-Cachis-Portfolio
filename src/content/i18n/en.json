@@ -1,0 +1,96 @@
+{
+  "meta": {
+    "title": "Sebastian Cachis — Full Stack Developer",
+    "description": "Full Stack Developer specialized in Next.js, Spring Boot, and scalable software architecture."
+  },
+  "nav": {
+    "about": "About",
+    "experience": "Experience",
+    "projects": "Projects",
+    "stack": "Stack",
+    "contact": "Contact",
+    "menu": "Menu",
+    "close": "Close"
+  },
+  "hero": {
+    "eyebrow": "Full Stack Developer",
+    "name": "Sebastian Cachis",
+    "tagline": "I build financial platforms with architecture ready to scale.",
+    "metric": "97.5% reduction in regulatory processes at Alfin Banco.",
+    "ctaProjects": "View projects",
+    "ctaContact": "Get in touch"
+  },
+  "about": {
+    "heading": "About",
+    "downloadCv": "Download CV",
+    "highlights": {
+      "experience": "Years of experience",
+      "stack": "Primary stack",
+      "languages": "Languages",
+      "location": "Location"
+    }
+  },
+  "experience": {
+    "heading": "Experience",
+    "present": "Present"
+  },
+  "projects": {
+    "heading": "Projects",
+    "viewCase": "View case",
+    "viewLive": "View live",
+    "viewCode": "View code",
+    "ndaBadge": "Case study (NDA)"
+  },
+  "stack": {
+    "heading": "Tech stack",
+    "groups": {
+      "backend": "Backend",
+      "frontend": "Frontend",
+      "architecture": "Architecture",
+      "data": "Data",
+      "messaging": "Messaging",
+      "cloud": "Cloud & DevOps",
+      "testing": "Testing",
+      "tools": "Tools"
+    }
+  },
+  "contact": {
+    "heading": "Contact",
+    "intro": "A project, an opportunity, or a technical conversation? Drop me a line.",
+    "form": {
+      "name": "Name",
+      "email": "Email",
+      "subject": "Subject",
+      "message": "Message",
+      "submit": "Send message",
+      "sending": "Sending…",
+      "success": "Message sent. I'll get back to you soon.",
+      "error": "Couldn't send the message. Please try again."
+    },
+    "direct": {
+      "email": "Email",
+      "phone": "Phone",
+      "location": "Location",
+      "github": "GitHub",
+      "linkedin": "LinkedIn"
+    }
+  },
+  "footer": {
+    "rights": "All rights reserved",
+    "builtWith": "Built with Astro",
+    "repo": "View repository"
+  },
+  "toggles": {
+    "theme": {
+      "label": "Change theme",
+      "dark": "Dark",
+      "light": "Light",
+      "system": "System"
+    },
+    "language": {
+      "label": "Change language",
+      "es": "Español",
+      "en": "English"
+    }
+  }
+}

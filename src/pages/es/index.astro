@@ -1,0 +1,23 @@
+---
+import BaseLayout from '@layouts/BaseLayout.astro';
+import { useTranslations } from '@lib/i18n';
+
+const locale = 'es';
+const t = useTranslations(locale);
+---
+
+<BaseLayout locale={locale} path="/es/">
+  <main class="container-content section-padding">
+    <p class="font-mono text-sm tracking-widest text-[color:var(--color-accent)] uppercase">
+      {t.hero.eyebrow}
+    </p>
+    <h1
+      class="mt-4 text-[length:var(--text-hero)] leading-[var(--text-hero--line-height)] tracking-tight"
+    >
+      {t.hero.name}
+    </h1>
+    <p class="mt-6 max-w-2xl text-lg text-[color:var(--color-text-secondary)]">
+      {t.hero.tagline}
+    </p>
+  </main>
+</BaseLayout>

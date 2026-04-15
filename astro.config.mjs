@@ -11,6 +11,14 @@ export default defineConfig({
     webAnalytics: { enabled: false },
     imageService: true,
   }),
+  i18n: {
+    defaultLocale: 'es',
+    locales: ['es', 'en'],
+    routing: {
+      prefixDefaultLocale: true,
+      redirectToDefaultLocale: false,
+    },
+  },
   vite: {
     plugins: [tailwindcss()],
   },

@@ -21,14 +21,20 @@
     "ctaContact": "Get in touch"
   },
   "about": {
-    "heading": "About",
+    "eyebrow": "About",
+    "heading": "Product-minded software engineering and architecture built to scale.",
+    "body": [
+      "I'm a Junior Full Stack Developer focused on software architecture (DDD, CQRS, microservices, event-driven) with hands-on experience in the financial sector across Grupo Coril, Alfin Banco, and ecomserv.",
+      "Day to day I combine Java/Spring Boot with Next.js to build platforms that must be reliable, traceable, and auditable. I'm especially interested in the balance between long-term technical decisions and continuous delivery that moves the business.",
+      "I'm pursuing a Software Engineering degree at UPC, ranked in the top 10%, and hold a C1 English level. Based in Lima, Peru."
+    ],
     "downloadCv": "Download CV",
-    "highlights": {
-      "experience": "Years of experience",
-      "stack": "Primary stack",
-      "languages": "Languages",
-      "location": "Location"
-    }
+    "highlights": [
+      { "label": "Experience", "value": "4+ years" },
+      { "label": "Primary stack", "value": "Java · Spring · Next.js" },
+      { "label": "Languages", "value": "Spanish · English C1" },
+      { "label": "Location", "value": "Lima, Peru" }
+    ]
   },
   "experience": {
     "heading": "Experience",

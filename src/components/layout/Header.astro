@@ -23,7 +23,6 @@ const sections: { id: string; label: string }[] = [
 <header
   class="sticky top-0 z-40 border-b border-[color:var(--color-border)] bg-[color:var(--color-bg-base)]/80 backdrop-blur-md"
   data-site-header
-  transition:persist
 >
   <div class="container-wide flex h-16 items-center justify-between gap-4 sm:h-20">
     <a
@@ -165,5 +164,6 @@ const sections: { id: string; label: string }[] = [
     });
   }
 
+  document.addEventListener('astro:after-swap', initMobileMenu);
   document.addEventListener('astro:page-load', initMobileMenu);
 </script>

@@ -1,0 +1,66 @@
+---
+// Client-only island: applies ScrollTrigger reveals to [data-reveal]
+// elements and draws the [data-timeline-line] from 0 to 100%.
+---
+
+<script>
+  import { gsap } from 'gsap';
+  import { ScrollTrigger } from 'gsap/ScrollTrigger';
+
+  gsap.registerPlugin(ScrollTrigger);
+
+  const reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+  function init() {
+    if (reduced) {
+      document.querySelectorAll<HTMLElement>('[data-reveal]').forEach((el) => {
+        el.style.opacity = '1';
+        el.style.transform = 'none';
+      });
+      return;
+    }
+
+    document.querySelectorAll<HTMLElement>('[data-reveal]').forEach((el) => {
+      gsap.fromTo(
+        el,
+        { opacity: 0, y: 32 },
+        {
+          opacity: 1,
+          y: 0,
+          duration: 0.9,
+          ease: 'power3.out',
+          scrollTrigger: {
+            trigger: el,
+            start: 'top 85%',
+            once: true,
+          },
+        },
+      );
+    });
+
+    document.querySelectorAll<HTMLElement>('[data-timeline-line]').forEach((line) => {
+      const container = line.closest<HTMLElement>('[data-timeline]') ?? line.parentElement;
+      if (!container) return;
+      gsap.fromTo(
+        line,
+        { scaleY: 0, transformOrigin: 'top' },
+        {
+          scaleY: 1,
+          ease: 'none',
+          scrollTrigger: {
+            trigger: container,
+            start: 'top 70%',
+            end: 'bottom 80%',
+            scrub: 0.6,
+          },
+        },
+      );
+    });
+  }
+
+  init();
+  document.addEventListener('astro:page-load', () => {
+    ScrollTrigger.getAll().forEach((t) => t.kill());
+    init();
+  });
+</script>

@@ -38,17 +38,25 @@
   },
   "experience": {
     "heading": "Experience",
+    "intro": "Four years shipping product in fintech, from Java support work to leading a Multi-Family Office platform.",
     "present": "Present"
   },
   "projects": {
     "heading": "Projects",
+    "intro": "A selection of recent fintech work. Some cases are under NDA and are presented at a narrative level.",
     "viewCase": "View case",
     "viewLive": "View live",
     "viewCode": "View code",
-    "ndaBadge": "Case study (NDA)"
+    "ndaBadge": "Under NDA",
+    "roleLabel": "Role",
+    "clientLabel": "Client",
+    "periodLabel": "Period",
+    "stackLabel": "Stack",
+    "metricsLabel": "Impact"
   },
   "stack": {
     "heading": "Tech stack",
+    "intro": "The tools I use to build reliable, traceable platforms ready to scale.",
     "groups": {
       "backend": "Backend",
       "frontend": "Frontend",

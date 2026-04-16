@@ -80,6 +80,7 @@ const labels = JSON.stringify({ dark: t.dark, light: t.light, system: t.system }
   });
 
   window.addEventListener('themechange', sync);
+  document.addEventListener('astro:after-swap', sync);
   document.addEventListener('astro:page-load', sync);
   sync();
 </script>

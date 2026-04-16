@@ -5,6 +5,7 @@ import '@fontsource-variable/inter';
 import '@fontsource-variable/jetbrains-mono';
 import '@styles/global.css';
 
+import { ClientRouter } from 'astro:transitions';
 import { buildSeo, type Locale } from '@lib/seo';
 
 interface Props {
@@ -59,6 +60,8 @@ const seo = buildSeo({ locale, title, description, path, ogImage, noindex });
     <meta name="twitter:title" content={seo.title} />
     <meta name="twitter:description" content={seo.description} />
     <meta name="twitter:image" content={seo.ogImage} />
+
+    <ClientRouter />
   </head>
   <body>
     <slot />

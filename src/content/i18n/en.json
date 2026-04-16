@@ -1,7 +1,7 @@
 {
   "meta": {
     "title": "Sebastian Cachis — Full Stack Developer",
-    "description": "Full Stack Developer specialized in Next.js, Spring Boot, and scalable software architecture."
+    "description": "Full Stack Jr. specialized in DDD/CQRS architecture and fintech. Leading CorilOne in production with Java 17, Spring Boot 3, and Next.js 16."
   },
   "nav": {
     "about": "About",
@@ -16,17 +16,17 @@
     "eyebrow": "Full Stack Developer",
     "name": "Sebastian Cachis",
     "tagline": "I build financial platforms with architecture ready to scale.",
-    "metric": "97.5% reduction in regulatory processes at Alfin Banco.",
+    "metric": "Leading CorilOne in production · Top 10% at UPC · 4 years in fintech",
     "ctaProjects": "View projects",
     "ctaContact": "Get in touch"
   },
   "about": {
     "eyebrow": "About",
-    "heading": "Product-minded software engineering and architecture built to scale.",
+    "heading": "From Java support to leading portfolio management platforms end-to-end.",
     "body": [
-      "I'm a Junior Full Stack Developer focused on software architecture (DDD, CQRS, microservices, event-driven) with hands-on experience in the financial sector across Grupo Coril, Alfin Banco, and ecomserv.",
-      "Day to day I combine Java/Spring Boot with Next.js to build platforms that must be reliable, traceable, and auditable. I'm especially interested in the balance between long-term technical decisions and continuous delivery that moves the business.",
-      "I'm pursuing a Software Engineering degree at UPC, ranked in the top 10%, and hold a C1 English level. Based in Lima, Peru."
+      "I'm a Junior Full Stack Developer specialized in DDD/CQRS architecture, microservices, and event-driven systems, with four years of experience in financial services — Grupo Coril, Alfin Banco, and ecomserv. I currently lead CorilOne, Coril Asset Management and Altum MFO's end-to-end platform, from domain design through to production.",
+      "I combine Java 17/Spring Boot 3 on the backend with Next.js 16 on the frontend to build platforms that must be reliable, traceable, and auditable. I'm especially interested in the balance between long-term technical decisions and continuous delivery that moves the business.",
+      "I'm pursuing a Software Engineering degree at UPC, ranked in the top 10%. C1 English. Based in Lima, Peru."
     ],
     "downloadCv": "Download CV",
     "highlights": [
@@ -38,7 +38,7 @@
   },
   "experience": {
     "heading": "Experience",
-    "intro": "Four years shipping product in fintech, from Java support work to leading a Multi-Family Office platform.",
+    "intro": "Four years in financial services — from Java 8 API optimization to leading DDD/CQRS architectures in production.",
     "present": "Present"
   },
   "projects": {

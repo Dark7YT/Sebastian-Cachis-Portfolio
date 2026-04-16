@@ -1,6 +1,8 @@
 ---
 export const prerender = true;
 
+import type { GetStaticPaths } from 'astro';
+import { locales, useTranslations, type Locale } from '@lib/i18n';
 import BaseLayout from '@layouts/BaseLayout.astro';
 import Header from '@components/layout/Header.astro';
 import Footer from '@components/layout/Footer.astro';
@@ -11,22 +13,24 @@ import Projects from '@components/sections/Projects.astro';
 import Stack from '@components/sections/Stack.astro';
 import Contact from '@components/sections/Contact.astro';
 import GsapReveal from '@components/islands/GsapReveal.astro';
-import { useTranslations } from '@lib/i18n';
 
-const locale = 'es';
-const t = useTranslations(locale);
-const path = '/es/';
+export const getStaticPaths: GetStaticPaths = () =>
+  locales.map((locale) => ({ params: { locale } }));
+
+const { locale } = Astro.params;
+const t = useTranslations(locale as Locale);
+const path = `/${locale}/`;
 ---
 
-<BaseLayout locale={locale} path={path}>
-  <Header locale={locale} t={t} path={path} />
+<BaseLayout locale={locale as Locale} path={path}>
+  <Header locale={locale as Locale} t={t} path={path} />
   <main>
     <Hero t={t.hero} />
     <About t={t.about} />
-    <Experience t={t.experience} locale={locale} />
-    <Projects t={t.projects} locale={locale} />
+    <Experience t={t.experience} locale={locale as Locale} />
+    <Projects t={t.projects} locale={locale as Locale} />
     <Stack t={t.stack} />
-    <Contact t={t.contact} locale={locale} />
+    <Contact t={t.contact} locale={locale as Locale} />
   </main>
   <Footer t={t.footer} />
   <GsapReveal />

@@ -1,5 +1,6 @@
 // @ts-check
 import { defineConfig } from 'astro/config';
+import sitemap from '@astrojs/sitemap';
 import vercel from '@astrojs/vercel';
 import icon from 'astro-icon';
 import tailwindcss from '@tailwindcss/vite';
@@ -13,6 +14,12 @@ export default defineConfig({
     imageService: true,
   }),
   integrations: [
+    sitemap({
+      i18n: {
+        defaultLocale: 'es',
+        locales: { es: 'es-PE', en: 'en-US' },
+      },
+    }),
     icon({
       include: {
         lucide: [

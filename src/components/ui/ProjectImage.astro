@@ -1,0 +1,67 @@
+---
+/**
+ * ProjectImage — optimized project cover with placeholder skeleton.
+ *
+ * Usage:
+ *   import ProjectImage from '@components/ui/ProjectImage.astro';
+ *   <ProjectImage src={importedImage} alt="CorilOne dashboard" />
+ *
+ * When no src is provided it renders the amber placeholder (same as
+ * the inline fallback in Projects.astro, but extracted here for reuse
+ * once real screenshots are available).
+ */
+import { Image } from 'astro:assets';
+import { Icon } from 'astro-icon/components';
+
+interface Props {
+  /** Imported image from src/assets/projects/ via astro:assets */
+  src?: ImageMetadata;
+  alt: string;
+  caption?: string;
+  widths?: number[];
+  sizes?: string;
+}
+
+const {
+  src,
+  alt,
+  caption,
+  widths = [480, 800, 1200],
+  sizes = '(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 600px',
+} = Astro.props;
+---
+
+<figure class="relative">
+  {
+    src ? (
+      <Image
+        {src}
+        {alt}
+        {widths}
+        {sizes}
+        formats={['avif', 'webp']}
+        loading="lazy"
+        class="aspect-[16/10] w-full object-cover"
+      />
+    ) : (
+      <div class="relative flex aspect-[16/10] items-center justify-center bg-[color:var(--color-bg-elevated)]">
+        <div
+          aria-hidden="true"
+          class="absolute inset-0 opacity-40"
+          style="background-image: radial-gradient(ellipse 60% 50% at 50% 50%, var(--color-accent-muted), transparent 70%);"
+        />
+        <div class="relative flex flex-col items-center gap-3 text-center">
+          <Icon name="lucide:layers" class="size-10 text-[color:var(--color-accent)]" aria-hidden="true" />
+          <span class="font-mono text-[0.6875rem] uppercase tracking-[0.3em] text-[color:var(--color-text-muted)]">
+            {alt}
+          </span>
+        </div>
+      </div>
+    )
+  }
+  {caption && (
+    <figcaption class="mt-2 text-center font-mono text-[0.6875rem] text-[color:var(--color-text-muted)]">
+      {caption}
+    </figcaption>
+  )}
+</figure>

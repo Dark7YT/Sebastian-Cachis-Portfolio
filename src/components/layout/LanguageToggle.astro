@@ -16,14 +16,39 @@ const href = alternatePath(path, other);
   href={href}
   data-lang-toggle
   data-target-locale={other}
-  class="inline-flex h-10 items-center gap-2 rounded-full border border-[color:var(--color-border)] bg-[color:var(--color-bg-surface)] px-3 font-mono text-xs uppercase tracking-widest text-[color:var(--color-text-secondary)] transition hover:border-[color:var(--color-accent)] hover:text-[color:var(--color-accent)] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[color:var(--color-accent)]"
+  class="lang-toggle inline-flex h-10 items-center gap-1.5 rounded-full border border-[color:var(--color-border)] bg-[color:var(--color-bg-surface)] px-3 font-mono text-xs uppercase tracking-widest text-[color:var(--color-text-secondary)] transition hover:border-[color:var(--color-accent)] hover:text-[color:var(--color-accent)] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[color:var(--color-accent)]"
   aria-label={t.label}
   title={t.label}
 >
-  <span aria-hidden="true" class="text-[color:var(--color-accent)]">{locale.toUpperCase()}</span>
+  <span class="lang-chip lang-chip--active" aria-hidden="true">{locale.toUpperCase()}</span>
   <span class="text-[color:var(--color-text-muted)]">/</span>
-  <span>{other.toUpperCase()}</span>
+  <span class="lang-chip">{other.toUpperCase()}</span>
 </a>
+
+<style>
+  .lang-chip {
+    display: inline-block;
+    transition:
+      color 150ms ease,
+      transform 200ms cubic-bezier(0.34, 1.56, 0.64, 1);
+  }
+
+  .lang-chip--active {
+    color: var(--color-accent);
+    font-weight: 600;
+  }
+
+  /* On click: active chip flips out, inactive chip brightens */
+  .lang-toggle:active .lang-chip--active {
+    transform: translateY(-3px) scale(0.9);
+    opacity: 0.6;
+  }
+
+  .lang-toggle:active .lang-chip:not(.lang-chip--active) {
+    transform: translateY(-2px);
+    color: var(--color-accent);
+  }
+</style>
 
 <script>
   document.querySelectorAll<HTMLAnchorElement>('[data-lang-toggle]').forEach((a) => {

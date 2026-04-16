@@ -21,14 +21,14 @@ const TWITTER = '@sebastiancachis';
 
 const DEFAULTS: Record<Locale, { title: string; description: string }> = {
   es: {
-    title: 'Sebastian Cachis — Desarrollador Full Stack',
+    title: 'Portafolio — Sebastian Cachis',
     description:
-      'Desarrollador Full Stack especializado en Next.js, Spring Boot y arquitectura de software preparada para escalar. Experiencia en sector financiero con DDD, CQRS y microservicios.',
+      'Full Stack Jr. especializado en arquitectura DDD/CQRS y fintech. Lidero CorilOne en producción con Java 17, Spring Boot 3 y Next.js 16.',
   },
   en: {
-    title: 'Sebastian Cachis — Full Stack Developer',
+    title: 'Portfolio — Sebastian Cachis',
     description:
-      'Full Stack Developer specialized in Next.js, Spring Boot, and scalable software architecture. Financial sector experience with DDD, CQRS, and microservices.',
+      'Full Stack Jr. specialized in DDD/CQRS architecture and fintech. Leading CorilOne in production with Java 17, Spring Boot 3, and Next.js 16.',
   },
 };
 

@@ -1,67 +1,56 @@
 ---
-import type { Dictionary, Locale } from '@lib/i18n';
-import { alternatePath } from '@lib/i18n';
-
-interface Props {
-  locale: Locale;
-  path: string;
-  t: Dictionary['toggles']['language'];
-}
-const { locale, path, t } = Astro.props;
-const other: Locale = locale === 'es' ? 'en' : 'es';
-const href = alternatePath(path, other);
+// No props — locale is managed entirely client-side by i18n-client.ts
 ---
 
-<a
-  href={href}
+<button
+  type="button"
   data-lang-toggle
-  data-target-locale={other}
   class="lang-toggle inline-flex h-10 items-center gap-1.5 rounded-full border border-[color:var(--color-border)] bg-[color:var(--color-bg-surface)] px-3 font-mono text-xs uppercase tracking-widest text-[color:var(--color-text-secondary)] transition hover:border-[color:var(--color-accent)] hover:text-[color:var(--color-accent)] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[color:var(--color-accent)]"
-  aria-label={t.label}
-  title={t.label}
+  data-i18n-label="toggles.language.label"
+  aria-label="Cambiar idioma"
 >
-  <span class="lang-chip lang-chip--active" aria-hidden="true">{locale.toUpperCase()}</span>
+  <span data-lang-current class="font-semibold text-[color:var(--color-accent)]">ES</span>
   <span class="text-[color:var(--color-text-muted)]">/</span>
-  <span class="lang-chip">{other.toUpperCase()}</span>
-</a>
+  <span data-lang-other>EN</span>
+</button>
 
 <style>
-  .lang-chip {
-    display: inline-block;
-    transition:
-      color 150ms ease,
-      transform 200ms cubic-bezier(0.34, 1.56, 0.64, 1);
-  }
-
-  .lang-chip--active {
-    color: var(--color-accent);
-    font-weight: 600;
-  }
-
-  /* On click: active chip flips out, inactive chip brightens */
-  .lang-toggle:active .lang-chip--active {
-    transform: translateY(-3px) scale(0.9);
+  .lang-toggle:active [data-lang-current] {
+    transform: translateY(-2px) scale(0.9);
     opacity: 0.6;
+    transition: transform 150ms ease, opacity 150ms ease;
   }
-
-  .lang-toggle:active .lang-chip:not(.lang-chip--active) {
-    transform: translateY(-2px);
+  .lang-toggle:active [data-lang-other] {
     color: var(--color-accent);
+    transition: color 150ms ease;
   }
 </style>
 
 <script>
-  document.querySelectorAll<HTMLAnchorElement>('[data-lang-toggle]').forEach((a) => {
-    a.addEventListener('click', () => {
-      const target = a.dataset.targetLocale;
-      if (target) {
-        try {
-          document.cookie = `lang=${target}; path=/; max-age=31536000; samesite=lax`;
-          localStorage.setItem('lang', target);
-        } catch {
-          /* ignore */
-        }
-      }
+  import { getLocale, setLocale } from '@scripts/i18n-client';
+
+  function syncToggles() {
+    const locale = getLocale();
+    const other = locale === 'es' ? 'en' : 'es';
+    document.querySelectorAll<HTMLElement>('[data-lang-toggle]').forEach((btn) => {
+      const cur = btn.querySelector<HTMLElement>('[data-lang-current]');
+      const oth = btn.querySelector<HTMLElement>('[data-lang-other]');
+      if (cur) cur.textContent = locale.toUpperCase();
+      if (oth) oth.textContent = other.toUpperCase();
     });
-  });
+  }
+
+  function init() {
+    syncToggles();
+    document.querySelectorAll<HTMLButtonElement>('[data-lang-toggle]').forEach((btn) => {
+      btn.addEventListener('click', () => {
+        const next = getLocale() === 'es' ? 'en' : 'es';
+        setLocale(next);
+        syncToggles();
+      });
+    });
+  }
+
+  document.addEventListener('astro:after-swap', init);
+  document.addEventListener('astro:page-load', init);
 </script>

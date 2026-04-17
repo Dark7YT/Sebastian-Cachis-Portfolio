@@ -6,30 +6,44 @@ import '@fontsource-variable/jetbrains-mono';
 import '@styles/global.css';
 
 import { ClientRouter } from 'astro:transitions';
-import { buildSeo, type Locale } from '@lib/seo';
+import { buildSeo } from '@lib/seo';
+import type { SeoProps } from '@lib/seo';
 
-interface Props {
-  locale: Locale;
-  title?: string;
-  description?: string;
-  path?: string;
-  ogImage?: string;
-  noindex?: boolean;
-}
+type Props = SeoProps;
 
-const { locale, title, description, path, ogImage, noindex } = Astro.props;
-const seo = buildSeo({ locale, title, description, path, ogImage, noindex });
+const seo = buildSeo(Astro.props);
 ---
 
 <!doctype html>
-<html lang={locale} data-theme="dark">
+<html lang="es" data-theme="dark" data-lang="es">
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
     <meta name="color-scheme" content="dark light" />
 
+    <!-- Theme: prevent FOUC by reading localStorage before first paint -->
     <script>
       import '@scripts/theme-init.ts';
+    </script>
+
+    <!-- Locale: set data-lang on <html> immediately so CSS locale blocks apply before body renders -->
+    <script is:inline>
+      (function () {
+        try {
+          var l = localStorage.getItem('lang');
+          if (l !== 'es' && l !== 'en') {
+            var c = document.cookie.match(/(?:^|;\s*)lang=(es|en)/);
+            l = c ? c[1] : (navigator.language || '').startsWith('es') ? 'es' : 'en';
+          }
+          document.documentElement.dataset.lang = l;
+          document.documentElement.lang = l;
+        } catch (_) {}
+      })();
+    </script>
+
+    <!-- i18n client: applies text translations and wires language toggle -->
+    <script>
+      import '@scripts/i18n-client.ts';
     </script>
 
     <title>{seo.title}</title>
@@ -40,15 +54,15 @@ const seo = buildSeo({ locale, title, description, path, ogImage, noindex });
     {seo.noindex && <meta name="robots" content="noindex,nofollow" />}
 
     <link rel="canonical" href={seo.canonical} />
-    {seo.alternates.map((alt) => <link rel="alternate" hreflang={alt.hreflang} href={alt.href} />)}
+    <link rel="alternate" hreflang="es" href={seo.canonical} />
+    <link rel="alternate" hreflang="en" href={seo.canonical} />
+    <link rel="alternate" hreflang="x-default" href={seo.canonical} />
 
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
     <link rel="icon" href="/favicon.ico" />
 
     <meta property="og:type" content="website" />
     <meta property="og:site_name" content={seo.siteName} />
-    <meta property="og:locale" content={locale === 'es' ? 'es_PE' : 'en_US'} />
-    <meta property="og:locale:alternate" content={locale === 'es' ? 'en_US' : 'es_PE'} />
     <meta property="og:title" content={seo.title} />
     <meta property="og:description" content={seo.description} />
     <meta property="og:url" content={seo.canonical} />
@@ -57,6 +71,7 @@ const seo = buildSeo({ locale, title, description, path, ogImage, noindex });
     <meta property="og:image:height" content="630" />
 
     <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:site" content={seo.twitter} />
     <meta name="twitter:title" content={seo.title} />
     <meta name="twitter:description" content={seo.description} />
     <meta name="twitter:image" content={seo.ogImage} />

@@ -1,23 +1,21 @@
 ---
 import { Icon } from 'astro-icon/components';
-import type { Dictionary, Locale } from '@lib/i18n';
+import type { Dictionary } from '@lib/i18n';
 import ThemeToggle from './ThemeToggle.astro';
 import LanguageToggle from './LanguageToggle.astro';
 
 interface Props {
-  locale: Locale;
   t: Dictionary;
-  path: string;
 }
-const { locale, t, path } = Astro.props;
+const { t } = Astro.props;
 
-const sections: { id: string; label: string }[] = [
-  { id: 'about', label: t.nav.about },
-  { id: 'experience', label: t.nav.experience },
-  { id: 'projects', label: t.nav.projects },
-  { id: 'stack', label: t.nav.stack },
-  { id: 'contact', label: t.nav.contact },
-];
+const sections = [
+  { id: 'about',      key: 'nav.about' },
+  { id: 'experience', key: 'nav.experience' },
+  { id: 'projects',   key: 'nav.projects' },
+  { id: 'stack',      key: 'nav.stack' },
+  { id: 'contact',    key: 'nav.contact' },
+] as const;
 ---
 
 <header
@@ -26,7 +24,7 @@ const sections: { id: string; label: string }[] = [
 >
   <div class="container-wide flex h-16 items-center justify-between gap-4 sm:h-20">
     <a
-      href={`/${locale}/`}
+      href="/"
       class="font-serif text-lg tracking-tight text-[color:var(--color-text-primary)] transition hover:text-[color:var(--color-accent)]"
     >
       <span class="italic">Sebastian</span>
@@ -38,21 +36,23 @@ const sections: { id: string; label: string }[] = [
         sections.map((s) => (
           <a
             href={`#${s.id}`}
+            data-i18n={s.key}
             class="font-mono text-xs uppercase tracking-[0.2em] text-[color:var(--color-text-secondary)] transition hover:text-[color:var(--color-accent)]"
           >
-            {s.label}
+            {t.nav[s.id as keyof typeof t.nav]}
           </a>
         ))
       }
     </nav>
 
     <div class="flex items-center gap-2">
-      <LanguageToggle locale={locale} path={path} t={t.toggles.language} />
+      <LanguageToggle />
       <ThemeToggle t={t.toggles.theme} />
       <button
         type="button"
         data-mobile-menu-open
         class="inline-flex size-10 items-center justify-center rounded-full border border-[color:var(--color-border)] bg-[color:var(--color-bg-surface)] text-[color:var(--color-text-secondary)] transition hover:border-[color:var(--color-accent)] hover:text-[color:var(--color-accent)] lg:hidden focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[color:var(--color-accent)]"
+        data-i18n-label="nav.menu"
         aria-label={t.nav.menu}
         aria-controls="mobile-nav"
         aria-expanded="false"
@@ -78,9 +78,7 @@ const sections: { id: string; label: string }[] = [
   class="fixed top-0 right-0 z-50 flex h-full w-80 max-w-[85vw] flex-col border-l border-[color:var(--color-border)] bg-[color:var(--color-bg-surface)] shadow-2xl lg:hidden"
   style="transform: translateX(100%); transition: transform 350ms cubic-bezier(0.4, 0, 0.2, 1);"
   aria-hidden="true"
-  aria-label={t.nav.menu}
 >
-  <!-- Drawer header -->
   <div class="flex h-16 items-center justify-between border-b border-[color:var(--color-border)] px-6 sm:h-20">
     <span class="font-serif text-base italic text-[color:var(--color-text-primary)]">
       Sebastian<span class="text-[color:var(--color-accent)]">.</span>
@@ -89,13 +87,13 @@ const sections: { id: string; label: string }[] = [
       type="button"
       data-mobile-menu-close
       class="inline-flex size-9 items-center justify-center rounded-full border border-[color:var(--color-border)] text-[color:var(--color-text-secondary)] transition hover:border-[color:var(--color-accent)] hover:text-[color:var(--color-accent)] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[color:var(--color-accent)]"
+      data-i18n-label="nav.close"
       aria-label={t.nav.close}
     >
       <Icon name="lucide:x" class="size-4" aria-hidden="true" />
     </button>
   </div>
 
-  <!-- Drawer nav links -->
   <nav class="flex flex-1 flex-col justify-center gap-2 px-6 py-8">
     {
       sections.map((s, i) => (
@@ -107,13 +105,14 @@ const sections: { id: string; label: string }[] = [
           <span class="w-6 shrink-0 font-mono text-[0.65rem] text-[color:var(--color-text-muted)] transition group-hover:text-[color:var(--color-accent)]">
             {String(i + 1).padStart(2, '0')}
           </span>
-          <span class="font-serif text-2xl tracking-tight">{s.label}</span>
+          <span data-i18n={s.key} class="font-serif text-2xl tracking-tight">
+            {t.nav[s.id as keyof typeof t.nav]}
+          </span>
         </a>
       ))
     }
   </nav>
 
-  <!-- Drawer footer -->
   <div class="border-t border-[color:var(--color-border)] px-6 py-5">
     <p class="font-mono text-[0.65rem] uppercase tracking-[0.2em] text-[color:var(--color-text-muted)]">
       Sebastian Cachis · Lima, Perú
@@ -133,7 +132,6 @@ const sections: { id: string; label: string }[] = [
 
     function setOpen(open: boolean) {
       if (!menu || !overlay || !openBtn) return;
-
       if (open) {
         menu.style.transform = 'translateX(0)';
         overlay.style.opacity = '1';
@@ -141,9 +139,7 @@ const sections: { id: string; label: string }[] = [
         menu.setAttribute('aria-hidden', 'false');
         openBtn.setAttribute('aria-expanded', 'true');
         document.body.style.overflow = 'hidden';
-        // Focus first link for accessibility
-        const firstLink = menu.querySelector<HTMLAnchorElement>('[data-mobile-menu-link]');
-        firstLink?.focus();
+        menu.querySelector<HTMLAnchorElement>('[data-mobile-menu-link]')?.focus();
       } else {
         menu.style.transform = 'translateX(100%)';
         overlay.style.opacity = '0';
@@ -159,9 +155,7 @@ const sections: { id: string; label: string }[] = [
     closeBtn?.addEventListener('click', () => setOpen(false));
     overlay.addEventListener('click', () => setOpen(false));
     links.forEach((l) => l.addEventListener('click', () => setOpen(false)));
-    document.addEventListener('keydown', (e) => {
-      if (e.key === 'Escape') setOpen(false);
-    });
+    document.addEventListener('keydown', (e) => { if (e.key === 'Escape') setOpen(false); });
   }
 
   document.addEventListener('astro:after-swap', initMobileMenu);

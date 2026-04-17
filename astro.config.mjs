@@ -14,12 +14,7 @@ export default defineConfig({
     imageService: true,
   }),
   integrations: [
-    sitemap({
-      i18n: {
-        defaultLocale: 'es',
-        locales: { es: 'es-PE', en: 'en-US' },
-      },
-    }),
+    sitemap(),
     icon({
       include: {
         lucide: [
@@ -72,11 +67,6 @@ export default defineConfig({
       },
     }),
   ],
-  i18n: {
-    defaultLocale: 'es',
-    locales: ['es', 'en'],
-    routing: 'manual',
-  },
   vite: {
     plugins: [tailwindcss()],
   },

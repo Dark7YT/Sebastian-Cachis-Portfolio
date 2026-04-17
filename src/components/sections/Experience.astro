@@ -1,17 +1,18 @@
 ---
 import { getCollection } from 'astro:content';
-import type { Dictionary, Locale } from '@lib/i18n';
+import type { Dictionary } from '@lib/i18n';
 import { formatPeriod } from '@lib/date';
 
 interface Props {
   t: Dictionary['experience'];
-  locale: Locale;
+  tEn: Dictionary['experience'];
 }
-const { t, locale } = Astro.props;
+const { t, tEn } = Astro.props;
 
-const entries = (await getCollection('experience', (e) => e.data.locale === locale)).sort(
-  (a, b) => a.data.order - b.data.order,
-);
+const [entriesEs, entriesEn] = await Promise.all([
+  getCollection('experience', (e) => e.data.locale === 'es').then((r) => r.sort((a, b) => a.data.order - b.data.order)),
+  getCollection('experience', (e) => e.data.locale === 'en').then((r) => r.sort((a, b) => a.data.order - b.data.order)),
+]);
 ---
 
 <section
@@ -20,82 +21,100 @@ const entries = (await getCollection('experience', (e) => e.data.locale === loca
 >
   <div class="container-wide section-padding">
     <div class="max-w-3xl">
-      <p class="font-mono text-xs uppercase tracking-[0.3em] text-[color:var(--color-accent)]">
+      <p
+        data-i18n="experience.heading"
+        class="font-mono text-xs uppercase tracking-[0.3em] text-[color:var(--color-accent)]"
+      >
         {t.heading}
       </p>
       <h2
+        data-i18n="experience.intro"
         class="mt-6 font-serif text-[length:var(--text-display)] leading-[var(--text-display--line-height)] tracking-tight text-[color:var(--color-text-primary)]"
       >
         {t.intro}
       </h2>
     </div>
 
-    <ol
-      data-timeline
-      class="relative mt-16 pl-8 sm:mt-20 sm:pl-12"
-    >
-      <span
-        aria-hidden="true"
-        class="absolute top-2 bottom-2 left-[7px] w-px bg-[color:var(--color-border)] sm:left-[11px]"
-      ></span>
-      <span
-        data-timeline-line
-        aria-hidden="true"
-        class="absolute top-2 bottom-2 left-[7px] w-px origin-top bg-[color:var(--color-accent)] sm:left-[11px]"
-      ></span>
-
-      {
-        entries.map((entry) => {
+    {/* ES entries */}
+    <div data-locale-block="es">
+      <ol data-timeline class="relative mt-16 pl-8 sm:mt-20 sm:pl-12">
+        <span aria-hidden="true" class="absolute top-2 bottom-2 left-[7px] w-px bg-[color:var(--color-border)] sm:left-[11px]"></span>
+        <span data-timeline-line aria-hidden="true" class="absolute top-2 bottom-2 left-[7px] w-px origin-top bg-[color:var(--color-accent)] sm:left-[11px]"></span>
+        {entriesEs.map((entry) => {
           const { data } = entry;
-          const period = formatPeriod(data.start, data.end, locale, t.present);
+          const period = formatPeriod(data.start, data.end, 'es', t.present);
           return (
             <li data-reveal class="relative pb-14 last:pb-0">
-              <span
-                aria-hidden="true"
-                class="absolute top-2 -left-8 inline-flex size-[15px] items-center justify-center rounded-full border border-[color:var(--color-border)] bg-[color:var(--color-bg-base)] sm:-left-12 sm:size-[23px]"
-              >
+              <span aria-hidden="true" class="absolute top-2 -left-8 inline-flex size-[15px] items-center justify-center rounded-full border border-[color:var(--color-border)] bg-[color:var(--color-bg-base)] sm:-left-12 sm:size-[23px]">
                 <span class="size-[7px] rounded-full bg-[color:var(--color-accent)] shadow-[0_0_0_3px_var(--color-accent-muted)] sm:size-[9px]" />
               </span>
-
               <div class="flex flex-wrap items-baseline gap-x-4 gap-y-1">
-                <h3 class="font-serif text-2xl tracking-tight text-[color:var(--color-text-primary)] sm:text-3xl">
-                  {data.company}
-                </h3>
-                <span class="font-mono text-xs uppercase tracking-widest text-[color:var(--color-text-muted)]">
-                  {period}
-                </span>
+                <h3 class="font-serif text-2xl tracking-tight text-[color:var(--color-text-primary)] sm:text-3xl">{data.company}</h3>
+                <span class="font-mono text-xs uppercase tracking-widest text-[color:var(--color-text-muted)]">{period}</span>
               </div>
-
               <p class="mt-2 text-base text-[color:var(--color-text-secondary)] sm:text-lg">
-                {data.role}
-                {data.location ? ` · ${data.location}` : ''}
+                {data.role}{data.location ? ` · ${data.location}` : ''}
               </p>
-
               <ul class="mt-5 space-y-3 text-[color:var(--color-text-secondary)]">
                 {data.highlights.map((h) => (
                   <li class="flex gap-3 text-sm leading-relaxed sm:text-base">
-                    <span
-                      aria-hidden="true"
-                      class="mt-2 inline-flex size-1 shrink-0 rounded-full bg-[color:var(--color-accent)]"
-                    />
+                    <span aria-hidden="true" class="mt-2 inline-flex size-1 shrink-0 rounded-full bg-[color:var(--color-accent)]" />
                     <span>{h}</span>
                   </li>
                 ))}
               </ul>
-
               {data.stack.length > 0 && (
                 <ul class="mt-6 flex flex-wrap gap-2">
                   {data.stack.map((tech) => (
-                    <li class="rounded-full border border-[color:var(--color-border)] bg-[color:var(--color-bg-surface)] px-3 py-1 font-mono text-[0.6875rem] tracking-wide text-[color:var(--color-text-secondary)]">
-                      {tech}
-                    </li>
+                    <li class="rounded-full border border-[color:var(--color-border)] bg-[color:var(--color-bg-surface)] px-3 py-1 font-mono text-[0.6875rem] tracking-wide text-[color:var(--color-text-secondary)]">{tech}</li>
                   ))}
                 </ul>
               )}
             </li>
           );
-        })
-      }
-    </ol>
+        })}
+      </ol>
+    </div>
+
+    {/* EN entries */}
+    <div data-locale-block="en">
+      <ol data-timeline class="relative mt-16 pl-8 sm:mt-20 sm:pl-12">
+        <span aria-hidden="true" class="absolute top-2 bottom-2 left-[7px] w-px bg-[color:var(--color-border)] sm:left-[11px]"></span>
+        <span data-timeline-line aria-hidden="true" class="absolute top-2 bottom-2 left-[7px] w-px origin-top bg-[color:var(--color-accent)] sm:left-[11px]"></span>
+        {entriesEn.map((entry) => {
+          const { data } = entry;
+          const period = formatPeriod(data.start, data.end, 'en', tEn.present);
+          return (
+            <li data-reveal class="relative pb-14 last:pb-0">
+              <span aria-hidden="true" class="absolute top-2 -left-8 inline-flex size-[15px] items-center justify-center rounded-full border border-[color:var(--color-border)] bg-[color:var(--color-bg-base)] sm:-left-12 sm:size-[23px]">
+                <span class="size-[7px] rounded-full bg-[color:var(--color-accent)] shadow-[0_0_0_3px_var(--color-accent-muted)] sm:size-[9px]" />
+              </span>
+              <div class="flex flex-wrap items-baseline gap-x-4 gap-y-1">
+                <h3 class="font-serif text-2xl tracking-tight text-[color:var(--color-text-primary)] sm:text-3xl">{data.company}</h3>
+                <span class="font-mono text-xs uppercase tracking-widest text-[color:var(--color-text-muted)]">{period}</span>
+              </div>
+              <p class="mt-2 text-base text-[color:var(--color-text-secondary)] sm:text-lg">
+                {data.role}{data.location ? ` · ${data.location}` : ''}
+              </p>
+              <ul class="mt-5 space-y-3 text-[color:var(--color-text-secondary)]">
+                {data.highlights.map((h) => (
+                  <li class="flex gap-3 text-sm leading-relaxed sm:text-base">
+                    <span aria-hidden="true" class="mt-2 inline-flex size-1 shrink-0 rounded-full bg-[color:var(--color-accent)]" />
+                    <span>{h}</span>
+                  </li>
+                ))}
+              </ul>
+              {data.stack.length > 0 && (
+                <ul class="mt-6 flex flex-wrap gap-2">
+                  {data.stack.map((tech) => (
+                    <li class="rounded-full border border-[color:var(--color-border)] bg-[color:var(--color-bg-surface)] px-3 py-1 font-mono text-[0.6875rem] tracking-wide text-[color:var(--color-text-secondary)]">{tech}</li>
+                  ))}
+                </ul>
+              )}
+            </li>
+          );
+        })}
+      </ol>
+    </div>
   </div>
 </section>

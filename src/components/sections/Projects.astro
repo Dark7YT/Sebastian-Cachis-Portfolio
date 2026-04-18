@@ -41,7 +41,7 @@ function renderCards(entries: typeof entriesEs, labels: Dictionary['projects']) 
 
     {/* ES entries */}
     <div data-locale-block="es">
-      <ul class="mt-14 grid grid-cols-1 gap-6 sm:mt-20 sm:gap-8 lg:grid-cols-2">
+      <ul class="mt-14 grid grid-cols-1 gap-5 sm:mt-20 sm:gap-6 lg:grid-cols-3">
         {entriesEs.map((entry) => {
           const { data } = entry;
           return (
@@ -52,37 +52,37 @@ function renderCards(entries: typeof entriesEs, labels: Dictionary['projects']) 
                   <img src={data.images[0].src} alt={data.images[0].alt} loading="lazy" class="relative size-full object-cover" />
                 ) : (
                   <div class="relative flex flex-col items-center gap-3 text-center">
-                    <Icon name="lucide:layers" class="size-10 text-[color:var(--color-accent)]" aria-hidden="true" />
+                    <Icon name="lucide:layers" class="size-8 text-[color:var(--color-accent)]" aria-hidden="true" />
                     <span class="font-mono text-[0.6875rem] uppercase tracking-[0.3em] text-[color:var(--color-text-muted)]">{data.name}</span>
                   </div>
                 )}
                 {data.nda && (
-                  <span class="absolute top-4 right-4 inline-flex items-center gap-1.5 rounded-full border border-[color:var(--color-border)] bg-[color:var(--color-bg-base)]/80 px-3 py-1 font-mono text-[0.625rem] uppercase tracking-widest text-[color:var(--color-text-secondary)] backdrop-blur-sm">
+                  <span class="absolute top-3 right-3 inline-flex items-center gap-1.5 rounded-full border border-[color:var(--color-border)] bg-[color:var(--color-bg-base)]/80 px-2.5 py-1 font-mono text-[0.625rem] uppercase tracking-widest text-[color:var(--color-text-secondary)] backdrop-blur-sm">
                     <Icon name="lucide:lock" class="size-3" aria-hidden="true" />
                     {t.ndaBadge}
                   </span>
                 )}
               </div>
-              <div class="flex flex-1 flex-col gap-5 p-6 sm:p-8">
+              <div class="flex flex-1 flex-col gap-4 p-5 lg:p-6">
                 <div>
-                  <h3 class="font-serif text-2xl tracking-tight text-[color:var(--color-text-primary)] sm:text-3xl">{data.name}</h3>
+                  <h3 class="font-serif text-xl tracking-tight text-[color:var(--color-text-primary)] sm:text-2xl">{data.name}</h3>
                   <p class="mt-1 font-mono text-[0.6875rem] uppercase tracking-[0.2em] text-[color:var(--color-text-muted)]">{data.period}</p>
                 </div>
-                <p class="text-sm leading-relaxed text-[color:var(--color-text-secondary)] sm:text-base">{data.summary}</p>
+                <p class="text-sm leading-relaxed text-[color:var(--color-text-secondary)]">{data.summary}</p>
                 {data.metrics.length > 0 && (
-                  <dl class="grid grid-cols-1 gap-3 sm:grid-cols-3">
+                  <dl class="grid grid-cols-3 gap-2">
                     {data.metrics.map((m) => (
-                      <div class="rounded-lg border border-[color:var(--color-border)] bg-[color:var(--color-bg-elevated)] p-3">
-                        <dt class="font-mono text-[0.625rem] uppercase tracking-[0.2em] text-[color:var(--color-text-muted)]">{m.label}</dt>
-                        <dd class="mt-1 font-serif text-lg text-[color:var(--color-accent)]">{m.value}</dd>
+                      <div class="rounded-lg border border-[color:var(--color-border)] bg-[color:var(--color-bg-elevated)] p-2.5">
+                        <dt class="font-mono text-[0.5625rem] uppercase tracking-[0.2em] text-[color:var(--color-text-muted)]">{m.label}</dt>
+                        <dd class="mt-1 font-serif text-base text-[color:var(--color-accent)]">{m.value}</dd>
                       </div>
                     ))}
                   </dl>
                 )}
                 {data.stack.length > 0 && (
-                  <ul class="flex flex-wrap gap-2">
+                  <ul class="flex flex-wrap gap-1.5">
                     {data.stack.map((tech) => (
-                      <li class="rounded-full border border-[color:var(--color-border)] px-3 py-1 font-mono text-[0.6875rem] tracking-wide text-[color:var(--color-text-secondary)]">{tech}</li>
+                      <li class="rounded-full border border-[color:var(--color-border)] px-2.5 py-0.5 font-mono text-[0.625rem] tracking-wide text-[color:var(--color-text-secondary)]">{tech}</li>
                     ))}
                   </ul>
                 )}
@@ -111,7 +111,7 @@ function renderCards(entries: typeof entriesEs, labels: Dictionary['projects']) 
 
     {/* EN entries */}
     <div data-locale-block="en">
-      <ul class="mt-14 grid grid-cols-1 gap-6 sm:mt-20 sm:gap-8 lg:grid-cols-2">
+      <ul class="mt-14 grid grid-cols-1 gap-5 sm:mt-20 sm:gap-6 lg:grid-cols-3">
         {entriesEn.map((entry) => {
           const { data } = entry;
           return (
@@ -122,37 +122,37 @@ function renderCards(entries: typeof entriesEs, labels: Dictionary['projects']) 
                   <img src={data.images[0].src} alt={data.images[0].alt} loading="lazy" class="relative size-full object-cover" />
                 ) : (
                   <div class="relative flex flex-col items-center gap-3 text-center">
-                    <Icon name="lucide:layers" class="size-10 text-[color:var(--color-accent)]" aria-hidden="true" />
+                    <Icon name="lucide:layers" class="size-8 text-[color:var(--color-accent)]" aria-hidden="true" />
                     <span class="font-mono text-[0.6875rem] uppercase tracking-[0.3em] text-[color:var(--color-text-muted)]">{data.name}</span>
                   </div>
                 )}
                 {data.nda && (
-                  <span class="absolute top-4 right-4 inline-flex items-center gap-1.5 rounded-full border border-[color:var(--color-border)] bg-[color:var(--color-bg-base)]/80 px-3 py-1 font-mono text-[0.625rem] uppercase tracking-widest text-[color:var(--color-text-secondary)] backdrop-blur-sm">
+                  <span class="absolute top-3 right-3 inline-flex items-center gap-1.5 rounded-full border border-[color:var(--color-border)] bg-[color:var(--color-bg-base)]/80 px-2.5 py-1 font-mono text-[0.625rem] uppercase tracking-widest text-[color:var(--color-text-secondary)] backdrop-blur-sm">
                     <Icon name="lucide:lock" class="size-3" aria-hidden="true" />
                     {tEn.ndaBadge}
                   </span>
                 )}
               </div>
-              <div class="flex flex-1 flex-col gap-5 p-6 sm:p-8">
+              <div class="flex flex-1 flex-col gap-4 p-5 lg:p-6">
                 <div>
-                  <h3 class="font-serif text-2xl tracking-tight text-[color:var(--color-text-primary)] sm:text-3xl">{data.name}</h3>
+                  <h3 class="font-serif text-xl tracking-tight text-[color:var(--color-text-primary)] sm:text-2xl">{data.name}</h3>
                   <p class="mt-1 font-mono text-[0.6875rem] uppercase tracking-[0.2em] text-[color:var(--color-text-muted)]">{data.period}</p>
                 </div>
-                <p class="text-sm leading-relaxed text-[color:var(--color-text-secondary)] sm:text-base">{data.summary}</p>
+                <p class="text-sm leading-relaxed text-[color:var(--color-text-secondary)]">{data.summary}</p>
                 {data.metrics.length > 0 && (
-                  <dl class="grid grid-cols-1 gap-3 sm:grid-cols-3">
+                  <dl class="grid grid-cols-3 gap-2">
                     {data.metrics.map((m) => (
-                      <div class="rounded-lg border border-[color:var(--color-border)] bg-[color:var(--color-bg-elevated)] p-3">
-                        <dt class="font-mono text-[0.625rem] uppercase tracking-[0.2em] text-[color:var(--color-text-muted)]">{m.label}</dt>
-                        <dd class="mt-1 font-serif text-lg text-[color:var(--color-accent)]">{m.value}</dd>
+                      <div class="rounded-lg border border-[color:var(--color-border)] bg-[color:var(--color-bg-elevated)] p-2.5">
+                        <dt class="font-mono text-[0.5625rem] uppercase tracking-[0.2em] text-[color:var(--color-text-muted)]">{m.label}</dt>
+                        <dd class="mt-1 font-serif text-base text-[color:var(--color-accent)]">{m.value}</dd>
                       </div>
                     ))}
                   </dl>
                 )}
                 {data.stack.length > 0 && (
-                  <ul class="flex flex-wrap gap-2">
+                  <ul class="flex flex-wrap gap-1.5">
                     {data.stack.map((tech) => (
-                      <li class="rounded-full border border-[color:var(--color-border)] px-3 py-1 font-mono text-[0.6875rem] tracking-wide text-[color:var(--color-text-secondary)]">{tech}</li>
+                      <li class="rounded-full border border-[color:var(--color-border)] px-2.5 py-0.5 font-mono text-[0.625rem] tracking-wide text-[color:var(--color-text-secondary)]">{tech}</li>
                     ))}
                   </ul>
                 )}

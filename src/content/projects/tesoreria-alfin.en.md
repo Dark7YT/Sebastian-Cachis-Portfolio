@@ -21,7 +21,9 @@ metrics:
     label: Before vs. after
   - value: 100%
     label: Processes with execution traceability
-images: []
+images:
+  - src: /images/projects/tesoreria-alfin.webp
+    alt: Regulatory process automation · Alfin Treasury
 links: {}
 ---
 

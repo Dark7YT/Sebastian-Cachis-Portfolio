@@ -16,7 +16,7 @@
     "eyebrow": "Desarrollador Full Stack",
     "name": "Sebastian Cachis",
     "tagline": "Desarrollando infraestructura tecnológica para gestión patrimonial e inversiones.",
-    "metric": "Liderando el desarrollo de un Multi Family Office · 4 años en fintech & enterprise",
+    "metric": "Liderando el desarrollo de un Multi Family Office · 2 años en fintech & enterprise",
     "ctaProjects": "Ver proyectos",
     "ctaContact": "Contactarme",
     "code": {
@@ -31,13 +31,13 @@
     "eyebrow": "Sobre mí",
     "heading": "De soporte Java a liderar plataformas de gestión de portafolios end-to-end.",
     "body": [
-      "Soy Full Stack Jr. especializado en arquitectura DDD/CQRS, microservicios y event-driven, con cuatro años de experiencia en el sector financiero — Grupo Coril, Alfin Banco y ecomserv. Actualmente lidero CorilOne, la plataforma end-to-end de Coril Asset Management y Altum MFO, desde su diseño de dominio hasta producción.",
+      "Soy Full Stack Jr. especializado en arquitectura DDD/CQRS, microservicios y event-driven, con dos años de experiencia en el sector financiero — Grupo Coril, Alfin Banco y ecomserv. Actualmente lidero CorilOne, la plataforma end-to-end de Coril Asset Management y Altum MFO, desde su diseño de dominio hasta producción.",
       "Combino Java 17/Spring Boot 3 en el backend con Next.js 16 en el frontend para construir plataformas que deben ser confiables, trazables y auditables. Me interesa especialmente el equilibrio entre decisiones técnicas a largo plazo y entregas continuas que mueven el negocio.",
       "Estudio Ingeniería de Software en UPC, donde pertenezco al décimo superior. Inglés C1. Vivo en Lima, Perú."
     ],
     "downloadCv": "Descargar CV",
     "highlights": [
-      { "label": "Experiencia", "value": "4+ años" },
+      { "label": "Experiencia", "value": "2+ años" },
       { "label": "Stack principal", "value": "Java · Spring · Next.js" },
       { "label": "Idiomas", "value": "Español · Inglés C1" },
       { "label": "Ubicación", "value": "Lima, Perú" }
@@ -45,7 +45,7 @@
   },
   "experience": {
     "heading": "Experiencia",
-    "intro": "Cuatro años en el sector financiero — de optimización de APIs en Java 8 a liderar arquitecturas DDD/CQRS en producción.",
+    "intro": "Dos años en el sector financiero — de optimización de APIs en Java 8 a liderar arquitecturas DDD/CQRS en producción.",
     "present": "Actualidad"
   },
   "projects": {

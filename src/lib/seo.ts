@@ -1,4 +1,4 @@
-const SITE_URL = 'https://sebastian-cachis.vercel.app';
+const SITE_URL = 'https://sebas-cachis.dev';
 const SITE_NAME = 'Sebastian Cachis';
 const AUTHOR = 'Sebastian Nicolas Cachis Gonzales';
 const TWITTER = '@sebastiancachis';

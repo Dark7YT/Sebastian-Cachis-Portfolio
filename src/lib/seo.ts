@@ -11,7 +11,7 @@ export interface SeoProps {
 }
 
 export function buildSeo(props: SeoProps = {}) {
-  const title = props.title ?? 'Portafolio — Sebastian Cachis';
+  const title = props.title ?? 'Portafolio - Sebastian Cachis';
   const description =
     props.description ??
     'Full Stack Jr. especializado en arquitectura DDD/CQRS y fintech. Lidero CorilOne en producción con Java 17, Spring Boot 3 y Next.js 16.';

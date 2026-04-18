@@ -15,10 +15,17 @@
   "hero": {
     "eyebrow": "Full Stack Developer",
     "name": "Sebastian Cachis",
-    "tagline": "I build financial platforms with architecture ready to scale.",
-    "metric": "Leading CorilOne in production · Top 10% at UPC · 4 years in fintech",
+    "tagline": "Developing technology infrastructure for wealth management and investments.",
+    "metric": "Leading a Multi Family Office development · 4 years in fintech & enterprise",
     "ctaProjects": "View projects",
-    "ctaContact": "Get in touch"
+    "ctaContact": "Get in touch",
+    "code": {
+      "edu": "\"Software Eng. · UPC\"",
+      "like0": "\"gym\"",
+      "like1": "\"music\"",
+      "like2": "\"coffee\"",
+      "status": "\"currently employed\""
+    }
   },
   "about": {
     "eyebrow": "About",
@@ -93,6 +100,12 @@
     "rights": "All rights reserved",
     "builtWith": "Built with Astro",
     "repo": "View repository"
+  },
+  "notFound": {
+    "code": "404",
+    "heading": "Page not found",
+    "body": "The page you're looking for doesn't exist or has been moved.",
+    "cta": "Back to home"
   },
   "toggles": {
     "theme": {

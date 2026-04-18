@@ -6,79 +6,117 @@ interface Props {
   t: Dictionary['hero'];
 }
 const { t } = Astro.props;
+
+const codeHtml = `<span class="ck">const</span> <span class="cv">sebastian</span> <span class="cp">=</span> <span class="cb">{</span>
+  <span class="cpk">edu</span><span class="cp">:</span>      <span class="cs" data-i18n="hero.code.edu">"Ing. de Software · UPC"</span><span class="cp">,</span>
+  <span class="cpk">location</span><span class="cp">:</span> <span class="cs">"Lima, Perú"</span><span class="cp">,</span>
+  <span class="cpk">likes</span><span class="cp">:</span>    <span class="cb">[</span><span class="cs" data-i18n="hero.code.like0">"gym"</span><span class="cp">,</span> <span class="cs" data-i18n="hero.code.like1">"música"</span><span class="cp">,</span> <span class="cs" data-i18n="hero.code.like2">"café"</span><span class="cb">]</span><span class="cp">,</span>
+  <span class="cpk">status</span><span class="cp">:</span>   <span class="cs" data-i18n="hero.code.status">"actualmente empleado"</span><span class="cbl"> ●</span>
+<span class="cb">}</span>`;
 ---
 
 <section id="hero" class="relative overflow-hidden" transition:animate="fade">
-  <div class="hero-backdrop" aria-hidden="true"></div>
+  <!-- animated backdrop -->
+  <div class="hero-backdrop" aria-hidden="true">
+    <div class="hero-orb-1"></div>
+    <div class="hero-orb-2"></div>
+    <div class="hero-orb-3"></div>
+  </div>
+
+  <!-- floating code glyphs -->
+  <ul class="hero-glyphs" aria-hidden="true">
+    <li style="--gx:6%;--gy:22%;--gd:0s;--gs:1">&#123;&#125;</li>
+    <li style="--gx:81%;--gy:17%;--gd:2s;--gs:0.9">&lt;/&gt;</li>
+    <li style="--gx:52%;--gy:76%;--gd:3.5s;--gs:1.1">=&gt;</li>
+    <li style="--gx:91%;--gy:58%;--gd:1s;--gs:0.85">//</li>
+    <li style="--gx:17%;--gy:83%;--gd:4.2s;--gs:0.95">fn()</li>
+    <li style="--gx:67%;--gy:38%;--gd:2.8s;--gs:1.05">[ ]</li>
+  </ul>
 
   <div
-    class="container-wide relative flex min-h-[calc(100svh-4rem)] flex-col justify-center py-24 sm:min-h-[calc(100svh-5rem)] sm:py-28 lg:py-40"
+    class="container-wide relative grid min-h-[calc(100svh-4rem)] items-center gap-16 py-24 sm:min-h-[calc(100svh-5rem)] sm:py-28 lg:grid-cols-[1fr_360px] lg:py-40"
   >
-    <p
-      data-i18n="hero.eyebrow"
-      class="reveal font-mono text-xs uppercase tracking-[0.3em] text-[color:var(--color-accent)] sm:text-sm"
-      style="--reveal-delay: 0ms"
-    >
-      {t.eyebrow}
-    </p>
+    <!-- left: content -->
+    <div>
+      <p
+        data-i18n="hero.eyebrow"
+        class="reveal font-mono text-xs uppercase tracking-[0.3em] text-[color:var(--color-accent)] sm:text-sm"
+        style="--reveal-delay:0ms"
+      >
+        {t.eyebrow}
+      </p>
 
-    <h1
-      class="reveal mt-6 font-serif text-[length:var(--text-hero)] leading-[var(--text-hero--line-height)] tracking-tight text-[color:var(--color-text-primary)]"
-      style="--reveal-delay: 80ms"
-    >
-      {t.name}
-    </h1>
+      <h1
+        class="reveal mt-6 font-serif text-[length:var(--text-hero)] leading-[var(--text-hero--line-height)] tracking-tight text-[color:var(--color-text-primary)]"
+        style="--reveal-delay:80ms"
+      >
+        {t.name}
+      </h1>
 
-    <p
-      data-i18n="hero.tagline"
-      class="reveal mt-6 max-w-3xl font-serif text-[length:var(--text-heading)] leading-[var(--text-heading--line-height)] text-[color:var(--color-text-secondary)] italic sm:mt-8"
-      style="--reveal-delay: 160ms"
-    >
-      {t.tagline}
-    </p>
+      <p
+        data-i18n="hero.tagline"
+        class="reveal mt-6 max-w-2xl font-serif text-[length:var(--text-heading)] leading-[var(--text-heading--line-height)] italic text-[color:var(--color-text-secondary)] sm:mt-8"
+        style="--reveal-delay:160ms"
+      >
+        {t.tagline}
+      </p>
 
-    <div
-      class="reveal mt-10 flex items-center gap-3 rounded-full border border-[color:var(--color-border)] bg-[color:var(--color-bg-surface)]/60 px-4 py-2 text-sm text-[color:var(--color-text-secondary)] backdrop-blur-sm sm:mt-12 sm:w-fit sm:max-w-full"
-      style="--reveal-delay: 240ms"
-    >
-      <span
-        class="inline-flex size-2 rounded-full bg-[color:var(--color-accent)] shadow-[0_0_0_4px_var(--color-accent-muted)]"
-        aria-hidden="true"
-      ></span>
-      <span data-i18n="hero.metric" class="font-mono text-xs tracking-widest uppercase">{t.metric}</span>
+      <div
+        class="reveal mt-10 flex items-center gap-3 rounded-full border border-[color:var(--color-border)] bg-[color:var(--color-bg-surface)]/60 px-4 py-2 backdrop-blur-sm sm:mt-12 sm:w-fit sm:max-w-full"
+        style="--reveal-delay:240ms"
+      >
+        <span
+          class="status-dot inline-flex size-2 shrink-0 rounded-full bg-[color:var(--color-accent)]"
+          aria-hidden="true"
+        ></span>
+        <span data-i18n="hero.metric" class="font-mono text-xs uppercase tracking-widest text-[color:var(--color-text-secondary)]">
+          {t.metric}
+        </span>
+      </div>
+
+      <div class="reveal mt-10 flex flex-wrap gap-3 sm:mt-14" style="--reveal-delay:320ms">
+        <a
+          href="#projects"
+          class="inline-flex items-center gap-2 rounded-full bg-[color:var(--color-accent)] px-6 py-3 font-mono text-xs font-medium uppercase tracking-widest text-[color:var(--color-bg-base)] transition hover:bg-[color:var(--color-accent-hover)] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[color:var(--color-accent)]"
+        >
+          <span data-i18n="hero.ctaProjects">{t.ctaProjects}</span>
+          <Icon name="lucide:arrow-down" class="size-4" aria-hidden="true" />
+        </a>
+        <a
+          href="#contact"
+          class="inline-flex items-center gap-2 rounded-full border border-[color:var(--color-border)] bg-transparent px-6 py-3 font-mono text-xs font-medium uppercase tracking-widest text-[color:var(--color-text-primary)] transition hover:border-[color:var(--color-accent)] hover:text-[color:var(--color-accent)] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[color:var(--color-accent)]"
+        >
+          <span data-i18n="hero.ctaContact">{t.ctaContact}</span>
+          <Icon name="lucide:arrow-right" class="size-4" aria-hidden="true" />
+        </a>
+      </div>
     </div>
 
-    <div
-      class="reveal mt-10 flex flex-wrap gap-3 sm:mt-14"
-      style="--reveal-delay: 320ms"
-    >
-      <a
-        href="#projects"
-        class="inline-flex items-center gap-2 rounded-full bg-[color:var(--color-accent)] px-6 py-3 font-mono text-xs font-medium uppercase tracking-widest text-[color:var(--color-bg-base)] transition hover:bg-[color:var(--color-accent-hover)] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[color:var(--color-accent)]"
-      >
-        <span data-i18n="hero.ctaProjects">{t.ctaProjects}</span>
-        <Icon name="lucide:arrow-down" class="size-4" aria-hidden="true" />
-      </a>
-      <a
-        href="#contact"
-        class="inline-flex items-center gap-2 rounded-full border border-[color:var(--color-border)] bg-transparent px-6 py-3 font-mono text-xs font-medium uppercase tracking-widest text-[color:var(--color-text-primary)] transition hover:border-[color:var(--color-accent)] hover:text-[color:var(--color-accent)] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[color:var(--color-accent)]"
-      >
-        <span data-i18n="hero.ctaContact">{t.ctaContact}</span>
-        <Icon name="lucide:arrow-right" class="size-4" aria-hidden="true" />
-      </a>
+    <!-- right: code card (desktop only) -->
+    <div class="reveal hidden lg:block" style="--reveal-delay:440ms">
+      <div class="overflow-hidden rounded-xl border border-[color:var(--color-border)] bg-[color:var(--color-bg-surface)]/90 shadow-[var(--shadow-card)] backdrop-blur-sm">
+        <!-- titlebar -->
+        <div class="flex items-center gap-1.5 border-b border-[color:var(--color-border)] bg-[color:var(--color-bg-elevated)] px-4 py-3">
+          <span class="size-2.5 rounded-full bg-[#ff5f57]"></span>
+          <span class="size-2.5 rounded-full bg-[#ffbd2e]"></span>
+          <span class="size-2.5 rounded-full bg-[#28ca42]"></span>
+          <span class="ml-auto font-mono text-[0.625rem] tracking-widest text-[color:var(--color-text-muted)]">developer.ts</span>
+        </div>
+        <!-- syntax-highlighted code -->
+        <pre class="overflow-x-auto p-5"><code set:html={codeHtml} data-typewriter class="font-mono text-[0.76rem] leading-[1.9]" /></pre>
+      </div>
     </div>
   </div>
 </section>
 
 <style>
+  /* ─── backdrop ─────────────────────────────── */
   .hero-backdrop {
     position: absolute;
     inset: 0;
-    background:
-      radial-gradient(ellipse 80% 60% at 20% 10%, var(--color-accent-muted) 0%, transparent 70%),
-      radial-gradient(ellipse 60% 40% at 90% 90%, var(--color-accent-muted) 0%, transparent 70%);
     pointer-events: none;
     z-index: 0;
+    overflow: hidden;
   }
 
   .hero-backdrop::before {
@@ -93,6 +131,108 @@ const { t } = Astro.props;
     mask-image: radial-gradient(ellipse 70% 50% at 50% 50%, black 0%, transparent 80%);
   }
 
+  .hero-orb-1 {
+    position: absolute;
+    width: 780px;
+    height: 580px;
+    left: -12%;
+    top: -30%;
+    border-radius: 50%;
+    background: radial-gradient(ellipse 55% 50% at 45% 50%, rgb(245 184 65 / 0.22), transparent 70%);
+    filter: blur(8px);
+    animation: orb1 11s ease-in-out infinite;
+  }
+
+  .hero-orb-2 {
+    position: absolute;
+    width: 600px;
+    height: 520px;
+    right: -8%;
+    bottom: -20%;
+    border-radius: 50%;
+    background: radial-gradient(ellipse 55% 50% at 55% 50%, rgb(245 184 65 / 0.18), transparent 70%);
+    filter: blur(8px);
+    animation: orb2 9s ease-in-out infinite;
+  }
+
+  .hero-orb-3 {
+    position: absolute;
+    width: 400px;
+    height: 350px;
+    left: 35%;
+    top: 40%;
+    border-radius: 50%;
+    background: radial-gradient(ellipse 60% 50% at 50% 50%, rgb(245 184 65 / 0.10), transparent 70%);
+    filter: blur(12px);
+    animation: orb3 13s ease-in-out infinite;
+  }
+
+  @keyframes orb1 {
+    0%   { transform: translate(0, 0)      scale(1);    }
+    33%  { transform: translate(60px, 40px)  scale(1.12); }
+    66%  { transform: translate(-20px, 60px) scale(0.94); }
+    100% { transform: translate(0, 0)      scale(1);    }
+  }
+  @keyframes orb2 {
+    0%   { transform: translate(0, 0)        scale(1);    }
+    40%  { transform: translate(-55px, -40px) scale(1.10); }
+    75%  { transform: translate(30px, -20px)  scale(0.90); }
+    100% { transform: translate(0, 0)        scale(1);    }
+  }
+  @keyframes orb3 {
+    0%   { transform: translate(0, 0)       scale(1);    opacity: 0.6; }
+    50%  { transform: translate(-40px, -50px) scale(1.2); opacity: 1;   }
+    100% { transform: translate(0, 0)       scale(1);    opacity: 0.6; }
+  }
+
+  /* ─── floating glyphs ──────────────────────── */
+  .hero-glyphs {
+    position: absolute;
+    inset: 0;
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    pointer-events: none;
+    z-index: 0;
+    overflow: hidden;
+  }
+
+  .hero-glyphs li {
+    position: absolute;
+    left: var(--gx);
+    top: var(--gy);
+    font-family: 'Courier New', Courier, monospace;
+    font-size: calc(12px * var(--gs, 1));
+    color: var(--color-accent);
+    opacity: 0;
+    animation: glyph-float 10s ease-in-out infinite;
+    animation-delay: var(--gd, 0s);
+  }
+
+  @keyframes glyph-float {
+    0%       { opacity: 0;    transform: translateY(8px); }
+    15%, 80% { opacity: 0.05; }
+    100%     { opacity: 0;    transform: translateY(-55px); }
+  }
+
+  /* ─── code card syntax colors ──────────────── */
+  .ck   { color: #c792ea; }             /* keyword  */
+  .cv   { color: #82aaff; }             /* variable */
+  .cpk  { color: #f5b841; }             /* property key (accent) */
+  .cs   { color: #c3e88d; }             /* string   */
+  .cp   { color: var(--color-text-muted); }   /* punct  */
+  .cb   { color: var(--color-text-secondary); } /* brace */
+  .cbl  {
+    color: #4ade80;
+    animation: status-blink 1.4s step-end infinite;
+  }
+
+  @keyframes status-blink {
+    0%, 100% { opacity: 1; }
+    50%      { opacity: 0; }
+  }
+
+  /* ─── hero reveal ───────────────────────────── */
   .reveal {
     opacity: 0;
     transform: translateY(1rem);
@@ -104,7 +244,69 @@ const { t } = Astro.props;
     to { opacity: 1; transform: translateY(0); }
   }
 
+  /* ─── status dot ───────────────────────────── */
+  .status-dot {
+    animation: dot-pulse 2s ease-in-out infinite;
+    box-shadow: 0 0 0 4px var(--color-accent-muted);
+  }
+
+  @keyframes dot-pulse {
+    0%, 100% {
+      transform: scale(1);
+      box-shadow: 0 0 0 4px var(--color-accent-muted);
+    }
+    50% {
+      transform: scale(1.2);
+      box-shadow: 0 0 0 8px transparent;
+    }
+  }
+
   @media (prefers-reduced-motion: reduce) {
     .reveal { animation: none; opacity: 1; transform: none; }
+    .hero-orb-1, .hero-orb-2, .hero-orb-3 { animation: none; }
+    .status-dot { animation: none; }
+    .hero-glyphs li { display: none; }
+    .cbl { animation: none; }
   }
 </style>
+
+<script>
+  function initTypewriter() {
+    const code = document.querySelector<HTMLElement>('[data-typewriter]');
+    if (!code) return;
+
+    // Delay so: (1) card reveal finishes, (2) i18n-client has already updated text
+    setTimeout(() => {
+      const html = code.innerHTML; // captured after i18n applied correct locale
+      let pos = 0;
+      code.innerHTML = '';
+
+      function tick() {
+        if (pos >= html.length) return;
+
+        // Jump over HTML tags instantly — they're invisible markup, not typed text
+        if (html[pos] === '<') {
+          const end = html.indexOf('>', pos);
+          pos = end !== -1 ? end + 1 : pos + 1;
+          tick();
+          return;
+        }
+
+        // HTML entities (&lt; etc.) count as one visible character
+        if (html[pos] === '&') {
+          const semi = html.indexOf(';', pos);
+          pos = semi !== -1 && semi - pos <= 8 ? semi + 1 : pos + 1;
+        } else {
+          pos++;
+        }
+
+        code.innerHTML = html.slice(0, pos);
+        setTimeout(tick, 22);
+      }
+
+      tick();
+    }, 800);
+  }
+
+  document.addEventListener('astro:page-load', initTypewriter);
+</script>

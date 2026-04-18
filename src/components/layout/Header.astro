@@ -23,12 +23,13 @@ const sections = [
   data-site-header
 >
   <div class="container-wide flex h-16 items-center justify-between gap-4 sm:h-20">
-    <a
-      href="/"
-      class="font-serif text-lg tracking-tight text-[color:var(--color-text-primary)] transition hover:text-[color:var(--color-accent)]"
-    >
-      <span class="italic">Sebastian</span>
-      <span class="text-[color:var(--color-accent)]">.</span>
+    <a href="/" class="group flex items-baseline gap-0.5 transition">
+      <span class="font-mono text-xs font-bold text-[color:var(--color-accent)] transition group-hover:opacity-60">&lt;</span>
+      <span class="font-serif text-xl italic tracking-tight text-[color:var(--color-text-primary)] transition group-hover:text-[color:var(--color-accent)]">
+        <span class="hidden sm:inline">Sebastian</span>
+        <span class="sm:hidden">Sebas</span>
+      </span>
+      <span class="font-mono text-xs font-bold text-[color:var(--color-accent)] transition group-hover:opacity-60"> /&gt;</span>
     </a>
 
     <nav aria-label="primary" class="hidden items-center gap-8 lg:flex">
@@ -80,8 +81,10 @@ const sections = [
   aria-hidden="true"
 >
   <div class="flex h-16 items-center justify-between border-b border-[color:var(--color-border)] px-6 sm:h-20">
-    <span class="font-serif text-base italic text-[color:var(--color-text-primary)]">
-      Sebastian<span class="text-[color:var(--color-accent)]">.</span>
+    <span class="flex items-baseline gap-0.5">
+      <span class="font-mono text-xs font-bold text-[color:var(--color-accent)]">&lt;</span>
+      <span class="font-serif text-lg italic tracking-tight text-[color:var(--color-text-primary)]">SC</span>
+      <span class="font-mono text-xs font-bold text-[color:var(--color-accent)]"> /&gt;</span>
     </span>
     <button
       type="button"

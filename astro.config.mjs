@@ -24,6 +24,7 @@ export default defineConfig({
           'menu',
           'x',
           'languages',
+          'arrow-left',
           'arrow-right',
           'arrow-up-right',
           'arrow-down',
@@ -50,7 +51,6 @@ export default defineConfig({
           'tailwindcss',
           'typescript',
           'javascript',
-          'nodedotjs',
           'spring',
           'openjdk',
           'python',
@@ -69,5 +69,8 @@ export default defineConfig({
   ],
   vite: {
     plugins: [tailwindcss()],
+    server: {
+    allowedHosts: true,
+  },
   },
 });

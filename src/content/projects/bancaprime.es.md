@@ -21,7 +21,9 @@ metrics:
     label: Stack frontend
   - value: 3rd-party
     label: Integraciones de notificación
-images: []
+images:
+  - src: /images/projects/bancaprime.webp
+    alt: Landing BancaPrime
 links: {}
 ---
 

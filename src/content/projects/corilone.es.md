@@ -25,7 +25,9 @@ metrics:
     label: Integración entre bounded contexts
   - value: Multi-tenant
     label: Soporte Coril AM + Altum MFO
-images: []
+images:
+  - src: /images/projects/corilone.webp
+    alt: CorilOne — plataforma Coril AM & Altum MFO
 links: {}
 ---
 

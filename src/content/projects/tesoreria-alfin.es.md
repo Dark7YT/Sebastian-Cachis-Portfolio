@@ -21,7 +21,9 @@ metrics:
     label: Antes vs. después
   - value: 100%
     label: Procesos con trazabilidad de ejecución
-images: []
+images:
+  - src: /images/projects/tesoreria-alfin.webp
+    alt: Automatización de procesos regulatorios · Tesorería Alfin
 links: {}
 ---
 

@@ -1,48 +1,36 @@
 ---
 /**
- * Root entry — redirección client-side al locale correcto.
- * Orden de preferencia:
- *   1. Cookie `lang` (elección manual del usuario)
- *   2. localStorage.lang (fallback si cookie se pierde)
- *   3. navigator.language (auto-detección del navegador)
- *   4. 'es' (fallback final)
- *
- * Se sirve como HTML minimal sin el layout completo (sin fonts ni CSS)
- * para resolver el redirect en <20ms y evitar flash de contenido.
+ * Portfolio — single page, pre-rendered in ES by default.
+ * EN translations are applied client-side by i18n-client.ts without navigation.
  */
 export const prerender = true;
 
-const defaultLocale = 'es';
+import BaseLayout from '@layouts/BaseLayout.astro';
+import Header from '@components/layout/Header.astro';
+import Footer from '@components/layout/Footer.astro';
+import Hero from '@components/sections/Hero.astro';
+import About from '@components/sections/About.astro';
+import Experience from '@components/sections/Experience.astro';
+import Projects from '@components/sections/Projects.astro';
+import Stack from '@components/sections/Stack.astro';
+import Contact from '@components/sections/Contact.astro';
+import GsapReveal from '@components/islands/GsapReveal.astro';
+import { useTranslations } from '@lib/i18n';
+
+const t = useTranslations('es');
+const tEn = useTranslations('en');
 ---
 
-<!doctype html>
-<html lang={defaultLocale}>
-  <head>
-    <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width,initial-scale=1" />
-    <meta name="robots" content="noindex" />
-    <title>Sebastian Cachis</title>
-    <link rel="alternate" hreflang="es" href="https://sebastian-cachis.vercel.app/es/" />
-    <link rel="alternate" hreflang="en" href="https://sebastian-cachis.vercel.app/en/" />
-    <link rel="alternate" hreflang="x-default" href="https://sebastian-cachis.vercel.app/es/" />
-    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-    <noscript><meta http-equiv="refresh" content="0;url=/es/" /></noscript>
-    <script is:inline>
-      (function () {
-        try {
-          var cookieMatch = document.cookie.match(/(?:^|;\s*)lang=(es|en)/);
-          var stored = localStorage.getItem('lang');
-          var nav = (navigator.language || navigator.userLanguage || 'es').toLowerCase();
-          var target =
-            (cookieMatch && cookieMatch[1]) ||
-            (stored === 'es' || stored === 'en' ? stored : null) ||
-            (nav.indexOf('es') === 0 ? 'es' : 'en');
-          location.replace('/' + target + '/');
-        } catch (_) {
-          location.replace('/es/');
-        }
-      })();
-    </script>
-  </head>
-  <body></body>
-</html>
+<BaseLayout>
+  <Header t={t} />
+  <main>
+    <Hero t={t.hero} />
+    <About t={t.about} />
+    <Experience t={t.experience} tEn={tEn.experience} />
+    <Projects t={t.projects} tEn={tEn.projects} />
+    <Stack t={t.stack} />
+    <Contact t={t.contact} />
+  </main>
+  <Footer t={t.footer} />
+  <GsapReveal />
+</BaseLayout>

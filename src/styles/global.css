@@ -106,3 +106,8 @@
 @utility section-padding {
   padding-block: var(--spacing-section);
 }
+
+/* Locale content blocks — ES is default; EN hidden until [data-lang="en"] is set */
+[data-locale-block="en"] { display: none !important; }
+[data-lang="en"] [data-locale-block="en"] { display: block !important; }
+[data-lang="en"] [data-locale-block="es"] { display: none !important; }

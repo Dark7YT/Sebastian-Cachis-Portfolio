@@ -1,0 +1,39 @@
+---
+export const prerender = true;
+import BaseLayout from '@layouts/BaseLayout.astro';
+import { Icon } from 'astro-icon/components';
+---
+
+<BaseLayout title="404 — Sebastian Cachis" noindex={true}>
+  <main class="flex min-h-dvh flex-col items-center justify-center px-6 text-center">
+    <p
+      class="font-mono text-[clamp(6rem,20vw,12rem)] font-bold leading-none tracking-tight text-[color:var(--color-accent)] opacity-20 select-none"
+      aria-hidden="true"
+    >
+      404
+    </p>
+
+    <div class="-mt-4 max-w-md">
+      <h1
+        data-i18n="notFound.heading"
+        class="font-serif text-3xl tracking-tight text-[color:var(--color-text-primary)] sm:text-4xl"
+      >
+        Página no encontrada
+      </h1>
+      <p
+        data-i18n="notFound.body"
+        class="mt-4 text-base leading-relaxed text-[color:var(--color-text-secondary)]"
+      >
+        La página que buscas no existe o fue movida.
+      </p>
+
+      <a
+        href="/"
+        class="mt-10 inline-flex items-center gap-2 rounded-full bg-[color:var(--color-accent)] px-6 py-3 font-mono text-xs font-medium uppercase tracking-widest text-[color:var(--color-accent-contrast)] transition hover:bg-[color:var(--color-accent-hover)] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[color:var(--color-accent)]"
+      >
+        <Icon name="lucide:arrow-left" class="size-4" aria-hidden="true" />
+        <span data-i18n="notFound.cta">Volver al inicio</span>
+      </a>
+    </div>
+  </main>
+</BaseLayout>

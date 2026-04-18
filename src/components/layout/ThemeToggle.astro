@@ -17,11 +17,43 @@ const labels = JSON.stringify({ dark: t.dark, light: t.light, system: t.system }
   aria-label={t.label}
   title={t.label}
 >
-  <Icon name="lucide:sun" class="size-5 hidden" data-theme-icon="light" aria-hidden="true" />
-  <Icon name="lucide:moon" class="size-5 hidden" data-theme-icon="dark" aria-hidden="true" />
-  <Icon name="lucide:monitor" class="size-5 hidden" data-theme-icon="system" aria-hidden="true" />
+  <span class="theme-icon-wrap" aria-hidden="true">
+    <Icon name="lucide:sun" class="theme-icon" data-theme-icon="light" aria-hidden="true" />
+    <Icon name="lucide:moon" class="theme-icon" data-theme-icon="dark" aria-hidden="true" />
+    <Icon name="lucide:monitor" class="theme-icon" data-theme-icon="system" aria-hidden="true" />
+  </span>
   <span class="sr-only" data-theme-label></span>
 </button>
+
+<style>
+  .theme-icon-wrap {
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 1.25rem;
+    height: 1.25rem;
+  }
+
+  .theme-icon {
+    position: absolute;
+    width: 1.25rem;
+    height: 1.25rem;
+    transition:
+      opacity 200ms ease,
+      transform 200ms cubic-bezier(0.34, 1.56, 0.64, 1);
+    /* hidden state by default */
+    opacity: 0;
+    transform: scale(0.5) rotate(15deg);
+    pointer-events: none;
+  }
+
+  .theme-icon[data-active] {
+    opacity: 1;
+    transform: scale(1) rotate(0deg);
+    pointer-events: auto;
+  }
+</style>
 
 <script>
   function sync() {
@@ -29,7 +61,11 @@ const labels = JSON.stringify({ dark: t.dark, light: t.light, system: t.system }
     document.querySelectorAll<HTMLElement>('[data-theme-toggle]').forEach((btn) => {
       const labels = JSON.parse(btn.dataset.themeLabels ?? '{}') as Record<string, string>;
       btn.querySelectorAll<HTMLElement>('[data-theme-icon]').forEach((el) => {
-        el.classList.toggle('hidden', el.dataset.themeIcon !== mode);
+        if (el.dataset.themeIcon === mode) {
+          el.setAttribute('data-active', '');
+        } else {
+          el.removeAttribute('data-active');
+        }
       });
       const label = btn.querySelector<HTMLElement>('[data-theme-label]');
       if (label) label.textContent = labels[mode] ?? mode;
@@ -44,6 +80,7 @@ const labels = JSON.stringify({ dark: t.dark, light: t.light, system: t.system }
   });
 
   window.addEventListener('themechange', sync);
+  document.addEventListener('astro:after-swap', sync);
   document.addEventListener('astro:page-load', sync);
   sync();
 </script>

@@ -1,0 +1,123 @@
+{
+  "meta": {
+    "title": "Portfolio — Sebastian Cachis",
+    "description": "Full Stack Jr. specialized in DDD/CQRS architecture and fintech. Leading CorilOne in production with Java 17, Spring Boot 3, and Next.js 16."
+  },
+  "nav": {
+    "about": "About",
+    "experience": "Experience",
+    "projects": "Projects",
+    "stack": "Stack",
+    "contact": "Contact",
+    "menu": "Menu",
+    "close": "Close"
+  },
+  "hero": {
+    "eyebrow": "Full Stack Developer",
+    "name": "Sebastian Cachis",
+    "tagline": "Developing technology infrastructure for wealth management and investments.",
+    "metric": "Leading a Multi Family Office development · 4 years in fintech & enterprise",
+    "ctaProjects": "View projects",
+    "ctaContact": "Get in touch",
+    "code": {
+      "edu": "\"Software Eng. · UPC\"",
+      "like0": "\"gym\"",
+      "like1": "\"music\"",
+      "like2": "\"coffee\"",
+      "status": "\"currently employed\""
+    }
+  },
+  "about": {
+    "eyebrow": "About",
+    "heading": "From Java support to leading portfolio management platforms end-to-end.",
+    "body": [
+      "I'm a Junior Full Stack Developer specialized in DDD/CQRS architecture, microservices, and event-driven systems, with four years of experience in financial services — Grupo Coril, Alfin Banco, and ecomserv. I currently lead CorilOne, Coril Asset Management and Altum MFO's end-to-end platform, from domain design through to production.",
+      "I combine Java 17/Spring Boot 3 on the backend with Next.js 16 on the frontend to build platforms that must be reliable, traceable, and auditable. I'm especially interested in the balance between long-term technical decisions and continuous delivery that moves the business.",
+      "I'm pursuing a Software Engineering degree at UPC, ranked in the top 10%. C1 English. Based in Lima, Peru."
+    ],
+    "downloadCv": "Download CV",
+    "highlights": [
+      { "label": "Experience", "value": "4+ years" },
+      { "label": "Primary stack", "value": "Java · Spring · Next.js" },
+      { "label": "Languages", "value": "Spanish · English C1" },
+      { "label": "Location", "value": "Lima, Peru" }
+    ]
+  },
+  "experience": {
+    "heading": "Experience",
+    "intro": "Four years in financial services — from Java 8 API optimization to leading DDD/CQRS architectures in production.",
+    "present": "Present"
+  },
+  "projects": {
+    "heading": "Projects",
+    "intro": "A selection of recent fintech work. Some cases are under NDA and are presented at a narrative level.",
+    "viewCase": "View case",
+    "viewLive": "View live",
+    "viewCode": "View code",
+    "ndaBadge": "Under NDA",
+    "roleLabel": "Role",
+    "clientLabel": "Client",
+    "periodLabel": "Period",
+    "stackLabel": "Stack",
+    "metricsLabel": "Impact"
+  },
+  "stack": {
+    "heading": "Tech stack",
+    "intro": "The tools I use to build reliable, traceable platforms ready to scale.",
+    "groups": {
+      "backend": "Backend",
+      "frontend": "Frontend",
+      "architecture": "Architecture",
+      "data": "Data",
+      "messaging": "Messaging",
+      "cloud": "Cloud & DevOps",
+      "testing": "Testing",
+      "tools": "Tools"
+    }
+  },
+  "contact": {
+    "heading": "Contact",
+    "intro": "A project, an opportunity, or a technical conversation? Drop me a line.",
+    "form": {
+      "name": "Name",
+      "email": "Email",
+      "subject": "Subject",
+      "message": "Message",
+      "submit": "Send message",
+      "sending": "Sending…",
+      "success": "Message sent. I'll get back to you soon.",
+      "error": "Couldn't send the message. Please try again."
+    },
+    "direct": {
+      "email": "Email",
+      "phone": "Phone",
+      "location": "Location",
+      "github": "GitHub",
+      "linkedin": "LinkedIn"
+    }
+  },
+  "footer": {
+    "rights": "All rights reserved",
+    "builtWith": "Built with Astro",
+    "repo": "View repository"
+  },
+  "notFound": {
+    "code": "404",
+    "heading": "Page not found",
+    "body": "The page you're looking for doesn't exist or has been moved.",
+    "cta": "Back to home"
+  },
+  "toggles": {
+    "theme": {
+      "label": "Change theme",
+      "dark": "Dark",
+      "light": "Light",
+      "system": "System"
+    },
+    "language": {
+      "label": "Change language",
+      "es": "Español",
+      "en": "English"
+    }
+  }
+}

@@ -1,0 +1,212 @@
+---
+import { Icon } from 'astro-icon/components';
+import type { Dictionary } from '@lib/i18n';
+
+interface Props {
+  t: Dictionary['contact'];
+}
+const { t } = Astro.props;
+
+const direct = [
+  { id: 'email',    icon: 'lucide:mail',    href: 'mailto:sebastianjae21@gmail.com', value: 'sebastianjae21@gmail.com' },
+  { id: 'github',   icon: 'lucide:github',  href: 'https://github.com/Dark7YT',      value: 'github.com/Dark7YT' },
+  { id: 'linkedin', icon: 'lucide:linkedin', href: 'https://www.linkedin.com/in/sebastian-nicolas-cachis-gonzales-667b23308', value: 'Sebastian Nicolas' },
+  { id: 'location', icon: 'lucide:map-pin', href: null,                               value: 'Lima, Perú' },
+] as const;
+---
+
+<section
+  id="contact"
+  class="relative border-t border-[color:var(--color-border)] bg-[color:var(--color-bg-base)]"
+>
+  <div class="container-wide section-padding grid gap-12 lg:grid-cols-12 lg:gap-16">
+    <div class="lg:col-span-5">
+      <p
+        data-i18n="contact.heading"
+        class="font-mono text-xs uppercase tracking-[0.3em] text-[color:var(--color-accent)]"
+      >
+        {t.heading}
+      </p>
+      <h2
+        data-i18n="contact.intro"
+        class="mt-6 font-serif text-[length:var(--text-display)] leading-[var(--text-display--line-height)] tracking-tight text-[color:var(--color-text-primary)]"
+      >
+        {t.intro}
+      </h2>
+
+      <ul class="mt-10 space-y-3">
+        {
+          direct.map((d) => {
+            const label = t.direct[d.id as keyof typeof t.direct];
+            const content = (
+              <>
+                <span class="inline-flex size-9 items-center justify-center rounded-full border border-[color:var(--color-border)] bg-[color:var(--color-bg-surface)] text-[color:var(--color-accent)]">
+                  <Icon name={d.icon} class="size-4" aria-hidden="true" />
+                </span>
+                <span class="flex flex-col">
+                  <span
+                    data-i18n={`contact.direct.${d.id}`}
+                    class="font-mono text-[0.6875rem] uppercase tracking-[0.2em] text-[color:var(--color-text-muted)]"
+                  >
+                    {label}
+                  </span>
+                  <span class="text-sm text-[color:var(--color-text-primary)] sm:text-base">{d.value}</span>
+                </span>
+              </>
+            );
+            return (
+              <li>
+                {d.href ? (
+                  <a
+                    href={d.href}
+                    target={d.href.startsWith('http') ? '_blank' : undefined}
+                    rel={d.href.startsWith('http') ? 'noopener' : undefined}
+                    class="group flex items-center gap-4 transition hover:text-[color:var(--color-accent)]"
+                  >
+                    {content}
+                  </a>
+                ) : (
+                  <div class="flex items-center gap-4">{content}</div>
+                )}
+              </li>
+            );
+          })
+        }
+      </ul>
+    </div>
+
+    <form
+      class="contact-form flex flex-col gap-5 lg:col-span-7"
+      novalidate
+      data-contact-form
+      data-locale="es"
+    >
+      <div class="hidden" aria-hidden="true">
+        <label>
+          Website
+          <input type="text" name="website" tabindex="-1" autocomplete="off" />
+        </label>
+      </div>
+
+      <div class="grid gap-5 sm:grid-cols-2">
+        <label class="flex flex-col gap-2">
+          <span data-i18n="contact.form.name" class="font-mono text-[0.6875rem] uppercase tracking-[0.2em] text-[color:var(--color-text-muted)]">
+            {t.form.name}
+          </span>
+          <input
+            type="text"
+            name="name"
+            required
+            minlength="2"
+            maxlength="120"
+            class="rounded-lg border border-[color:var(--color-border)] bg-[color:var(--color-bg-surface)] px-4 py-3 text-[color:var(--color-text-primary)] focus:border-[color:var(--color-accent)] focus:outline-none"
+          />
+        </label>
+        <label class="flex flex-col gap-2">
+          <span data-i18n="contact.form.email" class="font-mono text-[0.6875rem] uppercase tracking-[0.2em] text-[color:var(--color-text-muted)]">
+            {t.form.email}
+          </span>
+          <input
+            type="email"
+            name="email"
+            required
+            maxlength="160"
+            class="rounded-lg border border-[color:var(--color-border)] bg-[color:var(--color-bg-surface)] px-4 py-3 text-[color:var(--color-text-primary)] focus:border-[color:var(--color-accent)] focus:outline-none"
+          />
+        </label>
+      </div>
+
+      <label class="flex flex-col gap-2">
+        <span data-i18n="contact.form.subject" class="font-mono text-[0.6875rem] uppercase tracking-[0.2em] text-[color:var(--color-text-muted)]">
+          {t.form.subject}
+        </span>
+        <input
+          type="text"
+          name="subject"
+          required
+          minlength="2"
+          maxlength="160"
+          class="rounded-lg border border-[color:var(--color-border)] bg-[color:var(--color-bg-surface)] px-4 py-3 text-[color:var(--color-text-primary)] focus:border-[color:var(--color-accent)] focus:outline-none"
+        />
+      </label>
+
+      <label class="flex flex-col gap-2">
+        <span data-i18n="contact.form.message" class="font-mono text-[0.6875rem] uppercase tracking-[0.2em] text-[color:var(--color-text-muted)]">
+          {t.form.message}
+        </span>
+        <textarea
+          name="message"
+          required
+          minlength="10"
+          maxlength="4000"
+          rows="6"
+          class="rounded-lg border border-[color:var(--color-border)] bg-[color:var(--color-bg-surface)] px-4 py-3 text-[color:var(--color-text-primary)] focus:border-[color:var(--color-accent)] focus:outline-none"
+        ></textarea>
+      </label>
+
+      <div class="flex flex-wrap items-center gap-4">
+        <button
+          type="submit"
+          class="inline-flex items-center gap-2 rounded-full bg-[color:var(--color-accent)] px-6 py-3 font-mono text-xs font-medium uppercase tracking-widest text-[color:var(--color-accent-contrast)] transition hover:bg-[color:var(--color-accent-hover)] disabled:opacity-60 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[color:var(--color-accent)]"
+        >
+          <span data-i18n="contact.form.submit" data-submit-label>{t.form.submit}</span>
+          <Icon name="lucide:arrow-right" class="size-4" aria-hidden="true" />
+        </button>
+        <p
+          role="status"
+          aria-live="polite"
+          class="font-mono text-xs text-[color:var(--color-text-muted)]"
+          data-form-status
+        ></p>
+      </div>
+
+      <script is:inline define:vars={{ fallbackStrings: t.form }}>
+        (() => {
+          const form = document.querySelector('[data-contact-form]');
+          if (!form) return;
+          const button = form.querySelector('button[type="submit"]');
+          const label = form.querySelector('[data-submit-label]');
+          const status = form.querySelector('[data-form-status]');
+
+          // Use runtime i18n if available (respects current locale), fall back to ES
+          function s(key) {
+            return window.__i18n?.t('contact.form.' + key) || fallbackStrings[key] || '';
+          }
+
+          form.addEventListener('submit', async (e) => {
+            e.preventDefault();
+            if (!form.checkValidity()) { form.reportValidity(); return; }
+            const data = Object.fromEntries(new FormData(form).entries());
+            data.locale = form.dataset.locale || 'es';
+            button.disabled = true;
+            label.textContent = s('sending');
+            status.textContent = '';
+            status.style.color = '';
+            try {
+              const res = await fetch('/api/contact', {
+                method: 'POST',
+                headers: { 'content-type': 'application/json' },
+                body: JSON.stringify(data),
+              });
+              const body = await res.json().catch(() => ({}));
+              if (res.ok && body.ok) {
+                status.textContent = s('success');
+                status.style.color = 'var(--color-success)';
+                form.reset();
+              } else {
+                status.textContent = s('error');
+                status.style.color = 'var(--color-danger)';
+              }
+            } catch {
+              status.textContent = s('error');
+              status.style.color = 'var(--color-danger)';
+            } finally {
+              button.disabled = false;
+              label.textContent = s('submit');
+            }
+          });
+        })();
+      </script>
+    </form>
+  </div>
+</section>

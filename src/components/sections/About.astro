@@ -1,0 +1,64 @@
+---
+import { Icon } from 'astro-icon/components';
+import type { Dictionary } from '@lib/i18n';
+
+interface Props {
+  t: Dictionary['about'];
+}
+const { t } = Astro.props;
+---
+
+<section id="about" class="relative border-t border-[color:var(--color-border)]">
+  <div class="container-wide section-padding grid gap-12 lg:grid-cols-12 lg:gap-16">
+    <div class="lg:col-span-5">
+      <p
+        data-i18n="about.eyebrow"
+        class="font-mono text-xs uppercase tracking-[0.3em] text-[color:var(--color-accent)]"
+      >
+        {t.eyebrow}
+      </p>
+      <h2
+        data-i18n="about.heading"
+        class="mt-6 font-serif text-[length:var(--text-display)] leading-[var(--text-display--line-height)] tracking-tight text-[color:var(--color-text-primary)]"
+      >
+        {t.heading}
+      </h2>
+    </div>
+
+    <div class="lg:col-span-7">
+      <div class="space-y-6 text-[color:var(--color-text-secondary)]">
+        {t.body.map((p, i) => (
+          <p data-i18n={`about.body.${i}`} class="text-base leading-relaxed sm:text-lg">{p}</p>
+        ))}
+      </div>
+
+      <dl class="mt-10 grid grid-cols-1 gap-px overflow-hidden rounded-xl border border-[color:var(--color-border)] bg-[color:var(--color-border)] sm:grid-cols-2">
+        {t.highlights.map((h, i) => (
+          <div class="bg-[color:var(--color-bg-surface)] p-5">
+            <dt
+              data-i18n={`about.highlights.${i}.label`}
+              class="font-mono text-[0.6875rem] uppercase tracking-[0.2em] text-[color:var(--color-text-muted)]"
+            >
+              {h.label}
+            </dt>
+            <dd
+              data-i18n={`about.highlights.${i}.value`}
+              class="mt-2 font-serif text-xl text-[color:var(--color-text-primary)]"
+            >
+              {h.value}
+            </dd>
+          </div>
+        ))}
+      </dl>
+
+      <a
+        href="/cv/CV_Sebastian_Nicolas_Cachis_Gonzales.pdf"
+        download
+        class="mt-8 inline-flex items-center gap-2 rounded-full border border-[color:var(--color-border)] bg-[color:var(--color-bg-surface)] px-5 py-3 font-mono text-xs uppercase tracking-widest text-[color:var(--color-text-primary)] transition hover:border-[color:var(--color-accent)] hover:text-[color:var(--color-accent)] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[color:var(--color-accent)]"
+      >
+        <Icon name="lucide:file-text" class="size-4" aria-hidden="true" />
+        <span data-i18n="about.downloadCv">{t.downloadCv}</span>
+      </a>
+    </div>
+  </div>
+</section>

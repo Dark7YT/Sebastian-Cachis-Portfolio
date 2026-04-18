@@ -1,0 +1,86 @@
+---
+import { Icon } from 'astro-icon/components';
+import type { Dictionary } from '@lib/i18n';
+
+interface Props {
+  t: Dictionary['toggles']['theme'];
+}
+const { t } = Astro.props;
+const labels = JSON.stringify({ dark: t.dark, light: t.light, system: t.system });
+---
+
+<button
+  type="button"
+  data-theme-toggle
+  data-theme-labels={labels}
+  class="inline-flex size-10 items-center justify-center rounded-full border border-[color:var(--color-border)] bg-[color:var(--color-bg-surface)] text-[color:var(--color-text-secondary)] transition hover:border-[color:var(--color-accent)] hover:text-[color:var(--color-accent)] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[color:var(--color-accent)]"
+  aria-label={t.label}
+  title={t.label}
+>
+  <span class="theme-icon-wrap" aria-hidden="true">
+    <Icon name="lucide:sun" class="theme-icon" data-theme-icon="light" aria-hidden="true" />
+    <Icon name="lucide:moon" class="theme-icon" data-theme-icon="dark" aria-hidden="true" />
+    <Icon name="lucide:monitor" class="theme-icon" data-theme-icon="system" aria-hidden="true" />
+  </span>
+  <span class="sr-only" data-theme-label></span>
+</button>
+
+<style>
+  .theme-icon-wrap {
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 1.25rem;
+    height: 1.25rem;
+  }
+
+  .theme-icon {
+    position: absolute;
+    width: 1.25rem;
+    height: 1.25rem;
+    transition:
+      opacity 200ms ease,
+      transform 200ms cubic-bezier(0.34, 1.56, 0.64, 1);
+    /* hidden state by default */
+    opacity: 0;
+    transform: scale(0.5) rotate(15deg);
+    pointer-events: none;
+  }
+
+  .theme-icon[data-active] {
+    opacity: 1;
+    transform: scale(1) rotate(0deg);
+    pointer-events: auto;
+  }
+</style>
+
+<script>
+  function sync() {
+    const mode = window.__theme?.get?.() ?? 'system';
+    document.querySelectorAll<HTMLElement>('[data-theme-toggle]').forEach((btn) => {
+      const labels = JSON.parse(btn.dataset.themeLabels ?? '{}') as Record<string, string>;
+      btn.querySelectorAll<HTMLElement>('[data-theme-icon]').forEach((el) => {
+        if (el.dataset.themeIcon === mode) {
+          el.setAttribute('data-active', '');
+        } else {
+          el.removeAttribute('data-active');
+        }
+      });
+      const label = btn.querySelector<HTMLElement>('[data-theme-label]');
+      if (label) label.textContent = labels[mode] ?? mode;
+    });
+  }
+
+  document.querySelectorAll<HTMLButtonElement>('[data-theme-toggle]').forEach((btn) => {
+    btn.addEventListener('click', () => {
+      window.__theme?.cycle?.();
+      sync();
+    });
+  });
+
+  window.addEventListener('themechange', sync);
+  document.addEventListener('astro:after-swap', sync);
+  document.addEventListener('astro:page-load', sync);
+  sync();
+</script>

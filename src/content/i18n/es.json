@@ -1,0 +1,123 @@
+{
+  "meta": {
+    "title": "Portafolio — Sebastian Cachis",
+    "description": "Full Stack Jr. especializado en arquitectura DDD/CQRS y fintech. Lidero CorilOne en producción con Java 17, Spring Boot 3 y Next.js 16."
+  },
+  "nav": {
+    "about": "Sobre mí",
+    "experience": "Experiencia",
+    "projects": "Proyectos",
+    "stack": "Stack",
+    "contact": "Contacto",
+    "menu": "Menú",
+    "close": "Cerrar"
+  },
+  "hero": {
+    "eyebrow": "Desarrollador Full Stack",
+    "name": "Sebastian Cachis",
+    "tagline": "Desarrollando infraestructura tecnológica para gestión patrimonial e inversiones.",
+    "metric": "Liderando el desarrollo de un Multi Family Office · 4 años en fintech & enterprise",
+    "ctaProjects": "Ver proyectos",
+    "ctaContact": "Contactarme",
+    "code": {
+      "edu": "\"Ing. de Software · UPC\"",
+      "like0": "\"gym\"",
+      "like1": "\"música\"",
+      "like2": "\"café\"",
+      "status": "\"actualmente empleado\""
+    }
+  },
+  "about": {
+    "eyebrow": "Sobre mí",
+    "heading": "De soporte Java a liderar plataformas de gestión de portafolios end-to-end.",
+    "body": [
+      "Soy Full Stack Jr. especializado en arquitectura DDD/CQRS, microservicios y event-driven, con cuatro años de experiencia en el sector financiero — Grupo Coril, Alfin Banco y ecomserv. Actualmente lidero CorilOne, la plataforma end-to-end de Coril Asset Management y Altum MFO, desde su diseño de dominio hasta producción.",
+      "Combino Java 17/Spring Boot 3 en el backend con Next.js 16 en el frontend para construir plataformas que deben ser confiables, trazables y auditables. Me interesa especialmente el equilibrio entre decisiones técnicas a largo plazo y entregas continuas que mueven el negocio.",
+      "Estudio Ingeniería de Software en UPC, donde pertenezco al décimo superior. Inglés C1. Vivo en Lima, Perú."
+    ],
+    "downloadCv": "Descargar CV",
+    "highlights": [
+      { "label": "Experiencia", "value": "4+ años" },
+      { "label": "Stack principal", "value": "Java · Spring · Next.js" },
+      { "label": "Idiomas", "value": "Español · Inglés C1" },
+      { "label": "Ubicación", "value": "Lima, Perú" }
+    ]
+  },
+  "experience": {
+    "heading": "Experiencia",
+    "intro": "Cuatro años en el sector financiero — de optimización de APIs en Java 8 a liderar arquitecturas DDD/CQRS en producción.",
+    "present": "Actualidad"
+  },
+  "projects": {
+    "heading": "Proyectos",
+    "intro": "Una selección del trabajo más reciente en fintech. Algunos casos están bajo NDA y se presentan a nivel narrativo.",
+    "viewCase": "Ver caso",
+    "viewLive": "Ver en vivo",
+    "viewCode": "Ver código",
+    "ndaBadge": "Caso bajo NDA",
+    "roleLabel": "Rol",
+    "clientLabel": "Cliente",
+    "periodLabel": "Periodo",
+    "stackLabel": "Stack",
+    "metricsLabel": "Impacto"
+  },
+  "stack": {
+    "heading": "Stack técnico",
+    "intro": "Las herramientas con las que construyo plataformas confiables, trazables y listas para escalar.",
+    "groups": {
+      "backend": "Backend",
+      "frontend": "Frontend",
+      "architecture": "Arquitectura",
+      "data": "Datos",
+      "messaging": "Mensajería",
+      "cloud": "Cloud & DevOps",
+      "testing": "Testing",
+      "tools": "Herramientas"
+    }
+  },
+  "contact": {
+    "heading": "Contacto",
+    "intro": "¿Un proyecto, una oportunidad o una conversación técnica? Escríbeme.",
+    "form": {
+      "name": "Nombre",
+      "email": "Correo electrónico",
+      "subject": "Asunto",
+      "message": "Mensaje",
+      "submit": "Enviar mensaje",
+      "sending": "Enviando…",
+      "success": "Mensaje enviado. Te responderé pronto.",
+      "error": "No pude enviar el mensaje. Intenta nuevamente."
+    },
+    "direct": {
+      "email": "Correo",
+      "phone": "Teléfono",
+      "location": "Ubicación",
+      "github": "GitHub",
+      "linkedin": "LinkedIn"
+    }
+  },
+  "footer": {
+    "rights": "Todos los derechos reservados",
+    "builtWith": "Construido con Astro",
+    "repo": "Ver repositorio"
+  },
+  "notFound": {
+    "code": "404",
+    "heading": "Página no encontrada",
+    "body": "La página que buscas no existe o fue movida.",
+    "cta": "Volver al inicio"
+  },
+  "toggles": {
+    "theme": {
+      "label": "Cambiar tema",
+      "dark": "Oscuro",
+      "light": "Claro",
+      "system": "Sistema"
+    },
+    "language": {
+      "label": "Cambiar idioma",
+      "es": "Español",
+      "en": "English"
+    }
+  }
+}

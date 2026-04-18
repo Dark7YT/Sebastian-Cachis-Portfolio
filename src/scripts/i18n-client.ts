@@ -48,6 +48,10 @@ const dicts: Record<Locale, Record<string, string>> = {
 function applyLocale(locale: Locale) {
   const dict = dicts[locale];
 
+  // 0. Page title
+  const pageTitle = dict['meta.title'];
+  if (pageTitle) document.title = pageTitle;
+
   // 1. Static text nodes
   document.querySelectorAll<HTMLElement>('[data-i18n]').forEach((el) => {
     const val = dict[el.dataset.i18n!];

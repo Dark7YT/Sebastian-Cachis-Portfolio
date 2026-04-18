@@ -1,15 +1,36 @@
 ---
+/**
+ * Portfolio — single page, pre-rendered in ES by default.
+ * EN translations are applied client-side by i18n-client.ts without navigation.
+ */
+export const prerender = true;
+
 import BaseLayout from '@layouts/BaseLayout.astro';
+import Header from '@components/layout/Header.astro';
+import Footer from '@components/layout/Footer.astro';
+import Hero from '@components/sections/Hero.astro';
+import About from '@components/sections/About.astro';
+import Experience from '@components/sections/Experience.astro';
+import Projects from '@components/sections/Projects.astro';
+import Stack from '@components/sections/Stack.astro';
+import Contact from '@components/sections/Contact.astro';
+import GsapReveal from '@components/islands/GsapReveal.astro';
+import { useTranslations } from '@lib/i18n';
+
+const t = useTranslations('es');
+const tEn = useTranslations('en');
 ---
 
-<BaseLayout locale="es">
-  <main class="container-content section-padding">
-    <h1 class="text-[length:var(--text-hero)] leading-[var(--text-hero--line-height)]">
-      Sebastian Cachis
-    </h1>
-    <p class="mt-6 max-w-2xl text-lg text-[color:var(--color-text-secondary)]">
-      Desarrollador Full Stack · Next.js &amp; Spring Boot · Arquitectura modular, microservicios y
-      cloud.
-    </p>
+<BaseLayout>
+  <Header t={t} />
+  <main>
+    <Hero t={t.hero} />
+    <About t={t.about} />
+    <Experience t={t.experience} tEn={tEn.experience} />
+    <Projects t={t.projects} tEn={tEn.projects} />
+    <Stack t={t.stack} />
+    <Contact t={t.contact} />
   </main>
+  <Footer t={t.footer} />
+  <GsapReveal />
 </BaseLayout>

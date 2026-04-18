@@ -1,0 +1,166 @@
+---
+import { Icon } from 'astro-icon/components';
+import type { Dictionary } from '@lib/i18n';
+import ThemeToggle from './ThemeToggle.astro';
+import LanguageToggle from './LanguageToggle.astro';
+
+interface Props {
+  t: Dictionary;
+}
+const { t } = Astro.props;
+
+const sections = [
+  { id: 'about',      key: 'nav.about' },
+  { id: 'experience', key: 'nav.experience' },
+  { id: 'projects',   key: 'nav.projects' },
+  { id: 'stack',      key: 'nav.stack' },
+  { id: 'contact',    key: 'nav.contact' },
+] as const;
+---
+
+<header
+  class="sticky top-0 z-40 border-b border-[color:var(--color-border)] bg-[color:var(--color-bg-base)]/80 backdrop-blur-md"
+  data-site-header
+>
+  <div class="container-wide flex h-16 items-center justify-between gap-4 sm:h-20">
+    <a href="/" class="group flex items-baseline gap-0.5 transition">
+      <span class="font-mono text-xs font-bold text-[color:var(--color-accent)] transition group-hover:opacity-60">&lt;</span>
+      <span class="font-serif text-xl italic tracking-tight text-[color:var(--color-text-primary)] transition group-hover:text-[color:var(--color-accent)]">
+        <span class="hidden sm:inline">Sebastian</span>
+        <span class="sm:hidden">Sebas</span>
+      </span>
+      <span class="font-mono text-xs font-bold text-[color:var(--color-accent)] transition group-hover:opacity-60"> /&gt;</span>
+    </a>
+
+    <nav aria-label="primary" class="hidden items-center gap-8 lg:flex">
+      {
+        sections.map((s) => (
+          <a
+            href={`#${s.id}`}
+            data-i18n={s.key}
+            class="font-mono text-xs uppercase tracking-[0.2em] text-[color:var(--color-text-secondary)] transition hover:text-[color:var(--color-accent)]"
+          >
+            {t.nav[s.id as keyof typeof t.nav]}
+          </a>
+        ))
+      }
+    </nav>
+
+    <div class="flex items-center gap-2">
+      <LanguageToggle />
+      <ThemeToggle t={t.toggles.theme} />
+      <button
+        type="button"
+        data-mobile-menu-open
+        class="inline-flex size-10 items-center justify-center rounded-full border border-[color:var(--color-border)] bg-[color:var(--color-bg-surface)] text-[color:var(--color-text-secondary)] transition hover:border-[color:var(--color-accent)] hover:text-[color:var(--color-accent)] lg:hidden focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[color:var(--color-accent)]"
+        data-i18n-label="nav.menu"
+        aria-label={t.nav.menu}
+        aria-controls="mobile-nav"
+        aria-expanded="false"
+      >
+        <Icon name="lucide:menu" class="size-5" aria-hidden="true" />
+      </button>
+    </div>
+  </div>
+</header>
+
+<!-- Overlay backdrop -->
+<div
+  data-mobile-overlay
+  class="fixed inset-0 z-50 bg-black/40 opacity-0 backdrop-blur-sm transition-opacity duration-300 lg:hidden"
+  style="pointer-events: none;"
+  aria-hidden="true"
+></div>
+
+<!-- Right-side drawer -->
+<aside
+  id="mobile-nav"
+  data-mobile-menu
+  class="fixed top-0 right-0 z-50 flex h-full w-80 max-w-[85vw] flex-col border-l border-[color:var(--color-border)] bg-[color:var(--color-bg-surface)] shadow-2xl lg:hidden"
+  style="transform: translateX(100%); transition: transform 350ms cubic-bezier(0.4, 0, 0.2, 1);"
+  aria-hidden="true"
+>
+  <div class="flex h-16 items-center justify-between border-b border-[color:var(--color-border)] px-6 sm:h-20">
+    <span class="flex items-baseline gap-0.5">
+      <span class="font-mono text-xs font-bold text-[color:var(--color-accent)]">&lt;</span>
+      <span class="font-serif text-lg italic tracking-tight text-[color:var(--color-text-primary)]">SC</span>
+      <span class="font-mono text-xs font-bold text-[color:var(--color-accent)]"> /&gt;</span>
+    </span>
+    <button
+      type="button"
+      data-mobile-menu-close
+      class="inline-flex size-9 items-center justify-center rounded-full border border-[color:var(--color-border)] text-[color:var(--color-text-secondary)] transition hover:border-[color:var(--color-accent)] hover:text-[color:var(--color-accent)] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[color:var(--color-accent)]"
+      data-i18n-label="nav.close"
+      aria-label={t.nav.close}
+    >
+      <Icon name="lucide:x" class="size-4" aria-hidden="true" />
+    </button>
+  </div>
+
+  <nav class="flex flex-1 flex-col justify-center gap-2 px-6 py-8">
+    {
+      sections.map((s, i) => (
+        <a
+          href={`#${s.id}`}
+          data-mobile-menu-link
+          class="group flex items-baseline gap-4 py-3 text-[color:var(--color-text-primary)] transition hover:text-[color:var(--color-accent)] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[color:var(--color-accent)]"
+        >
+          <span class="w-6 shrink-0 font-mono text-[0.65rem] text-[color:var(--color-text-muted)] transition group-hover:text-[color:var(--color-accent)]">
+            {String(i + 1).padStart(2, '0')}
+          </span>
+          <span data-i18n={s.key} class="font-serif text-2xl tracking-tight">
+            {t.nav[s.id as keyof typeof t.nav]}
+          </span>
+        </a>
+      ))
+    }
+  </nav>
+
+  <div class="border-t border-[color:var(--color-border)] px-6 py-5">
+    <p class="font-mono text-[0.65rem] uppercase tracking-[0.2em] text-[color:var(--color-text-muted)]">
+      Sebastian Cachis · Lima, Perú
+    </p>
+  </div>
+</aside>
+
+<script>
+  function initMobileMenu() {
+    const menu = document.querySelector<HTMLElement>('[data-mobile-menu]');
+    const overlay = document.querySelector<HTMLElement>('[data-mobile-overlay]');
+    const openBtn = document.querySelector<HTMLButtonElement>('[data-mobile-menu-open]');
+    const closeBtn = document.querySelector<HTMLButtonElement>('[data-mobile-menu-close]');
+    const links = document.querySelectorAll<HTMLAnchorElement>('[data-mobile-menu-link]');
+
+    if (!menu || !openBtn) return;
+
+    function setOpen(open: boolean) {
+      if (!menu || !overlay || !openBtn) return;
+      if (open) {
+        menu.style.transform = 'translateX(0)';
+        overlay.style.opacity = '1';
+        overlay.style.pointerEvents = 'auto';
+        menu.setAttribute('aria-hidden', 'false');
+        openBtn.setAttribute('aria-expanded', 'true');
+        document.body.style.overflow = 'hidden';
+        menu.querySelector<HTMLAnchorElement>('[data-mobile-menu-link]')?.focus();
+      } else {
+        menu.style.transform = 'translateX(100%)';
+        overlay.style.opacity = '0';
+        overlay.style.pointerEvents = 'none';
+        menu.setAttribute('aria-hidden', 'true');
+        openBtn.setAttribute('aria-expanded', 'false');
+        document.body.style.overflow = '';
+        openBtn.focus();
+      }
+    }
+
+    openBtn.addEventListener('click', () => setOpen(true));
+    closeBtn?.addEventListener('click', () => setOpen(false));
+    overlay.addEventListener('click', () => setOpen(false));
+    links.forEach((l) => l.addEventListener('click', () => setOpen(false)));
+    document.addEventListener('keydown', (e) => { if (e.key === 'Escape') setOpen(false); });
+  }
+
+  document.addEventListener('astro:after-swap', initMobileMenu);
+  document.addEventListener('astro:page-load', initMobileMenu);
+</script>

@@ -1,0 +1,182 @@
+---
+import { getCollection } from 'astro:content';
+import { Icon } from 'astro-icon/components';
+import type { Dictionary } from '@lib/i18n';
+
+interface Props {
+  t: Dictionary['projects'];
+  tEn: Dictionary['projects'];
+}
+const { t, tEn } = Astro.props;
+
+const [entriesEs, entriesEn] = await Promise.all([
+  getCollection('projects', (e) => e.data.locale === 'es').then((r) => r.sort((a, b) => a.data.order - b.data.order)),
+  getCollection('projects', (e) => e.data.locale === 'en').then((r) => r.sort((a, b) => a.data.order - b.data.order)),
+]);
+
+function renderCards(entries: typeof entriesEs, labels: Dictionary['projects']) {
+  return entries;
+}
+---
+
+<section
+  id="projects"
+  class="relative border-t border-[color:var(--color-border)] bg-[color:var(--color-bg-base)]"
+>
+  <div class="container-wide section-padding">
+    <div class="max-w-3xl">
+      <p
+        data-i18n="projects.heading"
+        class="font-mono text-xs uppercase tracking-[0.3em] text-[color:var(--color-accent)]"
+      >
+        {t.heading}
+      </p>
+      <h2
+        data-i18n="projects.intro"
+        class="mt-6 font-serif text-[length:var(--text-display)] leading-[var(--text-display--line-height)] tracking-tight text-[color:var(--color-text-primary)]"
+      >
+        {t.intro}
+      </h2>
+    </div>
+
+    {/* ES entries */}
+    <div data-locale-block="es">
+      <ul class="mt-14 grid grid-cols-1 gap-6 sm:mt-20 sm:gap-8 lg:grid-cols-2">
+        {entriesEs.map((entry) => {
+          const { data } = entry;
+          return (
+            <li data-reveal class="group relative flex h-full flex-col overflow-hidden rounded-2xl border border-[color:var(--color-border)] bg-[color:var(--color-bg-surface)] transition hover:border-[color:var(--color-accent)] hover:shadow-[var(--shadow-accent)]">
+              <div class="relative flex aspect-[16/10] items-center justify-center border-b border-[color:var(--color-border)] bg-[color:var(--color-bg-elevated)]">
+                <div aria-hidden="true" class="absolute inset-0 opacity-40" style="background-image: radial-gradient(ellipse 60% 50% at 50% 50%, var(--color-accent-muted), transparent 70%);" />
+                {data.images.length > 0 ? (
+                  <img src={data.images[0].src} alt={data.images[0].alt} loading="lazy" class="relative size-full object-cover" />
+                ) : (
+                  <div class="relative flex flex-col items-center gap-3 text-center">
+                    <Icon name="lucide:layers" class="size-10 text-[color:var(--color-accent)]" aria-hidden="true" />
+                    <span class="font-mono text-[0.6875rem] uppercase tracking-[0.3em] text-[color:var(--color-text-muted)]">{data.name}</span>
+                  </div>
+                )}
+                {data.nda && (
+                  <span class="absolute top-4 right-4 inline-flex items-center gap-1.5 rounded-full border border-[color:var(--color-border)] bg-[color:var(--color-bg-base)]/80 px-3 py-1 font-mono text-[0.625rem] uppercase tracking-widest text-[color:var(--color-text-secondary)] backdrop-blur-sm">
+                    <Icon name="lucide:lock" class="size-3" aria-hidden="true" />
+                    {t.ndaBadge}
+                  </span>
+                )}
+              </div>
+              <div class="flex flex-1 flex-col gap-5 p-6 sm:p-8">
+                <div>
+                  <h3 class="font-serif text-2xl tracking-tight text-[color:var(--color-text-primary)] sm:text-3xl">{data.name}</h3>
+                  <p class="mt-1 font-mono text-[0.6875rem] uppercase tracking-[0.2em] text-[color:var(--color-text-muted)]">{data.period}</p>
+                </div>
+                <p class="text-sm leading-relaxed text-[color:var(--color-text-secondary)] sm:text-base">{data.summary}</p>
+                {data.metrics.length > 0 && (
+                  <dl class="grid grid-cols-1 gap-3 sm:grid-cols-3">
+                    {data.metrics.map((m) => (
+                      <div class="rounded-lg border border-[color:var(--color-border)] bg-[color:var(--color-bg-elevated)] p-3">
+                        <dt class="font-mono text-[0.625rem] uppercase tracking-[0.2em] text-[color:var(--color-text-muted)]">{m.label}</dt>
+                        <dd class="mt-1 font-serif text-lg text-[color:var(--color-accent)]">{m.value}</dd>
+                      </div>
+                    ))}
+                  </dl>
+                )}
+                {data.stack.length > 0 && (
+                  <ul class="flex flex-wrap gap-2">
+                    {data.stack.map((tech) => (
+                      <li class="rounded-full border border-[color:var(--color-border)] px-3 py-1 font-mono text-[0.6875rem] tracking-wide text-[color:var(--color-text-secondary)]">{tech}</li>
+                    ))}
+                  </ul>
+                )}
+                {(data.links.live || data.links.github) && (
+                  <div class="mt-auto flex flex-wrap gap-2 pt-2">
+                    {data.links.live && (
+                      <a href={data.links.live} target="_blank" rel="noopener" class="inline-flex items-center gap-1.5 font-mono text-xs uppercase tracking-widest text-[color:var(--color-text-primary)] transition hover:text-[color:var(--color-accent)]">
+                        {t.viewLive}
+                        <Icon name="lucide:external-link" class="size-3.5" aria-hidden="true" />
+                      </a>
+                    )}
+                    {data.links.github && (
+                      <a href={data.links.github} target="_blank" rel="noopener" class="ms-auto inline-flex items-center gap-1.5 font-mono text-xs uppercase tracking-widest text-[color:var(--color-text-primary)] transition hover:text-[color:var(--color-accent)]">
+                        {t.viewCode}
+                        <Icon name="lucide:github" class="size-3.5" aria-hidden="true" />
+                      </a>
+                    )}
+                  </div>
+                )}
+              </div>
+            </li>
+          );
+        })}
+      </ul>
+    </div>
+
+    {/* EN entries */}
+    <div data-locale-block="en">
+      <ul class="mt-14 grid grid-cols-1 gap-6 sm:mt-20 sm:gap-8 lg:grid-cols-2">
+        {entriesEn.map((entry) => {
+          const { data } = entry;
+          return (
+            <li data-reveal class="group relative flex h-full flex-col overflow-hidden rounded-2xl border border-[color:var(--color-border)] bg-[color:var(--color-bg-surface)] transition hover:border-[color:var(--color-accent)] hover:shadow-[var(--shadow-accent)]">
+              <div class="relative flex aspect-[16/10] items-center justify-center border-b border-[color:var(--color-border)] bg-[color:var(--color-bg-elevated)]">
+                <div aria-hidden="true" class="absolute inset-0 opacity-40" style="background-image: radial-gradient(ellipse 60% 50% at 50% 50%, var(--color-accent-muted), transparent 70%);" />
+                {data.images.length > 0 ? (
+                  <img src={data.images[0].src} alt={data.images[0].alt} loading="lazy" class="relative size-full object-cover" />
+                ) : (
+                  <div class="relative flex flex-col items-center gap-3 text-center">
+                    <Icon name="lucide:layers" class="size-10 text-[color:var(--color-accent)]" aria-hidden="true" />
+                    <span class="font-mono text-[0.6875rem] uppercase tracking-[0.3em] text-[color:var(--color-text-muted)]">{data.name}</span>
+                  </div>
+                )}
+                {data.nda && (
+                  <span class="absolute top-4 right-4 inline-flex items-center gap-1.5 rounded-full border border-[color:var(--color-border)] bg-[color:var(--color-bg-base)]/80 px-3 py-1 font-mono text-[0.625rem] uppercase tracking-widest text-[color:var(--color-text-secondary)] backdrop-blur-sm">
+                    <Icon name="lucide:lock" class="size-3" aria-hidden="true" />
+                    {tEn.ndaBadge}
+                  </span>
+                )}
+              </div>
+              <div class="flex flex-1 flex-col gap-5 p-6 sm:p-8">
+                <div>
+                  <h3 class="font-serif text-2xl tracking-tight text-[color:var(--color-text-primary)] sm:text-3xl">{data.name}</h3>
+                  <p class="mt-1 font-mono text-[0.6875rem] uppercase tracking-[0.2em] text-[color:var(--color-text-muted)]">{data.period}</p>
+                </div>
+                <p class="text-sm leading-relaxed text-[color:var(--color-text-secondary)] sm:text-base">{data.summary}</p>
+                {data.metrics.length > 0 && (
+                  <dl class="grid grid-cols-1 gap-3 sm:grid-cols-3">
+                    {data.metrics.map((m) => (
+                      <div class="rounded-lg border border-[color:var(--color-border)] bg-[color:var(--color-bg-elevated)] p-3">
+                        <dt class="font-mono text-[0.625rem] uppercase tracking-[0.2em] text-[color:var(--color-text-muted)]">{m.label}</dt>
+                        <dd class="mt-1 font-serif text-lg text-[color:var(--color-accent)]">{m.value}</dd>
+                      </div>
+                    ))}
+                  </dl>
+                )}
+                {data.stack.length > 0 && (
+                  <ul class="flex flex-wrap gap-2">
+                    {data.stack.map((tech) => (
+                      <li class="rounded-full border border-[color:var(--color-border)] px-3 py-1 font-mono text-[0.6875rem] tracking-wide text-[color:var(--color-text-secondary)]">{tech}</li>
+                    ))}
+                  </ul>
+                )}
+                {(data.links.live || data.links.github) && (
+                  <div class="mt-auto flex flex-wrap gap-2 pt-2">
+                    {data.links.live && (
+                      <a href={data.links.live} target="_blank" rel="noopener" class="inline-flex items-center gap-1.5 font-mono text-xs uppercase tracking-widest text-[color:var(--color-text-primary)] transition hover:text-[color:var(--color-accent)]">
+                        {tEn.viewLive}
+                        <Icon name="lucide:external-link" class="size-3.5" aria-hidden="true" />
+                      </a>
+                    )}
+                    {data.links.github && (
+                      <a href={data.links.github} target="_blank" rel="noopener" class="ms-auto inline-flex items-center gap-1.5 font-mono text-xs uppercase tracking-widest text-[color:var(--color-text-primary)] transition hover:text-[color:var(--color-accent)]">
+                        {tEn.viewCode}
+                        <Icon name="lucide:github" class="size-3.5" aria-hidden="true" />
+                      </a>
+                    )}
+                  </div>
+                )}
+              </div>
+            </li>
+          );
+        })}
+      </ul>
+    </div>
+  </div>
+</section>

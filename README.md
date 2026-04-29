@@ -2,7 +2,7 @@
 
 Personal portfolio of Sebastian Nicolas Cachis Gonzales, Full Stack Developer focused on fintech architecture. Built with Astro 6, Tailwind CSS v4, GSAP, and deployed on Vercel.
 
-**Live:** https://sebastian-cachis.vercel.app
+**Live:** https://www.sebas-cachis.dev
 
 ---
 

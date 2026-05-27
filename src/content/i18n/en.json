@@ -36,6 +36,7 @@
       "I'm pursuing a Software Engineering degree at UPC, ranked in the top 10%. C1 English. Based in Lima, Peru."
     ],
     "downloadCv": "Download CV",
+    "cvUrl": "/cv/CV_Sebastian%20Nicolas%20Cachis%20Gonzales_EN.pdf",
     "highlights": [
       { "label": "Experience", "value": "2+ years" },
       { "label": "Primary stack", "value": "Java · Spring · Next.js" },

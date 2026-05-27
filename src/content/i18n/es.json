@@ -36,6 +36,7 @@
       "Estudio Ingeniería de Software en UPC, donde pertenezco al décimo superior. Inglés C1. Vivo en Lima, Perú."
     ],
     "downloadCv": "Descargar CV",
+    "cvUrl": "/cv/CV_Sebastian%20Nicolas%20Cachis%20Gonzales_ES.pdf",
     "highlights": [
       { "label": "Experiencia", "value": "2+ años" },
       { "label": "Stack principal", "value": "Java · Spring · Next.js" },

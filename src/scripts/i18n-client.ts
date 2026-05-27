@@ -64,6 +64,12 @@ function applyLocale(locale: Locale) {
     if (val !== undefined) el.setAttribute('aria-label', val);
   });
 
+  // 2b. href attributes (for links whose target changes per locale, e.g. CV PDF)
+  document.querySelectorAll<HTMLElement>('[data-i18n-href]').forEach((el) => {
+    const val = dict[el.dataset.i18nHref!];
+    if (val !== undefined) el.setAttribute('href', val);
+  });
+
   // 3. Content-collection blocks (Experience / Projects entries)
   document.querySelectorAll<HTMLElement>('[data-locale-block]').forEach((el) => {
     el.hidden = el.dataset.localeBlock !== locale;

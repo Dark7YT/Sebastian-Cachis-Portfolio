@@ -52,7 +52,8 @@ const { t } = Astro.props;
       </dl>
 
       <a
-        href="/cv/CV_Sebastian_Nicolas_Cachis_Gonzales.pdf"
+        href={t.cvUrl}
+        data-i18n-href="about.cvUrl"
         download
         class="mt-8 inline-flex items-center gap-2 rounded-full border border-[color:var(--color-border)] bg-[color:var(--color-bg-surface)] px-5 py-3 font-mono text-xs uppercase tracking-widest text-[color:var(--color-text-primary)] transition hover:border-[color:var(--color-accent)] hover:text-[color:var(--color-accent)] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[color:var(--color-accent)]"
       >

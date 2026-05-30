@@ -22,6 +22,8 @@ const imageSchema = z.object({
   src: z.string(),
   alt: z.string(),
   caption: z.string().optional(),
+  width: z.number().optional(),
+  height: z.number().optional(),
 });
 
 const linkSchema = z.object({

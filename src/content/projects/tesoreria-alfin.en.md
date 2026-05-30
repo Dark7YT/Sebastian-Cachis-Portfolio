@@ -26,6 +26,8 @@ metrics:
     label: Processes with traceability
 images:
   - src: /images/projects/tesoreria-alfin.webp
+    width: 1881
+    height: 1840
     alt: Regulatory-report automation · Alfin Treasury
 links: {}
 ---

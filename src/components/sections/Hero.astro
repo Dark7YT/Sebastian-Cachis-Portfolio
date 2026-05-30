@@ -93,7 +93,7 @@ const codeHtml = `<span class="ck">const</span> <span class="cv">sebastian</span
     </div>
 
     <!-- right: code card (desktop only) -->
-    <div class="reveal hidden lg:block" style="--reveal-delay:440ms">
+    <div class="reveal hidden lg:block" style="--reveal-delay:250ms">
       <div class="overflow-hidden rounded-xl border border-[color:var(--color-border)] bg-[color:var(--color-bg-surface)]/90 shadow-[var(--shadow-card)] backdrop-blur-sm">
         <!-- titlebar -->
         <div class="flex items-center gap-1.5 border-b border-[color:var(--color-border)] bg-[color:var(--color-bg-elevated)] px-4 py-3">
@@ -236,7 +236,7 @@ const codeHtml = `<span class="ck">const</span> <span class="cv">sebastian</span
   .reveal {
     opacity: 0;
     transform: translateY(1rem);
-    animation: hero-reveal 900ms cubic-bezier(0.16, 1, 0.3, 1) forwards;
+    animation: hero-reveal 550ms cubic-bezier(0.16, 1, 0.3, 1) forwards;
     animation-delay: var(--reveal-delay, 0ms);
   }
 
@@ -249,7 +249,7 @@ const codeHtml = `<span class="ck">const</span> <span class="cv">sebastian</span
      hero title (the likely LCP element). */
   .reveal-lcp {
     transform: translateY(1rem);
-    animation: hero-reveal-slide 900ms cubic-bezier(0.16, 1, 0.3, 1) forwards;
+    animation: hero-reveal-slide 550ms cubic-bezier(0.16, 1, 0.3, 1) forwards;
     animation-delay: var(--reveal-delay, 0ms);
   }
 
@@ -314,7 +314,8 @@ const codeHtml = `<span class="ck">const</span> <span class="cv">sebastian</span
     window.addEventListener('wheel', finish, { passive: true });
     window.addEventListener('touchstart', finish, { passive: true });
 
-    // Delay so: (1) card reveal finishes, (2) i18n-client has already set locale
+    // Short delay so i18n-client has set the locale and the card reveal has
+    // started — kept tight so the code finishes painting fast (better Speed Index).
     timer = window.setTimeout(() => {
       let pos = 0;
       code!.innerHTML = '';
@@ -343,11 +344,11 @@ const codeHtml = `<span class="ck">const</span> <span class="cv">sebastian</span
         }
 
         code!.innerHTML = fullHtml.slice(0, pos);
-        timer = window.setTimeout(tick, 22);
+        timer = window.setTimeout(tick, 8);
       }
 
       tick();
-    }, 800);
+    }, 250);
   }
 
   document.addEventListener('astro:page-load', initTypewriter);

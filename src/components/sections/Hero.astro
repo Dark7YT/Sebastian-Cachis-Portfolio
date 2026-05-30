@@ -288,33 +288,62 @@ const codeHtml = `<span class="ck">const</span> <span class="cv">sebastian</span
     const code = document.querySelector<HTMLElement>('[data-typewriter]');
     if (!code) return;
 
-    // Delay so: (1) card reveal finishes, (2) i18n-client has already updated text
-    setTimeout(() => {
-      const html = code.innerHTML; // captured after i18n applied correct locale
+    // Respect reduced motion: keep the fully-rendered code, skip the animation.
+    if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+
+    const fullHtml = code.innerHTML; // captured after i18n applied correct locale
+    let timer = 0;
+    let done = false;
+
+    // Restore the full code instantly and stop — used on completion or the
+    // moment the user interacts, so the main thread is freed for a snappy
+    // first interaction (better INP).
+    function finish() {
+      if (done) return;
+      done = true;
+      window.clearTimeout(timer);
+      code!.innerHTML = fullHtml;
+      window.removeEventListener('pointerdown', finish);
+      window.removeEventListener('keydown', finish);
+      window.removeEventListener('wheel', finish);
+      window.removeEventListener('touchstart', finish);
+    }
+
+    window.addEventListener('pointerdown', finish, { passive: true });
+    window.addEventListener('keydown', finish);
+    window.addEventListener('wheel', finish, { passive: true });
+    window.addEventListener('touchstart', finish, { passive: true });
+
+    // Delay so: (1) card reveal finishes, (2) i18n-client has already set locale
+    timer = window.setTimeout(() => {
       let pos = 0;
-      code.innerHTML = '';
+      code!.innerHTML = '';
 
       function tick() {
-        if (pos >= html.length) return;
+        if (done) return;
+        if (pos >= fullHtml.length) {
+          finish();
+          return;
+        }
 
         // Jump over HTML tags instantly — they're invisible markup, not typed text
-        if (html[pos] === '<') {
-          const end = html.indexOf('>', pos);
+        if (fullHtml[pos] === '<') {
+          const end = fullHtml.indexOf('>', pos);
           pos = end !== -1 ? end + 1 : pos + 1;
           tick();
           return;
         }
 
         // HTML entities (&lt; etc.) count as one visible character
-        if (html[pos] === '&') {
-          const semi = html.indexOf(';', pos);
+        if (fullHtml[pos] === '&') {
+          const semi = fullHtml.indexOf(';', pos);
           pos = semi !== -1 && semi - pos <= 8 ? semi + 1 : pos + 1;
         } else {
           pos++;
         }
 
-        code.innerHTML = html.slice(0, pos);
-        setTimeout(tick, 22);
+        code!.innerHTML = fullHtml.slice(0, pos);
+        timer = window.setTimeout(tick, 22);
       }
 
       tick();

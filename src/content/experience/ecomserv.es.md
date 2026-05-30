@@ -9,12 +9,18 @@ order: 4
 featured: false
 stack:
   - Java 8
-  - Spring Boot
-  - SQL
+  - Spring Boot 2.x
+  - Spring Data JPA
+  - Hibernate
+  - MySQL
+  - PostgreSQL
   - APIs REST
+  - Maven
+  - Git
+  - Jira
 highlights:
-  - Mantenimiento y optimización de aplicaciones Java 8 / Spring Boot en producción, mejorando estabilidad y rendimiento.
-  - "Troubleshooting de incidencias críticas: análisis de logs, identificación de cuellos de botella y optimización de consultas SQL."
-  - Mejora de rendimiento en APIs REST mediante optimización de índices y consultas en base de datos.
-  - Documentación técnica y coordinación con equipos de desarrollo para resolución de incidencias complejas.
+  - Mantenimiento evolutivo y desarrollo de APIs REST con Java 8, Spring Boot 2.x, JPA/Hibernate y MySQL/PostgreSQL sobre plataformas de e-commerce y backoffice (pedidos, productos, clientes, pagos).
+  - "Diagnóstico y resolución de incidencias productivas mediante análisis de logs, debugging y validación en base de datos: corrección de un flujo crítico de actualización de estados de pedidos asociados a respuestas de pasarela de pago."
+  - Optimización de endpoints de consulta de pedidos con paginación, DTO projections, refactor de queries e índices compuestos, reduciendo tiempos de respuesta de ~6–10s a ~1–2s en escenarios con alto volumen.
+  - Integración con servicios externos (pagos, notificaciones por correo/SMS), soporte a despliegues productivos y trabajo con Maven, Git, Jira y código legacy bajo coordinación con perfiles senior y QA.
 ---

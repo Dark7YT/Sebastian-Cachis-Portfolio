@@ -1,17 +1,20 @@
 ---
 locale: en
 company: Alfin Banco
-role: Full Stack Developer · Treasury area
+role: Full Stack Developer · Python automation · Treasury
 location: Lima, Peru
 start: 2025-11
 order: 2
 featured: true
 stack:
   - Python
-  - Excel / OpenPyXL
+  - pandas
+  - openpyxl
+  - logging
+  - Excel
   - Process automation
 highlights:
-  - Built a Python application to automate Excel-based regulatory processes.
-  - Cut operational time from 2 hours to 3 minutes (~97.5%), optimizing critical workflows.
-  - Implementation focused on reliability, data validation, and execution traceability.
+  - Designed and built a Python tool (pandas, openpyxl, logging) that consolidates and validates inputs for Treasury's regulatory and internal reports.
+  - Cut report-preparation time from ~2 hours to ~3 minutes on a recurring process, removing manual Excel handling and reducing operational risk.
+  - Gathered requirements directly with the business area, handled credentials securely (environment variables), and packaged the tool as a distributable executable.
 ---

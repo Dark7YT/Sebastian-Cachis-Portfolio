@@ -1,13 +1,14 @@
 {
   "meta": {
     "title": "Portfolio - Sebastian Cachis",
-    "description": "Full Stack Jr. specialized in DDD/CQRS architecture and fintech. Leading CorilOne in production with Java 17, Spring Boot 3, and Next.js 16."
+    "description": "Junior Full Stack Developer with 4+ years across fintech and e-commerce. I design and build financial platforms end-to-end with Java 17/21, Spring Boot 3, and Next.js 16."
   },
   "nav": {
     "about": "About",
     "experience": "Experience",
     "projects": "Projects",
     "stack": "Stack",
+    "training": "Training",
     "contact": "Contact",
     "menu": "Menu",
     "close": "Close"
@@ -15,8 +16,8 @@
   "hero": {
     "eyebrow": "Full Stack Developer",
     "name": "Sebastian Cachis",
-    "tagline": "Developing technology infrastructure for wealth management and investments.",
-    "metric": "Leading a Multi Family Office development · 2 years in fintech & enterprise",
+    "tagline": "I design and build reliable platforms end-to-end, from domain architecture to the frontend.",
+    "metric": "Investment platforms in production · 4+ years across fintech and e-commerce",
     "ctaProjects": "View projects",
     "ctaContact": "Get in touch",
     "code": {
@@ -29,16 +30,16 @@
   },
   "about": {
     "eyebrow": "About",
-    "heading": "From Java support to leading portfolio management platforms end-to-end.",
+    "heading": "From Java support in e-commerce to designing financial platforms end-to-end.",
     "body": [
-      "I'm a Junior Full Stack Developer specialized in DDD/CQRS architecture, microservices, and event-driven systems, with two years of experience in financial services — Grupo Coril, Alfin Banco, and ecomserv. I currently architect and lead the development of CorilOne, Coril Asset Management and Altum MFO's end-to-end platform, from domain design through to production.",
-      "I combine Java 17/Spring Boot 3 on the backend with Next.js 16 on the frontend to build platforms that must be reliable, traceable, and auditable. I'm especially interested in the balance between long-term technical decisions and continuous delivery that moves the business.",
-      "I'm pursuing a Software Engineering degree at UPC, ranked in the top 10%. C1 English. Based in Lima, Peru."
+      "Full Stack Developer with 4+ years across e-commerce and financial services. I work on features end-to-end with Java 17/21, Spring Boot, and Next.js, applying DDD, CQRS, and hexagonal architecture on modular monoliths built to scale.",
+      "Today I take part in the architectural design and development of portfolio management platforms in financial services, alongside internal automation tools. What drives me is the balance between long-term technical decisions and delivery that brings real value to the business.",
+      "Software Engineering student at UPC (graduating 2026). C1 English. Based in Lima, Peru."
     ],
     "downloadCv": "Download CV",
     "cvUrl": "/cv/CV_Sebastian%20Nicolas%20Cachis%20Gonzales_EN.pdf",
     "highlights": [
-      { "label": "Experience", "value": "2+ years" },
+      { "label": "Experience", "value": "4+ years" },
       { "label": "Primary stack", "value": "Java · Spring · Next.js" },
       { "label": "Languages", "value": "Spanish · English C1" },
       { "label": "Location", "value": "Lima, Peru" }
@@ -46,12 +47,12 @@
   },
   "experience": {
     "heading": "Experience",
-    "intro": "Two years in financial services — from Java 8 API optimization to leading DDD/CQRS architectures in production.",
+    "intro": "4+ years across e-commerce and financial services — from Java 8 API optimization to designing DDD/CQRS hexagonal architectures in production.",
     "present": "Present"
   },
   "projects": {
     "heading": "Projects",
-    "intro": "A selection of recent fintech work. Some cases are under NDA and are presented at a narrative level.",
+    "intro": "A selection of recent fintech and banking work. Some cases are under NDA and are presented at a narrative level.",
     "viewCase": "View case",
     "viewLive": "View live",
     "viewCode": "View code",
@@ -75,6 +76,32 @@
       "testing": "Testing",
       "tools": "Tools"
     }
+  },
+  "training": {
+    "heading": "Complementary training",
+    "intro": "Specializations and courses that deepen my technical foundation beyond production work.",
+    "items": [
+      {
+        "title": "Microservices with Spring Boot",
+        "description": "Async messaging with Kafka and RabbitMQ applied to enterprise systems."
+      },
+      {
+        "title": "DDD and Clean Architecture",
+        "description": "Domain modeling and layered separation in enterprise systems."
+      },
+      {
+        "title": "Testing in Java",
+        "description": "JUnit 5, Mockito, and integration testing."
+      },
+      {
+        "title": "Docker and cloud deployment",
+        "description": "Containerization and AWS environments."
+      },
+      {
+        "title": "Full Stack with Next.js",
+        "description": "Modern applications with React and TypeScript in production."
+      }
+    ]
   },
   "contact": {
     "heading": "Contact",

@@ -28,6 +28,8 @@ metrics:
     label: Form validation
 images:
   - src: /images/projects/bancaprime.webp
+    width: 1456
+    height: 816
     alt: BancaPrime Landing page
 links: {}
 ---

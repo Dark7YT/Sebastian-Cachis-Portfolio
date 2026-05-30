@@ -98,11 +98,21 @@ const seo = buildSeo(Astro.props);
           var el = document.getElementById('page-loader');
           if (el) el.classList.add('pl-done');
         }
-        window.addEventListener('load', function () {
-          setTimeout(dismiss, 250);
-        });
-        // Failsafe: never block for more than 3s
-        setTimeout(dismiss, 3000);
+        // Dismiss as soon as the DOM is parsed (content is ready to paint)
+        // instead of waiting for window.load. The splash no longer blocks LCP:
+        // the failsafe still covers slow connections / hung resources.
+        function schedule() {
+          requestAnimationFrame(function () {
+            requestAnimationFrame(dismiss);
+          });
+        }
+        if (document.readyState === 'loading') {
+          document.addEventListener('DOMContentLoaded', schedule);
+        } else {
+          schedule();
+        }
+        // Failsafe: never block for more than 2s
+        setTimeout(dismiss, 2000);
       })();
     </script>
 
@@ -122,8 +132,8 @@ const seo = buildSeo(Astro.props);
     align-items: center;
     justify-content: center;
     gap: 1.75rem;
-    transition: opacity 0.6s cubic-bezier(0.4, 0, 0.2, 1),
-                visibility 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+    transition: opacity 0.4s cubic-bezier(0.4, 0, 0.2, 1),
+                visibility 0.4s cubic-bezier(0.4, 0, 0.2, 1);
   }
 
   #page-loader.pl-done {

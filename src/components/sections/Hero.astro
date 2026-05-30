@@ -47,7 +47,7 @@ const codeHtml = `<span class="ck">const</span> <span class="cv">sebastian</span
       </p>
 
       <h1
-        class="reveal mt-6 font-serif text-[length:var(--text-hero)] leading-[var(--text-hero--line-height)] tracking-tight text-[color:var(--color-text-primary)]"
+        class="reveal-lcp mt-6 font-serif text-[length:var(--text-hero)] leading-[var(--text-hero--line-height)] tracking-tight text-[color:var(--color-text-primary)]"
         style="--reveal-delay:80ms"
       >
         {t.name}
@@ -244,6 +244,19 @@ const codeHtml = `<span class="ck">const</span> <span class="cv">sebastian</span
     to { opacity: 1; transform: translateY(0); }
   }
 
+  /* LCP-safe reveal: the element is opaque from the first frame so it counts
+     toward LCP immediately; only the upward slide is animated. Used by the
+     hero title (the likely LCP element). */
+  .reveal-lcp {
+    transform: translateY(1rem);
+    animation: hero-reveal-slide 900ms cubic-bezier(0.16, 1, 0.3, 1) forwards;
+    animation-delay: var(--reveal-delay, 0ms);
+  }
+
+  @keyframes hero-reveal-slide {
+    to { transform: translateY(0); }
+  }
+
   /* ─── status dot ───────────────────────────── */
   .status-dot {
     animation: dot-pulse 2s ease-in-out infinite;
@@ -262,7 +275,7 @@ const codeHtml = `<span class="ck">const</span> <span class="cv">sebastian</span
   }
 
   @media (prefers-reduced-motion: reduce) {
-    .reveal { animation: none; opacity: 1; transform: none; }
+    .reveal, .reveal-lcp { animation: none; opacity: 1; transform: none; }
     .hero-orb-1, .hero-orb-2, .hero-orb-3 { animation: none; }
     .status-dot { animation: none; }
     .hero-glyphs li { display: none; }

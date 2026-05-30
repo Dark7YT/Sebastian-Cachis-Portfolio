@@ -344,11 +344,11 @@ const codeHtml = `<span class="ck">const</span> <span class="cv">sebastian</span
         }
 
         code!.innerHTML = fullHtml.slice(0, pos);
-        timer = window.setTimeout(tick, 8);
+        timer = window.setTimeout(tick, 6);
       }
 
       tick();
-    }, 250);
+    }, 150);
   }
 
   document.addEventListener('astro:page-load', initTypewriter);

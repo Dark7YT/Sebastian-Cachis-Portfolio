@@ -13,6 +13,7 @@ import About from '@components/sections/About.astro';
 import Experience from '@components/sections/Experience.astro';
 import Projects from '@components/sections/Projects.astro';
 import Stack from '@components/sections/Stack.astro';
+import Training from '@components/sections/Training.astro';
 import Contact from '@components/sections/Contact.astro';
 import GsapReveal from '@components/islands/GsapReveal.astro';
 import { useTranslations } from '@lib/i18n';
@@ -29,6 +30,7 @@ const tEn = useTranslations('en');
     <Experience t={t.experience} tEn={tEn.experience} />
     <Projects t={t.projects} tEn={tEn.projects} />
     <Stack t={t.stack} />
+    <Training t={t.training} />
     <Contact t={t.contact} />
   </main>
   <Footer t={t.footer} />

@@ -1,36 +1,46 @@
 ---
 locale: en
 slug: corilone
-name: CorilOne — Coril AM & Altum MFO
+name: CorilOne — Coril AM & Altum MFO Platform
 client: Grupo Coril
-role: Full Stack Developer · DDD/CQRS Architecture
+role: Full Stack Developer · DDD/CQRS/Hexagonal Architecture
 period: 2025-09 — Present
-summary: Corporate platform for Multi-Family Office portfolio management and visualization, focused on consolidated positions, historical growth, and investment analytics.
+summary: Corporate platform for portfolio management and visualization, used by financial advisors and Multi-Family Office clients, in controlled production. Backend in Java 17/21 + Spring Boot 3.x as a modular monolith following DDD, CQRS, and hexagonal architecture.
 order: 1
 featured: true
 nda: true
 stack:
   - Java 17/21
-  - Spring Boot 3
-  - Next.js 16
+  - Spring Boot 3.x
+  - Spring Security
+  - Spring Data JPA
+  - JWT
   - PostgreSQL
-  - Kafka
+  - Flyway
+  - Next.js 16
+  - TypeScript
+  - shadcn/ui
+  - TanStack Query
+  - Recharts
   - RabbitMQ
   - AWS S3
   - Docker
+  - GitHub Actions
 metrics:
-  - value: DDD + CQRS
-    label: Applied architecture
-  - value: Event-driven
-    label: Integration across bounded contexts
-  - value: Multi-tenant
-    label: Coril AM + Altum MFO support
+  - value: "~40–60"
+    label: Secure REST endpoints
+  - value: 5s → <1s
+    label: Historical-positions query
+  - value: 6 contexts
+    label: DDD bounded contexts
 images:
   - src: /images/projects/corilone.webp
     alt: CorilOne — Coril AM & Altum MFO platform screenshot
 links: {}
 ---
 
-Contributor to the design and implementation of critical modules of CorilOne, Grupo Coril's corporate platform that integrates the operation of Coril Asset Management and Altum Multi-Family Office. The system consolidates portfolios, visualizes positions, and reports historical growth for institutional clients and high-net-worth families.
+Contributor to the architectural design and end-to-end development of CorilOne, Grupo Coril's corporate platform that serves Coril Asset Management and Altum Multi-Family Office solutions. The system consolidates portfolios, visualizes positions, and reports historical growth for financial advisors and institutional clients.
 
-Development is structured with Domain-Driven Design and CQRS, splitting reads from writes, with asynchronous inter-service communication via Kafka and RabbitMQ. Deliverables combine a Spring Boot backend (Java 17/21), a Next.js 16 frontend, and asset storage on AWS S3, all orchestrated with Docker.
+The backend is a modular monolith in Java 17/21 with Spring Boot 3.x following DDD, CQRS, and hexagonal architecture, with separate bounded contexts for IAM, Clients, Portfolios, File Ingestion, Reporting, and Audit. REST APIs apply Spring Security + JWT with refresh tokens and ADMIN/CLIENT roles.
+
+PostgreSQL modeled with Flyway, composite indexes, and DTO projections (~30 tables, historical-positions query reduced from ~5s to under 1s). Frontend in Next.js 16 with TypeScript, Tailwind, shadcn/ui, TanStack Query, and Recharts for financial dashboards. AWS S3 for bulk uploads, RabbitMQ for asynchronous processing, and Testcontainers + GitHub Actions for testing and CI/CD.

@@ -1,32 +1,37 @@
 ---
 locale: es
 slug: tesoreria-alfin
-name: Automatización de procesos regulatorios · Tesorería Alfin
+name: Automatización de reportes regulatorios · Tesorería Alfin
 client: Alfin Banco
 role: Desarrollador Full Stack · Área de Tesorería
 period: 2025-11 — Presente
-summary: Aplicación Python para automatizar procesos regulatorios basados en Excel, con reducción drástica del tiempo operativo del área.
+summary: Herramienta en Python para automatizar la consolidación y validación de insumos de reportes regulatorios e internos de Tesorería, distribuida como ejecutable.
 order: 2
 featured: true
 nda: true
 stack:
   - Python
-  - OpenPyXL
+  - pandas
+  - openpyxl
+  - logging
   - Excel
-  - Automatización de procesos
+  - Variables de entorno
+  - Empaquetado ejecutable
 metrics:
-  - value: 97.5%
-    label: Reducción de tiempos operativos
+  - value: "97.5%"
+    label: Reducción del tiempo del reporte
   - value: 2 h → 3 min
     label: Antes vs. después
-  - value: 100%
-    label: Procesos con trazabilidad de ejecución
+  - value: "100%"
+    label: Procesos con trazabilidad
 images:
   - src: /images/projects/tesoreria-alfin.webp
-    alt: Automatización de procesos regulatorios · Tesorería Alfin
+    alt: Automatización de reportes regulatorios · Tesorería Alfin
 links: {}
 ---
 
-Aplicación interna en Python para automatizar procesos regulatorios del área de Tesorería que antes se ejecutaban manualmente sobre libros de Excel. El sistema valida los datos de entrada, genera los reportes exigidos por el regulador y deja trazabilidad de cada ejecución.
+Herramienta interna en Python (pandas, openpyxl, logging) para automatizar la consolidación y validación de insumos de los reportes regulatorios e internos de Tesorería que antes se ejecutaban manualmente sobre libros de Excel. El sistema valida los datos de entrada, genera los reportes exigidos y deja trazabilidad de cada ejecución.
 
-El impacto se refleja en una reducción de tiempos operativos de 2 horas a 3 minutos (≈97.5%), liberando capacidad del equipo para tareas de mayor valor y eliminando una fuente recurrente de errores manuales.
+El levantamiento de requerimientos se hizo directamente con el área usuaria de Tesorería, con manejo seguro de credenciales mediante variables de entorno y empaquetado como ejecutable distribuible al equipo.
+
+El impacto se refleja en una reducción del tiempo de armado del reporte de ~2 horas a ~3 minutos (≈97.5%), liberando capacidad para tareas de mayor valor y eliminando una fuente recurrente de errores manuales.

@@ -35,8 +35,8 @@ metrics:
     label: DDD bounded contexts
 images:
   - src: /images/projects/corilone.webp
-    width: 1894
-    height: 911
+    width: 1200
+    height: 675
     alt: CorilOne — Coril AM & Altum MFO platform screenshot
 links: {}
 ---

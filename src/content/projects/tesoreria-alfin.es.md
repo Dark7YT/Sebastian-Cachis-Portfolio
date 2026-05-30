@@ -26,8 +26,8 @@ metrics:
     label: Procesos con trazabilidad
 images:
   - src: /images/projects/tesoreria-alfin.webp
-    width: 1881
-    height: 1840
+    width: 1200
+    height: 675
     alt: Automatización de reportes regulatorios · Tesorería Alfin
 links: {}
 ---

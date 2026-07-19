@@ -1,6 +1,14 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" fill="none">
-  <rect width="64" height="64" rx="14" fill="#0A0A0B"/>
-  <text x="50%" y="54%" dominant-baseline="middle" text-anchor="middle"
-    font-family="Georgia, 'Times New Roman', serif" font-size="40" font-style="italic"
-    fill="#F5B841">S</text>
+  <rect width="64" height="64" rx="12" fill="#0a0a0b"/>
+  <!-- { centrado en x=11, SC en x=32, } en x=53 — simétrico respecto al centro -->
+  <text x="11" y="32" text-anchor="middle" dominant-baseline="central"
+    font-family="'Courier New', Courier, monospace"
+    font-size="24" font-weight="700" fill="#f5b841">{</text>
+  <text x="32" y="32" text-anchor="middle" dominant-baseline="central"
+    font-family="Georgia, 'Times New Roman', serif"
+    font-size="19" font-style="italic" fill="#f5f5f7">SC</text>
+  <text x="53" y="32" text-anchor="middle" dominant-baseline="central"
+    font-family="'Courier New', Courier, monospace"
+    font-size="24" font-weight="700" fill="#f5b841">}</text>
+  <rect x="18" y="50" width="28" height="2" rx="1" fill="#f5b841" opacity="0.45"/>
 </svg>

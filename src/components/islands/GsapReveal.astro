@@ -1,6 +1,7 @@
 ---
 // Client-only island: applies ScrollTrigger reveals to [data-reveal]
 // elements and draws the [data-timeline-line] from 0 to 100%.
+// Re-runs on i18n:locale-changed so newly-visible locale blocks get animations.
 ---
 
 <script>
@@ -58,9 +59,13 @@
     });
   }
 
-  init();
-  document.addEventListener('astro:page-load', () => {
+  function reinit() {
     ScrollTrigger.getAll().forEach((t) => t.kill());
     init();
-  });
+  }
+
+  init();
+  document.addEventListener('astro:page-load', reinit);
+  // Refresh when locale changes (new content blocks become visible)
+  document.addEventListener('i18n:locale-changed', reinit);
 </script>

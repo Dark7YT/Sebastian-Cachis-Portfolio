@@ -14,12 +14,7 @@ export default defineConfig({
     imageService: true,
   }),
   integrations: [
-    sitemap({
-      i18n: {
-        defaultLocale: 'es',
-        locales: { es: 'es-PE', en: 'en-US' },
-      },
-    }),
+    sitemap(),
     icon({
       include: {
         lucide: [
@@ -29,6 +24,7 @@ export default defineConfig({
           'menu',
           'x',
           'languages',
+          'arrow-left',
           'arrow-right',
           'arrow-up-right',
           'arrow-down',
@@ -55,7 +51,6 @@ export default defineConfig({
           'tailwindcss',
           'typescript',
           'javascript',
-          'nodedotjs',
           'spring',
           'openjdk',
           'python',
@@ -72,15 +67,10 @@ export default defineConfig({
       },
     }),
   ],
-  i18n: {
-    defaultLocale: 'es',
-    locales: ['es', 'en'],
-    routing: {
-      prefixDefaultLocale: true,
-      redirectToDefaultLocale: false,
-    },
-  },
   vite: {
     plugins: [tailwindcss()],
+    server: {
+    allowedHosts: true,
+  },
   },
 });

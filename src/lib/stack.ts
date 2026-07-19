@@ -24,8 +24,7 @@ export const stackGroups: StackGroup[] = [
     items: [
       { name: 'Java 17/21', icon: 'simple-icons:openjdk' },
       { name: 'Spring Boot 3', icon: 'simple-icons:spring' },
-      { name: 'Node.js', icon: 'simple-icons:nodedotjs' },
-      { name: 'Python', icon: 'simple-icons:python' },
+{ name: 'Python', icon: 'simple-icons:python' },
     ],
   },
   {

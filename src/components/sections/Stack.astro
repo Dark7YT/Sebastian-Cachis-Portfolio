@@ -15,10 +15,14 @@ const { t } = Astro.props;
 >
   <div class="container-wide section-padding">
     <div class="max-w-3xl">
-      <p class="font-mono text-xs uppercase tracking-[0.3em] text-[color:var(--color-accent)]">
+      <p
+        data-i18n="stack.heading"
+        class="font-mono text-xs uppercase tracking-[0.3em] text-[color:var(--color-accent)]"
+      >
         {t.heading}
       </p>
       <h2
+        data-i18n="stack.intro"
         class="mt-6 font-serif text-[length:var(--text-display)] leading-[var(--text-display--line-height)] tracking-tight text-[color:var(--color-text-primary)]"
       >
         {t.intro}
@@ -29,8 +33,11 @@ const { t } = Astro.props;
       {
         stackGroups.map((group) => (
           <div data-reveal class="flex flex-col gap-4">
-            <h3 class="font-mono text-[0.6875rem] uppercase tracking-[0.3em] text-[color:var(--color-text-muted)]">
-              {t.groups[group.id]}
+            <h3
+              data-i18n={`stack.groups.${group.id}`}
+              class="font-mono text-[0.6875rem] uppercase tracking-[0.3em] text-[color:var(--color-text-muted)]"
+            >
+              {t.groups[group.id as keyof typeof t.groups]}
             </h3>
             <ul class="flex flex-wrap gap-2">
               {group.items.map((item) => (

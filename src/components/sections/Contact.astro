@@ -1,18 +1,17 @@
 ---
 import { Icon } from 'astro-icon/components';
-import type { Dictionary, Locale } from '@lib/i18n';
+import type { Dictionary } from '@lib/i18n';
 
 interface Props {
   t: Dictionary['contact'];
-  locale: Locale;
 }
-const { t, locale } = Astro.props;
+const { t } = Astro.props;
 
 const direct = [
-  { id: 'email', icon: 'lucide:mail', href: 'mailto:sebastianjae21@gmail.com', value: 'sebastianjae21@gmail.com' },
-  { id: 'github', icon: 'lucide:github', href: 'https://github.com/Dark7YT', value: 'github.com/Dark7YT' },
-  { id: 'linkedin', icon: 'lucide:linkedin', href: 'https://www.linkedin.com/in/sebastian-cachis/', value: 'sebastian-cachis' },
-  { id: 'location', icon: 'lucide:map-pin', href: null, value: 'Lima, Perú' },
+  { id: 'email',    icon: 'lucide:mail',    href: 'mailto:sebastianjae21@gmail.com', value: 'sebastianjae21@gmail.com' },
+  { id: 'github',   icon: 'lucide:github',  href: 'https://github.com/Dark7YT',      value: 'github.com/Dark7YT' },
+  { id: 'linkedin', icon: 'lucide:linkedin', href: 'https://www.linkedin.com/in/sebastian-nicolas-cachis-gonzales-667b23308', value: 'Sebastian Nicolas' },
+  { id: 'location', icon: 'lucide:map-pin', href: null,                               value: 'Lima, Perú' },
 ] as const;
 ---
 
@@ -22,10 +21,14 @@ const direct = [
 >
   <div class="container-wide section-padding grid gap-12 lg:grid-cols-12 lg:gap-16">
     <div class="lg:col-span-5">
-      <p class="font-mono text-xs uppercase tracking-[0.3em] text-[color:var(--color-accent)]">
+      <p
+        data-i18n="contact.heading"
+        class="font-mono text-xs uppercase tracking-[0.3em] text-[color:var(--color-accent)]"
+      >
         {t.heading}
       </p>
       <h2
+        data-i18n="contact.intro"
         class="mt-6 font-serif text-[length:var(--text-display)] leading-[var(--text-display--line-height)] tracking-tight text-[color:var(--color-text-primary)]"
       >
         {t.intro}
@@ -41,12 +44,13 @@ const direct = [
                   <Icon name={d.icon} class="size-4" aria-hidden="true" />
                 </span>
                 <span class="flex flex-col">
-                  <span class="font-mono text-[0.6875rem] uppercase tracking-[0.2em] text-[color:var(--color-text-muted)]">
+                  <span
+                    data-i18n={`contact.direct.${d.id}`}
+                    class="font-mono text-[0.6875rem] uppercase tracking-[0.2em] text-[color:var(--color-text-muted)]"
+                  >
                     {label}
                   </span>
-                  <span class="text-sm text-[color:var(--color-text-primary)] sm:text-base">
-                    {d.value}
-                  </span>
+                  <span class="text-sm text-[color:var(--color-text-primary)] sm:text-base">{d.value}</span>
                 </span>
               </>
             );
@@ -75,7 +79,7 @@ const direct = [
       class="contact-form flex flex-col gap-5 lg:col-span-7"
       novalidate
       data-contact-form
-      data-locale={locale}
+      data-locale="es"
     >
       <div class="hidden" aria-hidden="true">
         <label>
@@ -86,7 +90,7 @@ const direct = [
 
       <div class="grid gap-5 sm:grid-cols-2">
         <label class="flex flex-col gap-2">
-          <span class="font-mono text-[0.6875rem] uppercase tracking-[0.2em] text-[color:var(--color-text-muted)]">
+          <span data-i18n="contact.form.name" class="font-mono text-[0.6875rem] uppercase tracking-[0.2em] text-[color:var(--color-text-muted)]">
             {t.form.name}
           </span>
           <input
@@ -99,7 +103,7 @@ const direct = [
           />
         </label>
         <label class="flex flex-col gap-2">
-          <span class="font-mono text-[0.6875rem] uppercase tracking-[0.2em] text-[color:var(--color-text-muted)]">
+          <span data-i18n="contact.form.email" class="font-mono text-[0.6875rem] uppercase tracking-[0.2em] text-[color:var(--color-text-muted)]">
             {t.form.email}
           </span>
           <input
@@ -113,7 +117,7 @@ const direct = [
       </div>
 
       <label class="flex flex-col gap-2">
-        <span class="font-mono text-[0.6875rem] uppercase tracking-[0.2em] text-[color:var(--color-text-muted)]">
+        <span data-i18n="contact.form.subject" class="font-mono text-[0.6875rem] uppercase tracking-[0.2em] text-[color:var(--color-text-muted)]">
           {t.form.subject}
         </span>
         <input
@@ -127,7 +131,7 @@ const direct = [
       </label>
 
       <label class="flex flex-col gap-2">
-        <span class="font-mono text-[0.6875rem] uppercase tracking-[0.2em] text-[color:var(--color-text-muted)]">
+        <span data-i18n="contact.form.message" class="font-mono text-[0.6875rem] uppercase tracking-[0.2em] text-[color:var(--color-text-muted)]">
           {t.form.message}
         </span>
         <textarea
@@ -136,7 +140,8 @@ const direct = [
           minlength="10"
           maxlength="4000"
           rows="6"
-          class="rounded-lg border border-[color:var(--color-border)] bg-[color:var(--color-bg-surface)] px-4 py-3 text-[color:var(--color-text-primary)] focus:border-[color:var(--color-accent)] focus:outline-none"></textarea>
+          class="rounded-lg border border-[color:var(--color-border)] bg-[color:var(--color-bg-surface)] px-4 py-3 text-[color:var(--color-text-primary)] focus:border-[color:var(--color-accent)] focus:outline-none"
+        ></textarea>
       </label>
 
       <div class="flex flex-wrap items-center gap-4">
@@ -144,7 +149,7 @@ const direct = [
           type="submit"
           class="inline-flex items-center gap-2 rounded-full bg-[color:var(--color-accent)] px-6 py-3 font-mono text-xs font-medium uppercase tracking-widest text-[color:var(--color-accent-contrast)] transition hover:bg-[color:var(--color-accent-hover)] disabled:opacity-60 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[color:var(--color-accent)]"
         >
-          <span data-submit-label>{t.form.submit}</span>
+          <span data-i18n="contact.form.submit" data-submit-label>{t.form.submit}</span>
           <Icon name="lucide:arrow-right" class="size-4" aria-hidden="true" />
         </button>
         <p
@@ -155,7 +160,7 @@ const direct = [
         ></p>
       </div>
 
-      <script is:inline define:vars={{ strings: t.form }}>
+      <script is:inline define:vars={{ fallbackStrings: t.form }}>
         (() => {
           const form = document.querySelector('[data-contact-form]');
           if (!form) return;
@@ -163,20 +168,20 @@ const direct = [
           const label = form.querySelector('[data-submit-label]');
           const status = form.querySelector('[data-form-status]');
 
+          // Use runtime i18n if available (respects current locale), fall back to ES
+          function s(key) {
+            return window.__i18n?.t('contact.form.' + key) || fallbackStrings[key] || '';
+          }
+
           form.addEventListener('submit', async (e) => {
             e.preventDefault();
-            if (!form.checkValidity()) {
-              form.reportValidity();
-              return;
-            }
+            if (!form.checkValidity()) { form.reportValidity(); return; }
             const data = Object.fromEntries(new FormData(form).entries());
-            data.locale = form.dataset.locale;
-
+            data.locale = form.dataset.locale || 'es';
             button.disabled = true;
-            label.textContent = strings.sending;
+            label.textContent = s('sending');
             status.textContent = '';
             status.style.color = '';
-
             try {
               const res = await fetch('/api/contact', {
                 method: 'POST',
@@ -185,19 +190,19 @@ const direct = [
               });
               const body = await res.json().catch(() => ({}));
               if (res.ok && body.ok) {
-                status.textContent = strings.success;
+                status.textContent = s('success');
                 status.style.color = 'var(--color-success)';
                 form.reset();
               } else {
-                status.textContent = strings.error;
+                status.textContent = s('error');
                 status.style.color = 'var(--color-danger)';
               }
             } catch {
-              status.textContent = strings.error;
+              status.textContent = s('error');
               status.style.color = 'var(--color-danger)';
             } finally {
               button.disabled = false;
-              label.textContent = strings.submit;
+              label.textContent = s('submit');
             }
           });
         })();

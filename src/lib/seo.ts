@@ -38,7 +38,8 @@ export function buildSeo(props: SeoProps) {
   const description = props.description ?? defaults.description;
   const path = props.path ?? '';
   const canonical = `${SITE_URL}${path}`;
-  const ogImage = props.ogImage ?? `${SITE_URL}/og/default-${props.locale}.png`;
+  // SVG placeholder — replace with PNG before production (social crawlers prefer PNG/JPEG)
+  const ogImage = props.ogImage ?? `${SITE_URL}/og/default-${props.locale}.svg`;
 
   return {
     title,

@@ -1,0 +1,42 @@
+---
+import type { Dictionary, Locale } from '@lib/i18n';
+import { alternatePath } from '@lib/i18n';
+
+interface Props {
+  locale: Locale;
+  path: string;
+  t: Dictionary['toggles']['language'];
+}
+const { locale, path, t } = Astro.props;
+const other: Locale = locale === 'es' ? 'en' : 'es';
+const href = alternatePath(path, other);
+---
+
+<a
+  href={href}
+  data-lang-toggle
+  data-target-locale={other}
+  class="inline-flex h-10 items-center gap-2 rounded-full border border-[color:var(--color-border)] bg-[color:var(--color-bg-surface)] px-3 font-mono text-xs uppercase tracking-widest text-[color:var(--color-text-secondary)] transition hover:border-[color:var(--color-accent)] hover:text-[color:var(--color-accent)] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[color:var(--color-accent)]"
+  aria-label={t.label}
+  title={t.label}
+>
+  <span aria-hidden="true" class="text-[color:var(--color-accent)]">{locale.toUpperCase()}</span>
+  <span class="text-[color:var(--color-text-muted)]">/</span>
+  <span>{other.toUpperCase()}</span>
+</a>
+
+<script>
+  document.querySelectorAll<HTMLAnchorElement>('[data-lang-toggle]').forEach((a) => {
+    a.addEventListener('click', () => {
+      const target = a.dataset.targetLocale;
+      if (target) {
+        try {
+          document.cookie = `lang=${target}; path=/; max-age=31536000; samesite=lax`;
+          localStorage.setItem('lang', target);
+        } catch {
+          /* ignore */
+        }
+      }
+    });
+  });
+</script>

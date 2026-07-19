@@ -27,6 +27,10 @@ const seo = buildSeo({ locale, title, description, path, ogImage, noindex });
     <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
     <meta name="color-scheme" content="dark light" />
 
+    <script>
+      import '@scripts/theme-init.ts';
+    </script>
+
     <title>{seo.title}</title>
     <meta name="description" content={seo.description} />
     <meta name="author" content={seo.author} />
